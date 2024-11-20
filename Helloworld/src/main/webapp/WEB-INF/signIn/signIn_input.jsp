@@ -11,14 +11,15 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="signIn_result.jsp" method="post">
+<h1>미니 실습) 서블릿으로 로그인 화면 접근</h1>
+    <form action="/signIn/result" method="post">
         <p>
             ID
             <input type="text" name="ID">
         </p>
         <p>
             PASSWORD
-            <input type="password" name="PASSWORD">
+            <input type="password" name="Password">
         </p>
         <button type="submit">SignIn</button>
     </form>

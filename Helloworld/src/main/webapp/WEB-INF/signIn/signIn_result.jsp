@@ -12,6 +12,6 @@
 </head>
 <body>
     <h1>${param.ID}님 환영합니다</h1>
-    <h2>비밀번호는 ${param.PASSWORD} 입니다</h2>
+    <h2>비밀번호는 ${param.Password} 입니다</h2>
 </body>
 </html>
