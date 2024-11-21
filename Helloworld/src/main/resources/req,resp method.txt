@@ -1,0 +1,26 @@
+doGet(), doPost()
+화면 호출,로직 처리
+
+HttpServlet 상속 사용으로 톰캣내부에서 자동 객체 생성, 관리
+톰캣(WAS: Web Application Server, 미들웨어 서버)
+
+HttpServlet 는 내부적으로 멀티 스레드 이용
+동시 실행 가능.
+
+라이프 사이클, 톰캣에서 해당 서블릿을
+생성 - init() 생성 시 한번만
+사용 - doGet(),doPost() 사용자가 요청할 때 마다
+소멸 - destroy() 소멸 시 한번만
+
+getParameter()
+웹 브라우저에서 넘어온 데이터 파라미터를 가져옴
+
+getParametValues
+동일한 이름으로 넘어온 여러 데이터를 가져옴
+
+setAttribute()
+화면에 전달할 데이터를 지정
+
+RequestDispatcher
+.forward() : 현재까지의 모든 응답 내용 무시, 작성 내용 전달.
+.include() : 지금까지의 응답 내용 + jsp가 만든 내용

@@ -1,0 +1,6 @@
+Post
+Redirect
+Get
+
+redirect하는 이유, 사용자 경험, 보안상의 이유
+단적으로는 무한Post의 가능성 배제

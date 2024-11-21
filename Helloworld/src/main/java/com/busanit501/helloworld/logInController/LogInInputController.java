@@ -16,4 +16,6 @@ public class LogInInputController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/logIn/logIn_input.jsp");
         dispatcher.forward(request, response);
     }
+    // request, response 에서 자주 쓰는 method
+
 }
