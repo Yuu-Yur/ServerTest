@@ -18,12 +18,18 @@
 <a href="/book/register">
     <button>등록</button>
 </a>
-<a href="/book/search">
-    <button>검색</button>
-</a>
+<%--<a href="/book/search">--%>
+<%--    <button>검색</button>--%>
+<%--</a>--%>
 <form action="/book/delete" method="post">
     <input type="text" name="dBookName">
     <button type="submit">삭제</button>
 </form>
+
+<form action="/book/read">
+    <input type="text" name="bookId" placeholder="0~9를 입력해주세요">
+    <button type="submit">검색</button>
+</form>
+
 </body>
 </html>

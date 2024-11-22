@@ -7,17 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "bookSearchController", urlPatterns = "/book/search")
-public class bookSearchController extends HttpServlet {
+@WebServlet(name = "bookUpdateController", urlPatterns = "/book/update")
+public class BookUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/book/search.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/book/update.jsp").forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String sBookName = request.getParameter("sBookName");
-        System.out.println("검색할 책 제목은 : " + sBookName);
+        String uBookName = request.getParameter("uBookName");
+        System.out.println("수정할 책 제목은 : "+uBookName);
         response.sendRedirect("/book/list");
     }
 }

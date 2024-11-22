@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "bookDeleteController", urlPatterns = "/book/delete")
-public class bookDeleteController extends HttpServlet {
+public class BookDeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String dBookName = request.getParameter("dBookName");

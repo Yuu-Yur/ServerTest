@@ -1,0 +1,21 @@
+servlet 에서 service 를 분리해서 module 와 데이터를 주고받음
+이렇게 받은 데이터를 service 에서 servlet 에 주고 servlet 은 이 데이터를 view 에 줌
+결과적으로 이 받은 데이터를 view 에서 보여줘야하는데
+java 의 데이터를 html 문법에서 출력하기 위해 코드가 복잡해짐
+이를 어떻게든 쉽게 쓰기 위한 것이 jstl
+spring 에선 이럴땐 thymeleaf 를 쓰므로 jstl 은 흝어보고 넘어가자
+
+기본적으로 태그안에c를써서 쓴다
+<c:forEach var="" items="">
+foreach문법, var:items 와 같다
+
+<c:if test="">
+조건문 if ("")와 같다
+<c:choose>
+    <c:when test="">
+    <c:otherwise>
+조건문 if else
+
+
+<c:set var="변수명" value="변수에 담을 값">
+변수설정
