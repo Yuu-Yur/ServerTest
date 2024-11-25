@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public enum ConnectionUtil {
+    //암묵적으로 static final로 선언
     INSTANCE; //enum은 인스턴스 생성 불가, 단 하나 인스턴스를 만들어 이것을 사용
+    //switch문에서 특히 유용
     private HikariDataSource ds;
 
     ConnectionUtil() {
