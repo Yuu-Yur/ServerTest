@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public enum ConnectionUtil {
     INSTANCE; //enum은 인스턴스 생성 불가, 단 하나 인스턴스를 만들어 이것을 사용
-    private final HikariDataSource ds;
+    private HikariDataSource ds;
 
     ConnectionUtil() {
         HikariConfig config = new HikariConfig();
