@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>점심 메뉴 소개</h1>
-<form action="/food/read">
+<form action="/food/main">
     <p>등록된 메뉴 조회 (jtsl 사용)
         <button type="submit" name="button" value="read">조회</button>
     </p>
@@ -27,14 +27,6 @@
     <p>
         랜덤 점심 메뉴
         <button type="submit" name="button" value="random">dice roll</button>
-    </p>
-</form>
-<form action="/food/read" method="post">
-    <p>등록된 메뉴 검색 (서블릿에서 html을 만들어 보내기)
-        <span> 최대 가격
-        <input type="number" name="wPrice">
-        <button type="submit" name="button" value="read2">조회</button>
-        </span>
     </p>
 </form>
 </body>

@@ -16,12 +16,12 @@
 <%--jstl사용해보기 foreach var items--%>
 <h1>점심 메뉴 조회 JSTL 사용</h1>
 
-<ul>
+<ol>
     <c:forEach var="food" items="${foodList}">
-    <a href="/food/detail?fno=${food.fno}"><li>${food}</li></a>
+    <a href="/food/detail?fno=${food.fno}"><li>${food.title} 가격 : ${food.price}원</li></a>
     </c:forEach>
-</ul>
-<a href="/food/input">
+</ol>
+<a href="/food/main">
     <button>돌아가기</button>
 </a>
 </body>

@@ -15,25 +15,13 @@ import java.util.List;
 public class FoodDAO {
     String sql;
 
-    public void insertFood(FoodDTO foodDTO) throws SQLException {
+    public void insertFood(FoodVO foodVO) throws SQLException {
         sql = "INSERT INTO tbl_food(title,price) VALUES(?,?)";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, foodDTO.getTitle());
-        preparedStatement.setInt(2, foodDTO.getPrice());
+        preparedStatement.setString(1, foodVO.getTitle());
+        preparedStatement.setInt(2, foodVO.getPrice());
         preparedStatement.executeUpdate();
-    }
-
-    public List<FoodDTO> readFood() throws SQLException {
-        sql = "SELECT * FROM tbl_food";
-        List<FoodDTO> foodList = new ArrayList<>();
-        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            foodList.add(FoodDTO.builder().title(resultSet.getString("title")).price(resultSet.getInt("price")).build());
-        }
-        return foodList;
     }
 
     public List<FoodVO> readFoodVO() throws SQLException {

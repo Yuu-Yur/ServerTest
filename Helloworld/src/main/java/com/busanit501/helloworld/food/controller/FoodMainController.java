@@ -1,8 +1,11 @@
 package com.busanit501.helloworld.food.controller;
 
 import com.busanit501.helloworld.food.FoodDAO;
+import com.busanit501.helloworld.food.dto.FoodDTO;
 import com.busanit501.helloworld.food.dto.FoodVO;
+import com.busanit501.helloworld.food.service.FoodService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,23 +16,21 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
 
-@WebServlet(name = "foodReadController", urlPatterns = "/food/read")
-public class FoodReadController extends HttpServlet {
+@WebServlet(name = "FoodMainController", urlPatterns = "/food/main")
+public class FoodMainController extends HttpServlet {
+    FoodService foodService = FoodService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        switch (req.getParameter("button")) {
-            case "null":
+        switch (req.getParameter("button") == null ? "default" : req.getParameter("button")) {
             case "read":
-                List<FoodVO> foodList;
-                FoodDAO foodDAO = new FoodDAO();
                 try {
-                    foodList = foodDAO.readFoodVO();
+                    List<FoodDTO> foodList = foodService.getAllFood();
+                    req.setAttribute("foodList", foodList);
+                    req.getRequestDispatcher("/WEB-INF/food/food_list.jsp").forward(req, resp);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                req.setAttribute("foodList", foodList);
-                req.getRequestDispatcher("/WEB-INF/food/food_read.jsp").forward(req, resp);
                 break;
 
             case "register":
@@ -55,33 +56,23 @@ public class FoodReadController extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+
             default:
-                    resp.sendRedirect("/food/input");
+                RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/food/food_main.jsp");
+                rd.forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<FoodVO> foodList;
-        int wPrice = Integer.parseInt(req.getParameter("wPrice"));
-        FoodDAO foodDAO = new FoodDAO();
-        try {
-            foodList = foodDAO.selectByPrice(wPrice);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        switch (req.getParameter("button") == null ? "default" : req.getParameter("button")) {
+            case "register":
+                try {
+                    foodService.register(FoodDTO.builder().title(req.getParameter("iTitle")).price(Integer.parseInt(req.getParameter("iPrice"))).build());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                resp.sendRedirect("/food/main?button=read");
         }
-        StringBuilder SB = new StringBuilder("<ul>");
-        for (FoodVO food : foodList) {
-            SB.append("<li>")
-                    .append("<a href='/food/detail?fno=")
-                    .append(food.getFno())
-                    .append("'>")
-                    .append(food)
-                    .append("</a>")
-                    .append("</li>");
-        }
-        SB.append("</ul>");
-        req.setAttribute("sb", SB);
-        req.getRequestDispatcher("/WEB-INF/food/food_read2.jsp").forward(req, resp);
     }
 }

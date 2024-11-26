@@ -12,12 +12,12 @@
 </head>
 <body>
 <h1>메뉴 등록 폼</h1>
-<form action="/food/register" method="post">
-    <input type="text" name="iTitle">
-    <input type="number" name="iPrice">
-    <button type="submit">등록</button>
+<form action="/food/main" method="post">
+    <input type="text" name="iTitle" placeholder="메뉴명">
+    <input type="number" name="iPrice" placeholder="가격">
+    <button type="submit" name="button" value="register">등록</button>
 </form>
-<a href="/food/input">
+<a href="/food/main">
     <button>돌아가기</button>
 </a>
 </body>
