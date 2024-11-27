@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public enum FoodService {
     INSTANCE;
 
-    // DAO와 Mapper을 사용
+    // DAO 와 Mapper 를 사용
     private FoodDAO foodDAO;
     private ModelMapper modelMapper;
 
@@ -25,7 +25,7 @@ public enum FoodService {
         foodDAO = new FoodDAO();
     }
 
-    // CRUD 설정(DAO)에서 가져옴 서블릿에선 DTO로 받음, 서버랑 통신할 땐 VO
+    // CRUD 설정(DAO)에서 가져옴 서블릿에선 DTO 로 받음, 서버랑 통신할 땐 VO
     public void register(FoodDTO foodDTO) throws SQLException {
         // DAO 작업할 때, 디비에 직접적인 영향을 주는 객체,
         // VO, 실제 비지니스 로직에서만 사용함.
@@ -52,5 +52,20 @@ public enum FoodService {
             return foodDTO;
         }
         return null;
+    }
+
+    public void updateFood(FoodDTO foodDTO) throws SQLException {
+        FoodVO foodVO = modelMapper.map(foodDTO, FoodVO.class);
+        foodDAO.updateFood(foodVO);
+    }
+
+    public void deleteFood(FoodDTO foodDTO) throws SQLException {
+        FoodVO foodVO = modelMapper.map(foodDTO, FoodVO.class);
+        foodDAO.deleteFood(foodVO);
+    }
+
+    public FoodDTO lastAddedFood() throws SQLException {
+        FoodDTO foodDTO = modelMapper.map(foodDAO.lastOne(), FoodDTO.class);
+        return foodDTO;
     }
 }

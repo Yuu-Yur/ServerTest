@@ -24,7 +24,6 @@ public class FoodServiceTest {
         FoodDTO foodDTO = FoodDTO.builder().title("새 메뉴").price(8000).build();
 
         foodService.register(foodDTO);
-        log.info(foodDTO);
     }
 
     @Test
@@ -39,5 +38,22 @@ public class FoodServiceTest {
     public void serviceDetailTest() throws SQLException {
         FoodDTO foodDTO = foodService.getFoodByFno(1);
         log.info(foodDTO);
+    }
+
+    @Test
+    public void serviceUpdateTest() throws SQLException {
+        FoodDTO foodDTO = foodService.lastAddedFood();
+        log.info("변경 전 : " + foodService.lastAddedFood());
+        foodDTO.setPrice(5000);
+        foodService.updateFood(foodDTO);
+        log.info("변경 후 : " + foodService.lastAddedFood());
+    }
+
+    @Test
+    public void serviceDeleteTest() throws SQLException {
+        FoodDTO foodDTO = foodService.lastAddedFood();
+        log.info("삭제 전 : " + foodService.lastAddedFood());
+        foodService.deleteFood(foodDTO);
+        log.info("삭제 후 : " + foodService.lastAddedFood());
     }
 }

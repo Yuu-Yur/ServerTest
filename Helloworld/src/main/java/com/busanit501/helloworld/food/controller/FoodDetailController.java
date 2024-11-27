@@ -29,26 +29,26 @@ public class FoodDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("button").equals("delete")) {
-            FoodVO foodVO = FoodVO.builder().fno(Integer.parseInt(request.getParameter("iFno"))).build();
+            FoodDTO foodDTO = FoodDTO.builder().fno(Integer.parseInt(request.getParameter("iFno"))).build();
             try {
-                new FoodDAO().deleteFood(foodVO);
+                foodService.deleteFood(foodDTO);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             response.sendRedirect("/food/main?button=read");
-        } else {
-            FoodVO foodVO = FoodVO.builder()
+        } else if (request.getParameter("button").equals("update")) {
+            FoodDTO foodDTO = FoodDTO.builder()
                     .fno(Integer.parseInt(request.getParameter("iFno")))
                     .title(request.getParameter("iTitle"))
                     .price(Integer.parseInt(request.getParameter("iPrice")))
                     .counter(Integer.parseInt(request.getParameter("iCounter")))
                     .build();
             try {
-                new FoodDAO().updateFood(foodVO);
+                foodService.updateFood(foodDTO);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            response.sendRedirect("/food/detail?fno=" + foodVO.getFno());
+            response.sendRedirect("/food/detail?fno=" + foodDTO.getFno());
         }
     }
 }

@@ -1,4 +1,4 @@
-Model(DB)
+DB
 DTO(VO)
 DAO
 Service
