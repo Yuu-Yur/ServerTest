@@ -1,6 +1,5 @@
 package com.busanit501.helloworld.jdbcex.DAO;
 
-import com.busanit501.helloworld.food.dto.FoodVO;
 import com.busanit501.helloworld.jdbcex.DTO.MemberVO;
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
@@ -33,7 +32,7 @@ public class MemberDAO {
     }
 
     public List<MemberVO> select() throws SQLException {
-        sql = "SELECT * FROM tbl_member";
+        sql = "SELECT mno,id,'*****' as pw,regdate FROM tbl_member";
         List<MemberVO> memberList = new ArrayList<>();
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);

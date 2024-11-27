@@ -15,5 +15,6 @@
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
+<p style="font-size: 40px"><a href="/member/main">멤버 crud mvc아키텍쳐로 구현하기 과제</a></p>
 </body>
 </html>
