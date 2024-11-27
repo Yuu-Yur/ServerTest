@@ -60,24 +60,6 @@ public class FoodDAO {
         preparedStatement.executeUpdate();
     }
 
-    public List<FoodVO> selectByPrice(int price) throws SQLException {
-        sql = "SELECT * FROM tbl_food WHERE price <= ?";
-        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, price);
-        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
-        List<FoodVO> foodList = new ArrayList<>();
-        while (resultSet.next()) {
-            foodList.add(FoodVO.builder()
-                    .fno(resultSet.getInt("fno"))
-                    .title(resultSet.getString("title"))
-                    .price(resultSet.getInt("price"))
-                    .counter(resultSet.getInt("counter"))
-                    .build());
-        }
-        return foodList;
-    }
-
     public FoodVO selectByFno(int fno) throws SQLException {
         sql = "SELECT * FROM tbl_food WHERE fno = ?";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();

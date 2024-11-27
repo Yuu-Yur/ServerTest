@@ -1,0 +1,7 @@
+Model(DB)
+DTO(VO)
+DAO
+Service
+Controller(servlet)
+View
+https://1drv.ms/p/c/aeb44b103b34342d/EXPSrmHe6NlPn_JZWkMgBFUBN7uzlMrrppDiohU56-f9yw?e=W5cz8g

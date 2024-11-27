@@ -18,7 +18,7 @@ public enum MapperUtil {
                 // 멤버 접근시 private 접근 지정자에 접근 가능하게하는 설정.
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
                 // 타입이 정확하게 일치하는지 여부를 꼼꼼하게, 엄격하게 검사하겠다 설정.
-                .setMatchingStrategy(MatchingStrategies.STANDARD);
+                .setMatchingStrategy(MatchingStrategies.STRICT);
     } //
     public ModelMapper get() {
         return modelMapper;
