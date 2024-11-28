@@ -23,8 +23,10 @@ public class SignInFilter implements Filter {
 
         if (session.isNew()) {
             log.info("세션 생성");
-            session.setAttribute("mno", req.getParameter("mno"));
-            resp.sendRedirect("/member/signIn");
+            if (req.getParameter("mno") != null) {
+                session.setAttribute("mno", req.getParameter("mno"));
+                resp.sendRedirect("/member/signIn");
+            } else resp.sendRedirect("/member/main");
             return;
         } else if (session.getAttribute("signInInfo") == null) {
             log.info("세션은 이미 있지만 로그인 실패");

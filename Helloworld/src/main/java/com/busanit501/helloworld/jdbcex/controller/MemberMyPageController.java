@@ -22,8 +22,14 @@ public class MemberMyPageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            req.setAttribute("dto", memberService.getMyInfo(Integer.parseInt(req.getParameter("mno"))));
-            req.getRequestDispatcher("/WEB-INF/jdbcex/member_myPage.jsp").forward(req, resp);
+            HttpSession session = req.getSession();
+            if (Integer.parseInt(req.getParameter("mno")) == (int) session.getAttribute("signInInfo")) {
+                req.setAttribute("dto", memberService.getMyInfo(Integer.parseInt(req.getParameter("mno"))));
+                req.getRequestDispatcher("/WEB-INF/jdbcex/member_myPage.jsp").forward(req, resp);
+            } else {
+                // 다른 사용자의 정보에 접근하려 하면
+                resp.sendRedirect("/member/main/signOut");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,11 +60,7 @@ public class MemberMyPageController extends HttpServlet {
                 resp.sendRedirect("/member/main");
                 break;
             case "default":
-                HttpSession session = req.getSession();
-                // 마이페이지를 빠져나갈 때 로그인 정보를 지우고 나감
-                // 그런데 브라우저에서 뒤로가기로 돌아가면 어떻게 막아야 할 지 모르겠음
-                session.setAttribute("signInInfo",null);
-                resp.sendRedirect("/member/main");
+                resp.sendRedirect("/member/main/signOut");
         }
     }
 }

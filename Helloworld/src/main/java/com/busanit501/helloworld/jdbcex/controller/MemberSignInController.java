@@ -25,19 +25,19 @@ public class MemberSignInController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String signInInfo = null;
+        int signInInfo ;
         HttpSession session = req.getSession();
         String mno = String.valueOf(session.getAttribute("mno"));
         String pw = req.getParameter("pw");
         try {
             log.info(mno + pw);
             if(memberService.getMyInfo(Integer.parseInt(mno)).getPw().equals(pw)) {
-                signInInfo = "signIn";
+                signInInfo = Integer.parseInt(mno);
                 session.setAttribute("signInInfo",signInInfo);
                 resp.sendRedirect("/member/main/myPage?mno="+mno);
             } else {
                 log.info("로그인 실패");
-                session.setAttribute("signInInfo",signInInfo);
+                session.setAttribute("signInInfo",null);
                 resp.sendRedirect("/member/main");
             }
         } catch (SQLException e) {

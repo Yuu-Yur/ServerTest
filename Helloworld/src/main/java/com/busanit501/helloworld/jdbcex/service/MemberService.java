@@ -1,7 +1,6 @@
 package com.busanit501.helloworld.jdbcex.service;
 
-import com.busanit501.helloworld.food.dto.FoodDTO;
-import com.busanit501.helloworld.food.dto.FoodVO;
+
 import com.busanit501.helloworld.food.util.MapperUtil;
 import com.busanit501.helloworld.jdbcex.DAO.MemberDAO;
 import com.busanit501.helloworld.jdbcex.DTO.MemberDTO;
@@ -20,7 +19,7 @@ public enum MemberService {
     private MemberDAO memberDAO;
     private ModelMapper modelMapper;
 
-    private MemberService() {
+    MemberService() {
         memberDAO = new MemberDAO();
         modelMapper = MapperUtil.INSTANCE.get();
     }

@@ -15,7 +15,7 @@
     <Appenders>
         <!--        출력 대상 콘솔-->
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%t] %-5level %logger{36} %n %msg %d{HH:mm:ss.SSS} %n"/>
+            <PatternLayout pattern="[%t] {%level} |%d{HH:mm:ss.SSS}| %n %c{} %n {%msg} %n"/>
         </Console>
         <!--        추가 부분-->
         <!--출력 대상 파일-->
