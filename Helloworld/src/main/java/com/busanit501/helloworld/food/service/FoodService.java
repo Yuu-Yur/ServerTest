@@ -1,6 +1,6 @@
 package com.busanit501.helloworld.food.service;
 
-import com.busanit501.helloworld.food.FoodDAO;
+import com.busanit501.helloworld.food.dao.FoodDAO;
 import com.busanit501.helloworld.food.dto.FoodDTO;
 import com.busanit501.helloworld.food.dto.FoodVO;
 import com.busanit501.helloworld.food.util.MapperUtil;

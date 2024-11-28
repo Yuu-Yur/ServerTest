@@ -18,7 +18,6 @@ public class SignInFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-
         HttpSession session = req.getSession();
 
         if (session.isNew()) {
@@ -26,7 +25,10 @@ public class SignInFilter implements Filter {
             if (req.getParameter("mno") != null) {
                 session.setAttribute("mno", req.getParameter("mno"));
                 resp.sendRedirect("/member/signIn");
-            } else resp.sendRedirect("/member/main");
+            } else {
+                session.setAttribute("mno", null);
+                resp.sendRedirect("/member/main");
+            }
             return;
         } else if (session.getAttribute("signInInfo") == null) {
             log.info("세션은 이미 있지만 로그인 실패");

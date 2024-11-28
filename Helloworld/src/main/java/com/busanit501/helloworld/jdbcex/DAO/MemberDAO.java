@@ -97,6 +97,23 @@ public class MemberDAO {
         return null;
     }
 
+    public MemberVO selectById(String id) throws SQLException {
+        sql = "SELECT * FROM tbl_member WHERE id = ?";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, id);
+        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return MemberVO.builder()
+                    .mno(resultSet.getInt("mno"))
+                    .id(resultSet.getString("id"))
+                    .pw(resultSet.getString("pw"))
+                    .regdate(resultSet.getDate("regdate"))
+                    .build();
+        }
+        return null;
+    }
+
     public MemberVO lastOne() throws SQLException {
         sql = "SELECT * FROM tbl_member ORDER BY mno DESC LIMIT 1";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();

@@ -14,15 +14,18 @@
 </head>
 <body>
 <%--jstl사용해보기 foreach var items--%>
-<h1>점심 메뉴 조회 JSTL 사용</h1>
+<c:if test="${sessionScope.user != null}">
+    <h1>환영합니다. ${sessionScope.user.id} 님</h1>
+    <a href="/food/main?button=signOut"><button>로그아웃</button></a>
+</c:if>
+<h2>점심 메뉴 조회 JSTL 사용</h2>
 
 <ol>
     <c:forEach var="food" items="${foodList}">
     <a href="/food/detail?fno=${food.fno}"><li>${food.title} 가격 : ${food.price}원</li></a>
     </c:forEach>
 </ol>
-<a href="/food/main">
-    <button>돌아가기</button>
-</a>
+<a href="/food/reg"><button>메뉴 등록</button></a>
+<a href="/food/main"><button>돌아가기</button></a>
 </body>
 </html>

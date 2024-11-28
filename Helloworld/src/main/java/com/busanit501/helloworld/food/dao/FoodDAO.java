@@ -1,4 +1,4 @@
-package com.busanit501.helloworld.food;
+package com.busanit501.helloworld.food.dao;
 
 
 import com.busanit501.helloworld.food.dto.FoodVO;

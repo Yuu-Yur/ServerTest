@@ -1,12 +1,11 @@
 package com.busanit501.helloworld.food;
 
-import com.busanit501.helloworld.food.dto.FoodDTO;
+import com.busanit501.helloworld.food.dao.FoodDAO;
 import com.busanit501.helloworld.food.dto.FoodVO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
-import java.util.List;
 
 @Log4j2
 public class FoodDAOTest {

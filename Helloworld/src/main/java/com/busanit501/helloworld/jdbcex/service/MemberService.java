@@ -48,6 +48,14 @@ public enum MemberService {
         return null;
     }
 
+    public MemberDTO signIn(String id) throws SQLException {
+        if (memberDAO.selectById(id) != null) {
+            MemberDTO memberDTO = modelMapper.map(memberDAO.selectById(id), MemberDTO.class);
+            return memberDTO;
+        }
+        return null;
+    }
+
     public void edit(MemberDTO memberDTO) throws SQLException {
         MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
         boolean check = memberDAO.update(memberVO);

@@ -23,11 +23,12 @@ public class MemberMyPageController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             HttpSession session = req.getSession();
-            if (Integer.parseInt(req.getParameter("mno")) == (int) session.getAttribute("signInInfo")) {
-                req.setAttribute("dto", memberService.getMyInfo(Integer.parseInt(req.getParameter("mno"))));
+            MemberDTO memberDTO = memberService.getMyInfo(Integer.parseInt(req.getParameter("mno")));
+            if (memberDTO.equals(session.getAttribute("signInInfo"))) {
+                req.setAttribute("dto", memberDTO);
                 req.getRequestDispatcher("/WEB-INF/jdbcex/member_myPage.jsp").forward(req, resp);
             } else {
-                // 다른 사용자의 정보에 접근하려 하면
+                log.info("다른 사용자의 정보에 접근");
                 resp.sendRedirect("/member/main/signOut");
             }
         } catch (SQLException e) {

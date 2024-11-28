@@ -1,5 +1,6 @@
 package com.busanit501.helloworld.jdbcex.controller;
 
+import com.busanit501.helloworld.jdbcex.DTO.MemberDTO;
 import com.busanit501.helloworld.jdbcex.service.MemberService;
 import lombok.extern.log4j.Log4j2;
 
@@ -25,15 +26,16 @@ public class MemberSignInController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int signInInfo ;
+        int signInInfo;
         HttpSession session = req.getSession();
         String mno = String.valueOf(session.getAttribute("mno"));
+        session.removeAttribute("mno");
         String pw = req.getParameter("pw");
         try {
             log.info(mno + pw);
-            if(memberService.getMyInfo(Integer.parseInt(mno)).getPw().equals(pw)) {
-                signInInfo = Integer.parseInt(mno);
-                session.setAttribute("signInInfo",signInInfo);
+            MemberDTO memberDTO = memberService.getMyInfo(Integer.parseInt(mno));
+            if(memberDTO.getPw().equals(pw)) {
+                session.setAttribute("signInInfo",memberDTO);
                 resp.sendRedirect("/member/main/myPage?mno="+mno);
             } else {
                 log.info("로그인 실패");

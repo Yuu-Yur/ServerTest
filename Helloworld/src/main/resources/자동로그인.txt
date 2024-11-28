@@ -1,0 +1,7 @@
+자동 로그인 체크 -> boolean rememberMe로 받아서 if로 true라면 uuid를 하나 만들고 해당 uuid를 db에 update
+												(false라면? db에서 update uuid null)
+컨트롤러에서 쿠키를 만들어서 값을 uuid로 해서 브라우저에 줌
+(위에서 false라면 null이므로 유효성 필요)
+다음부터 로그인 페이지를 들어갈 때 uuid로 유저 검색
+있다면 반환, DAO->Service->Controller에 전달
+로그인 필터에서
