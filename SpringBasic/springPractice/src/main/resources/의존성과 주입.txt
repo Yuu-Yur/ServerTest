@@ -1,0 +1,16 @@
+의존성 : 다른 객체의 필드나 메서드를 호출,사용하는것을 의존하다고 하고 이것이 가능한 것을 의존성을 가진다고 한다
+        즉 다른 객체의 필드나 메서드를 호출 할 수 있게 해주는것을 의존성 주입(Dependency Injection)이라고 한다.
+        ApplicationContext (서버 프로그램의 servletContext 와 비슷한 구조) 누구나, 공유, 전역
+        root-context 에서  SampleService 를 등록해서 어디서든 불러올 수 있음 = 의존성 주입 가능 상태
+
+주입방식
+1) 필드 주입
+2) 생성자 주입
+3) 메서드 주입
+
+의존은 연쇄가능
+sampleService 는 SampleService()
+그런데 SampleService 에 필드주입으로 SampleDAO를 주입하면
+sampleService 는 SampleService(sampleDAO=com.busanit501.practice.sample.SampleDAO@55cff952)
+'DAO까지 같이 호출 할 수 있다'
+
