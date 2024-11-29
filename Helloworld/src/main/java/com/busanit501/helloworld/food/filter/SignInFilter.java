@@ -30,7 +30,7 @@ public class SignInFilter implements Filter {
         else if (session.getAttribute("user") == null) {
             // 처음 열린게 아니라면 로그인
             session.setAttribute("fromReg", true);
-            resp.sendRedirect("/food/main?button=signIn");
+            resp.sendRedirect("/food/signIn");
             return;
         } else {
             // 로그인이 되어 있다면 req,resp를 그대로 넘겨줌

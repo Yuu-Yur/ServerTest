@@ -14,4 +14,5 @@ public class MemberVO {
     private String id;
     private String pw;
     private Date regdate;
+    private String uuid;
 }

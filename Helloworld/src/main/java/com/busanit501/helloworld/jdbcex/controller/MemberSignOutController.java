@@ -19,6 +19,7 @@ public class MemberSignOutController extends HttpServlet {
         log.info("signOut 하고 main으로 돌아감");
         HttpSession session = req.getSession();
         session.removeAttribute("signInInfo");
+        session.removeAttribute("autoSI");
         resp.sendRedirect("/member/main");
     }
 }

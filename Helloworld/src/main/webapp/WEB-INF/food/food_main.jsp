@@ -33,9 +33,11 @@
     <p>
         <button type="submit" name="button" value="signUp">회원 가입</button>
     </p>
-    <p>
-        <button type="submit" name="button" value="signIn">로그인</button>
-    </p>
 </form>
+<p>
+    <a href="/food/signIn">
+        <button type="submit" name="button" value="signIn">로그인</button>
+    </a>
+</p>
 </body>
 </html>

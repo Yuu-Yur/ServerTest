@@ -130,4 +130,31 @@ public class MemberDAO {
         }
         return null;
     }
+
+    public void updateUuid(String uuid, int mno) throws SQLException {
+        String sql = "UPDATE tbl_member SET uuid = ? WHERE mno = ?";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, uuid);
+        preparedStatement.setInt(2, mno);
+        preparedStatement.executeUpdate();
+    }
+
+    public MemberVO selectByUuid(String uuid) throws SQLException {
+        sql = "SELECT * FROM tbl_member WHERE uuid = ?";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, uuid);
+        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return MemberVO.builder()
+                    .mno(resultSet.getInt("mno"))
+                    .id(resultSet.getString("id"))
+                    .pw(resultSet.getString("pw"))
+                    .regdate(resultSet.getDate("regdate"))
+                    .uuid(resultSet.getString("uuid"))
+                    .build();
+        }
+        return null;
+    }
 }

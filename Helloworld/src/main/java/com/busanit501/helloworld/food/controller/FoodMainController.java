@@ -61,10 +61,6 @@ public class FoodMainController extends HttpServlet {
                 }
                 break;
 
-            case "signIn":
-                req.getRequestDispatcher("/WEB-INF/food/food_signIn.jsp").forward(req, resp);
-                break;
-
             case "signUp":
                 req.getRequestDispatcher("/WEB-INF/food/food_signUp.jsp").forward(req, resp);
                 break;

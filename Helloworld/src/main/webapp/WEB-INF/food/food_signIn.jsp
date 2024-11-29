@@ -12,13 +12,16 @@
 </head>
 <body>
 <h1>
-  로그인 페이지
+    로그인 페이지
 </h1>
 <form action="/food/signIn" method="post">
-  <input type="text" name="id" placeholder="아이디를 입력해 주세요">
-  <input type="password" name="pw" placeholder="비밀번호를 입력해 주세요">
-  <button type="submit">로그인</button>
+    <input type="text" name="id" placeholder="아이디를 입력해 주세요">
+    <input type="password" name="pw" placeholder="비밀번호를 입력해 주세요">
+    <input type="checkbox" name="autoSI">
+    <button type="submit">로그인</button>
 </form>
-<a href="/food/main"><button>돌아가기</button></a>
+<a href="/food/main">
+    <button>돌아가기</button>
+</a>
 </body>
 </html>
