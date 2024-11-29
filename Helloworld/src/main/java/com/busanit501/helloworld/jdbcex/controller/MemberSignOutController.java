@@ -4,10 +4,7 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @Log4j2
@@ -19,7 +16,21 @@ public class MemberSignOutController extends HttpServlet {
         log.info("signOut 하고 main으로 돌아감");
         HttpSession session = req.getSession();
         session.removeAttribute("signInInfo");
-        session.removeAttribute("autoSI");
+        findCookie(req.getCookies(),"autoSI").setMaxAge(0);
         resp.sendRedirect("/member/main");
+    }
+
+    private Cookie findCookie(Cookie[] cookies, String name) {
+        Cookie foundCookie = null;
+        log.info(cookies);
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(name)) {
+                    foundCookie = cookie;
+                    break;
+                }
+            }
+        }
+        return foundCookie;
     }
 }
