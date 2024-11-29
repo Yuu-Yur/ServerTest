@@ -13,7 +13,7 @@ public class MemberListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         log.info("contextInitialized");
-// page -> request -> session -> application
+// page -> request -> session -> servletContext
 // 갈수록 더 넓은곳에서 접근 가능
 // 커넥션 풀 초기화, enum 인스턴스 할당 등등 누구나,전체가 접근가능한 공유저장소
 // 스프링에서 이것을 사용하기에 미리 확인
