@@ -92,7 +92,7 @@ dependencies {
 
     // 12 MyBatis spring
     // https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
-    implementation group: 'org.mybatis', name: 'mybatis-spring', version: '3.0.4'
+    implementation group: 'org.mybatis', name: 'mybatis-spring', version: '2.0.7'
 
 
 

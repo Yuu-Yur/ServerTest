@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class) //JUnit5 테스트 설정
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/root-context.xml")
 public class TimeMapperTest {
+    //         인스턴스 없이도 주입이 가능하게 하는 옵션
     @Autowired(required = false)
     private TimeMapper timeMapper;
 
