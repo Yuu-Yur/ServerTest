@@ -5,14 +5,14 @@ private A a;
 
 2) 생성자 주입
 private final A a;
-@Autowired
+
 public Class(A a) {
  this.a = a;
-}
+} 이것을 annotation ReqArgCons를 사용하면 생략 가능
 
 3) 메서드 주입(Setter)
 private A a;
-@Autowired
+
 public void setClass(A a) {
  this.a = a;
 }
@@ -25,6 +25,7 @@ Setter 작성 방식도 사용됨
 
 2)생성자 기반 주입
 생성자를 통해 의존성을 주입 테스트 및 불변성 보장 가능 코드가 약간 길어짐
+final로 선언함으로써 누락 시 컴파일러 에러를 일으켜 알기 쉽게 해줌
 
 3)메서드 기반 주입
 Setter 메서드를 통해 의존성을 주입 선택적 의존성 주입 가능

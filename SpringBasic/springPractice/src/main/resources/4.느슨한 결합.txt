@@ -1,0 +1,31 @@
+느슨한 결합이란?
+인터페이스를 이용한 다형성 구현
+업캐스팅을 이용, 인터페이스를 구현한 클래스를 인터페이스로 업캐스팅
+
+장점
+1. 코드 유연성으로 인한 유지보수 용이
+수정 시 인터페이스는 건드릴 필요가 없음
+만약 인터페이스가 아니라 일반 클래스라 상속한다면 수정 시 상위 클래스도 수정해야함
+
+예시) DAO 와 Service
+DAO가 있고, DAO를 의존하는 Service가 있음
+여기서 DAO를 수정하려하면 DAO와 Service를 두번 수정해야함 이런적이 많음
+DAO(수정)------>Service(수정)
+앞으로 DAO를 인터페이스로 만들고 DAO를 구현한 클래스를 만들면 Service를 수정할 필요가 없음
+DAO를 구현한 클래스만 수정하면 됨
+이때 DAO와 Service가 느슨한 결합
+DAO(수정x)------->Service(수정x)
+└DAO implements (수정)
+
+
+2. 테스트 편의성
+3. 낮은 결합도 ?
+
+
+
+다수의 구현 클래스가 있을 때
+1. @Primary
+해당 annotation 으로 주 구현 클래스로 설정, 주 구현 클래스를 의존함
+2. @Qualifier("label")
+lombok.config에 lombok.copyableAnnotations += org.springframework.beans.factory.annotation.Qualifier
+구현 시, 주입 시 라벨링

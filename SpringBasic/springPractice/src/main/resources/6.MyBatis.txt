@@ -1,0 +1,19 @@
+spring framework의 장점 중 하나
+다른 프레임워크와 연동이 쉬움
+
+지금까진 데이터베이스 연동시 jdbc를 이용해, 직접 DAO를 만들어서 작업했음
+앞으론 MyBatis DB framework와  부트 JPA framework 이용
+
+장점,
+1.인터페이스 설계 -> 느슨한 결합 가능
+2.sql문장을 따로 분리 작업 가능
+3.단독 이용, 스프링MVC 조합 작업 가능
+
+특징
+-pstmt/rs 내장된 기능 이용으로 코드 길이 줄어듬
+-conn/pstmt, 자동 close()
+-sql 분리, 파일 형식 작업 가능
+
+연동 방식.
+1.MyBatis 단독 사용 가능
+2.Mapper 인터페이스 이용
