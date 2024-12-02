@@ -18,7 +18,7 @@
 <!--    <bean class="com.busanit501.practice.sample.SampleDAO"></bean>-->
 <!--    <bean class="com.busanit501.practice.sample.SampleService"></bean>-->
 
-
+<!--    프로젝트의 전체적인 설정-->
     <context:component-scan base-package="com.busanit501.practice.sample"/>
 
 <!--    hikariConfig 설정, HikariConfig hikariConfig = new HikariConfig(); 이후 설정과 같음-->
@@ -44,10 +44,12 @@
 <!--    MyBatis 기능 설정-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/> <!-- 위의 히카리 컨픽의 설정을 의존하는 dataSource를 의존함-->
+        <property name="mapperLocations" value="classpath:/mappers/**/*.xml"/> <!-- /** : 하위의 어떠한 경로 , /*.xml 모든 xml 파일 -->
     </bean>
 
 <!--    mapper 이용하는 방법은 두가지
-    1. method 에서 annotation sql을 등록해서 사용, 시스템에 등록해주어야함-->
+    1. method 에서 annotation sql을 등록해서 사용, 시스템에 등록해주어야함
+    2. 파일을 만들고 파일을 등록-->
     <mybatis:scan base-package="com.busanit501.practice.mapper"/>
 <!--    MyBatis 기능 설정-->
 

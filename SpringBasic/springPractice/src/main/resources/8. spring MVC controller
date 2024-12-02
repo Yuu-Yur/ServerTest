@@ -1,0 +1,16 @@
+java 와 spring의 차이점, 특장점
+
+특징
+- extends, interface implements 방식을 사용하지 않고 annotation 처리 가능
+@Controller, @Service, @Repository, @Component 등등
+
+- Override 없이 필요한 method 정의 가능
+- method parameter 매개변수 를 기본 자료형, 객체 자료형으로 지정 가능
+- method return 타입을 다양한 타입으로 지정 가능
+ex) controller -> 1) 화면 제공 2) 데이터 제공
+1) 화면 제공 시, 해당 method의 이름으로 view.jsp 맵핑
+   리턴 시, return "list", list.jsp 이런 식으로 화면을 가르킬 수 도 있음
+   @Controller
+   <->
+   @RestController, 리턴 타입이 ResponseBody
+   데이터만 제공

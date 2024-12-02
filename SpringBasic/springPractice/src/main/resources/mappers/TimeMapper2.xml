@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.busanit501.practice.mapper.TimeMapper2">
+<!--    id가 interface의 method와 이름이 동일한지 확인-->
+    <select id="getNow" resultType="String">
+        select now()
+    </select>
+</mapper>

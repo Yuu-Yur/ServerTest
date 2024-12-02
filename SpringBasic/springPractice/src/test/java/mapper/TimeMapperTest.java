@@ -1,6 +1,7 @@
 package mapper;
 
 import com.busanit501.practice.mapper.TimeMapper;
+import com.busanit501.practice.mapper.TimeMapper2;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class TimeMapperTest {
     //         인스턴스 없이도 주입이 가능하게 하는 옵션
     @Autowired(required = false)
-    private TimeMapper timeMapper;
+    private TimeMapper2 timeMapper;
 
     @Test
     public void testGetTime() {

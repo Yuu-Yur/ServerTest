@@ -1,0 +1,10 @@
+main/java//controller
+          /mapper
+          /sample
+     resources/mapper
+              /log4j2.xml
+     webapp/resources
+           /WEB-INF/views
+                   /root-context.xml DAO,Service 패키지 등록, 외부라이브러리HikariCP,MyBatis 등록, mapper 등록
+                   /servlet-context.xml mvc annotation driven 설정, webapp/resources 정적자원위치 등록, view 전처리 ps fix 컨트롤러 패키지 등록
+                   /web.xml

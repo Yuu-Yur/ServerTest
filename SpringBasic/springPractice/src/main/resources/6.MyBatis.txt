@@ -17,3 +17,11 @@ spring framework의 장점 중 하나
 연동 방식.
 1.MyBatis 단독 사용 가능
 2.Mapper 인터페이스 이용
+
+1)
+method 에 sql annotation 이용해서 구현
+@Select("select now()")
+    String getNow();
+
+2) sql 파일을 따로 분리하는 xml 파일 생성
+매퍼 인터페이스
