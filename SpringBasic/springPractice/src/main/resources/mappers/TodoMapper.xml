@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 이 인터페이스를 구현한다고 보면 됨-->
+<mapper namespace="com.busanit501.practice.mapper.TodoMapper">
+    <!--연결할 mapper interfaceName 이랑 resources mapper xmlName 맞추기-->
+    <!--xml id 와 interface method 이름이 동일한지 확인-->
+    <select id="getTime" resultType="String">
+        select now()
+    </select>
+    <insert id="insert">
+        insert into tbl_todo (title, dueDate, writer)
+        values (#{title}, #{dueDate}, #{writer})
+    </insert>
+</mapper>

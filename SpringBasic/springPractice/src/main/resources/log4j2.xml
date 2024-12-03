@@ -27,14 +27,14 @@
     </Appenders>
     <Loggers>
         <!--        추가 부분-->
+        <Logger name="com.busanit501.practice.mapper" level="TRACE" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--        추가 부분-->
         <!--        특정 패키지 명으로 설정가능. -->
         <Logger name="com.busanit501" level="debug" additivity="false">
             <AppenderRef ref="FileAppender" level="error"/>
             <AppenderRef ref="Console" level="info"/>
-        </Logger>
-        <!--        추가 부분-->
-        <Logger name="com.busanit501.practice.mapper" level="TRACE" additivity="false">
-            <appender-ref ref="Console"/>
         </Logger>
 
         <!--        전체 설정 기본적으로 INFO 이상일 때 로그를 출력하게 설정-->
