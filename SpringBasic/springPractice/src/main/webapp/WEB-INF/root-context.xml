@@ -52,5 +52,7 @@
     2. 파일을 만들고 파일을 등록-->
     <mybatis:scan base-package="com.busanit501.practice.mapper"/>
 <!--    MyBatis 기능 설정-->
+<!--    modelMapper 등록-->
+    <context:component-scan base-package="com.busanit501.practice.config"/>
 
 </beans>
