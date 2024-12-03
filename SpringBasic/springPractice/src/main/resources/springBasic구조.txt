@@ -8,3 +8,37 @@ main/java//controller
                    /root-context.xml DAO,Service 패키지 등록, 외부라이브러리HikariCP,MyBatis 등록, mapper 등록
                    /servlet-context.xml mvc annotation driven 설정, webapp/resources 정적자원위치 등록, view 전처리 ps fix 컨트롤러 패키지 등록
                    /web.xml
+
+
+controller
+annotation으로 Controller라는걸 알려줘야함 root context
+@GetMapping , @PostMapping ("/test")
+경로가 /test 인 get, post가 들어오면
+void return이면 method name을
+String return이면 return String을
+prefix, suffix로 전처리 한 후 경로로 사용 (servlet context)
+
+mapper
+interface mapper
+method 작성, method name으로
+resources에서 mapper.xml 작성
+id="method name" resultType="string"
+sql문
+
+service
+Service, DAO, DAOImpl
+Service에서 DAO 주입, DAOImpl에서 DAO 구현
+DAOImpl에서 작성
+
+
+webapp-resources을 작성
+정적 자원
+
+view
+WEB-INF 안에 views 작성해서 jsp
+
+servlet context에서 component-scan controller
+root context에서 mybatis:scan mapper
+root context에서 hikariConfig
+root context에서 datasource ref hikariconfig
+root context에서 sqlSessionFactory ref datasource
