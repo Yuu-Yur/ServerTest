@@ -1,0 +1,12 @@
+1)root-context.xml
+2)web.xml
+3)servlet-context.xml
+4)log4j2.xml
+5)build.gradle
+6)resources 설정. webapp 하위에, 웹브라우저에게 제공하는 정적폴더
+7)HikariConfig
+8)DataSource
+9)뷰 화면, 뷰 리졸버 설정.
+10) 리스러 설정.
+11) http://localhost:8080/resources/test.html
+12) exception 설정하기

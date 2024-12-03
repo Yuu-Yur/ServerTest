@@ -13,8 +13,18 @@
 <body>
 <h1>reg 화면 호출</h1>
 <form action="/todo/reg" method="post">
-    <input type="text" name="id">
-    <input type="password" name="pw">
+    <div>
+        Title : <input type="text" name="title">
+    </div>
+    <div>
+        DueDate : <input type="date" name="dueDate" value="2024-12-03">
+    </div>
+    <div>
+        Finished : <input type="checkbox" name="finished">
+    </div>
+    <div>
+        Writer : <input type="text" name="writer">
+    </div>
     <button type="submit">회원 가입</button>
 </form>
 </body>

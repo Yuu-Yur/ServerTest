@@ -1,0 +1,12 @@
+파라미터 자동 수집
+형변환
+
+화면에서 데이터가 들어올 때
+앞에서 DTO에 담음
+DTO dto = DTO.builer().req.getParameter("").build();
+같이 수동으로
+
+기본 자료형은 자동으로 형변환 가능 int Integer
+객체 자료형은 setter method 형식 동작
+객체 자료형인데 constructor, parameter 가 없으면
+lombok 사용

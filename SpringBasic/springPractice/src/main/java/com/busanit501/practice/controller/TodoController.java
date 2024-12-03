@@ -1,5 +1,6 @@
 package com.busanit501.practice.controller;
 
+import com.busanit501.practice.controller.dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
-    public void regP() {
-        log.info("reg post 호출");
+    public void regP(TodoDTO todoDTO) {
+        log.info("reg post DTO 받아오기" + todoDTO);
     }
 }
