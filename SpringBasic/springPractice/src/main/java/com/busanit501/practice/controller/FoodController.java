@@ -60,4 +60,13 @@ public class FoodController {
         FoodDTO foodDTO = foodService.loadDetail(fno);
         model.addAttribute("foodDTO", foodDTO);
     }
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String editPost(@Valid FoodDTO foodDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", bindingResult);
+            return "redirect:/food/edit?fno=" + foodDTO.getFno();
+        }
+        foodService.edit(foodDTO);
+        return "redirect:/food/read?fno=" + foodDTO.getFno();
+    }
 }

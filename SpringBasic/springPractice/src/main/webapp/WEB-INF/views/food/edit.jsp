@@ -67,24 +67,24 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Title</span>
-                                <input type="text" name="title" class="form-control" readonly
+                                <input type="text" name="title" class="form-control"
                                        value=<c:out value="${foodDTO.title}"></c:out>>
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Price</span>
-                                <input type="date" name="dueDate" class="form-control" readonly
+                                <input type="text" name="price" class="form-control"
                                        value=<c:out value="${foodDTO.price}"></c:out>>
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Counter</span>
-                                <input type="text" name="writer" class="form-control" readonly
+                                <input type="text" name="counter" class="form-control"
                                        value=<c:out value="${foodDTO.counter}"></c:out>>
                             </div>
                             <div class="my-4">
                                 <div class="float-end">
-                                    <button type="button" class="btn btn-primary">수정하기</button>
+                                    <button type="submit" class="btn btn-primary">수정하기</button>
                                     <button type="button" class="btn btn-danger">삭제하기</button>
                                     <button type="button" class="btn btn-secondary">목록가기</button>
                                 </div>
@@ -127,12 +127,12 @@
 <%--목록가기 및 수정폼 가기 이벤트 리스너--%>
 <script>
     // 수정폼
-    document.querySelector(".btn-primary").addEventListener("click",
-        function (e) {
-            // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-            self.location = "/food/edit?fno=" +${foodDTO.fno}
-                , false
-        })
+    <%--document.querySelector(".btn-primary").addEventListener("click",--%>
+    <%--    function (e) {--%>
+    <%--        // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함--%>
+    <%--        self.location = "/food/edit?fno=" +${foodDTO.fno}--%>
+    <%--            , false--%>
+    <%--    })--%>
     // 목록
     document.querySelector(".btn-secondary").addEventListener("click",
         function (e) {

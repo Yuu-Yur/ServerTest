@@ -72,13 +72,13 @@
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">Price</span>
-                            <input type="date" name="dueDate" class="form-control" readonly
+                            <input type="text" name="price" class="form-control" readonly
                                    value=<c:out value="${foodDTO.price}"></c:out>>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">Counter</span>
-                            <input type="text" name="writer" class="form-control" readonly
+                            <input type="text" name="counter" class="form-control" readonly
                                    value=<c:out value="${foodDTO.counter}"></c:out>>
                         </div>
                         <div class="my-4">
