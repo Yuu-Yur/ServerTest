@@ -27,5 +27,6 @@ public class TodoServiceTest {
                 .finished(false)
                 .writer("하청빈").build();
         todoService.register(todoDTO);
+        log.info(todoDTO);
     }
 }

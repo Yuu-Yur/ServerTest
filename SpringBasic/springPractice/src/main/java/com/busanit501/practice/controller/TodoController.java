@@ -23,7 +23,8 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
-    public void regP(TodoDTO todoDTO) {
+    public String regP(TodoDTO todoDTO) {
         log.info("reg post DTO 받아오기" + todoDTO);
+        return "reg";
     }
 }

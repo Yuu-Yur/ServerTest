@@ -82,18 +82,18 @@
                                             <input type="date" name="dueDate" class="form-control" value="2024-12-03">
                                         </div>
                                         <div class="input-group mb-3">
-                                            <span class="input-group-text">Finished</span>
-                                            <input type="checkbox" name="finished" class="form-control">
-                                        </div>
-                                        <div class="input-group mb-3">
                                             <span class="input-group-text">Writer</span>
                                             <input type="text" name="writer" class="form-control" placeholder="작성자">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="form-check-label">Finished</span>
+                                            <input type="checkbox" name="finished" class="check-input">
                                         </div>
                                     </div>
                                     <div class="my-4">
                                         <div class="float-end">
                                             <button type="submit" class="btn btn-primary">작성</button>
-                                            <button type="reset" class="btn btn-secondary">초기화</button>
+                                            <button type="button" class="btn btn-secondary">초기화</button>
                                         </div>
                                     </div>
                                 </form>

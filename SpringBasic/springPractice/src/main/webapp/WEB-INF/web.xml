@@ -39,4 +39,23 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 <!--    웹 브라우저의 최상위 루트 경로까지 추가 및 적용-->
+
+<!--    웹 브라우저에서 들어온 데이터 인코딩 UTF-8 설정-->
+    <filter>
+        <filter-name>
+            encoding
+        </filter-name>
+        <filter-class>
+            org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <servlet-name>appServlet</servlet-name>
+    </filter-mapping>
+<!--    웹 브라우저에서 들어온 데이터 인코딩 UTF-8 설정-->
 </web-app>
