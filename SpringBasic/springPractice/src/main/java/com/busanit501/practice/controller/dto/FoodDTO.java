@@ -5,20 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TodoDTO {
-    private Long tno;
+public class FoodDTO {
+    Long fno;
     @NotEmpty
-    private String title;
-    @Future
-    private LocalDate dueDate;
-    private boolean finished;
-    private String writer;
+    String title;
+    @NotNull
+    int price;
+    int counter;
 }

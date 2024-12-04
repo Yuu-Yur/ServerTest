@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: it
@@ -93,7 +94,7 @@
                                     <div class="my-4">
                                         <div class="float-end">
                                             <button type="submit" class="btn btn-primary">작성</button>
-                                            <button type="button" class="btn btn-secondary">초기화</button>
+                                            <button type="reset" class="btn btn-secondary">초기화</button>
                                         </div>
                                     </div>
                                 </form>
@@ -117,9 +118,24 @@
     </div>
 </div>
 
+<%--입력 폼에 관련 유효성 체크, 서버로부터  erros 키로 값을 받아오면, --%>
+<%--자바스크립 콘솔에 임시 출력.--%>
+<script>
+    const serverValidResult = {    };
+    // jstl , 반복문으로, 서버로부터 넘어온 여러 에러 종류가 많습니다.
+    //     하나씩 꺼내서, 출력하는 용도.,
+    <c:forEach var="error" items="${errors.getAllErrors()}">
+    serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
+    </c:forEach>
+    console.log(serverValidResult)
+</script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+
 
 </body>
 </html>

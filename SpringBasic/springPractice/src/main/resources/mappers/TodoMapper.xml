@@ -10,8 +10,22 @@
     <select id="getTime" resultType="String">
         select now()
     </select>
+<!--    parameter 받을 땐 #{} -->
     <insert id="insert">
         insert into tbl_todo (title, dueDate, writer)
         values (#{title}, #{dueDate}, #{writer})
     </insert>
+                                    <!--객체 지정 가능-->
+    <select id="selectAll" resultType="com.busanit501.practice.domain.TodoVO">
+        select * from tbl_todo
+    </select>
+
+    <select id="selectOne" resultType="com.busanit501.practice.domain.TodoVO">
+        select * from tbl_todo where tno = #{tno}
+    </select>
+
+    <delete id="delete">
+        delete from tbl_todo where tno = #{tno}
+    </delete>
+
 </mapper>

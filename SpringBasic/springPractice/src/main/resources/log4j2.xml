@@ -27,19 +27,26 @@
     </Appenders>
     <Loggers>
         <!--        추가 부분-->
+<!--                            이 아래에선 TRACE 까지의 로그만 보여줘-->
         <Logger name="com.busanit501.practice.mapper" level="TRACE" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
         <!--        추가 부분-->
         <!--        특정 패키지 명으로 설정가능. -->
+<!--                        이 아래에선 DEBUG 까지의 로그를 보여주는데-->
         <Logger name="com.busanit501" level="debug" additivity="false">
+<!--                        ERROR 까지의 로그는 파일로-->
             <AppenderRef ref="FileAppender" level="error"/>
+<!--                        INFO 까지의 로그는 콘솔로 보여줘-->
             <AppenderRef ref="Console" level="info"/>
         </Logger>
 
-        <!--        전체 설정 기본적으로 INFO 이상일 때 로그를 출력하게 설정-->
-        <Root level="info">
+        <!--        전체 설정 기본적으로 warn 이하만 로그를 출력하게 설정-->
+        <Root level="warn">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
 </Configuration>
+
+<!--OFF -> FATAL -> ERROR -> WARN -> INFO -> DEBUG -> TRACE -> ALL-->
+<!--로그X                   이하까지 보여줌                      로그O-->
