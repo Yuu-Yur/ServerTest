@@ -57,6 +57,11 @@ public class FoodMapperTest {
                 .pageSize(2)
                 .build();
         log.info(foodMapper.selectByPage(pageDTO));
+        PageDTO pDTO = PageDTO.<FoodDTO>response()
+                .pageDTO(pageDTO)
+                .total(300)
+                .build();
+        log.info(pDTO);
     }
 
     @Test

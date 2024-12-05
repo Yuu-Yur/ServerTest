@@ -50,16 +50,19 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public PageDTO getListWithPage(PageDTO pageDTO) {
+    public PageDTO<FoodDTO> getListWithPage(PageDTO<FoodDTO> pageDTO) {
         // 왜 여기 굳이 pageDTO 가 parameter ?
         int total = foodMapper.selectCount(pageDTO);
         List<FoodDTO> foodDTOList = foodMapper.selectByPage(pageDTO).stream()
                 .map(vo -> modelMapper.map(vo, FoodDTO.class))
                 .collect(Collectors.toList());
-        return PageDTO.<FoodDTO>response()
+        log.info(pageDTO);
+        PageDTO<FoodDTO> pDTO = PageDTO.<FoodDTO>response()
                 .total(total)
                 .dtoList(foodDTOList)
                 .pageDTO(pageDTO)
                 .build();
+        log.info(pDTO);
+        return pDTO;
     }
 }

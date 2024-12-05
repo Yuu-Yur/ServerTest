@@ -13,7 +13,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class PageDTO<E> {
 //    @Builder.Default
     @Min(value = 1)
@@ -24,7 +23,6 @@ public class PageDTO<E> {
     @Max(value = 100)
     private int size = 10; // 한 페이지에 보여줄 행의 수
     private int skip;
-
 
 
     private int pageSize; // 한번에 보여줄 페이지의 수
@@ -53,12 +51,12 @@ public class PageDTO<E> {
         this.size = pageDTO.getSize();
         this.pageSize = pageDTO.getPageSize();
         this.dtoList = dtoList;
-        this.last = (int)Math.ceil(total/size);
-        this.end = (int)Math.ceil(page/pageSize)*pageSize;
-        this.end = end > last ? last : end;
-        this.start = end-pageSize+1;
-        this.prev = start > 1;
-        this.next = total > end*size;
+        this.last = (int)Math.ceil(total/this.size);
+        this.end = (int)Math.ceil(this.page/this.pageSize)*this.pageSize;
+        this.end = this.end > this.last ? this.last : this.end;
+        this.start = this.end-this.pageSize+1;
+        this.prev = this.start > 1;
+        this.next = total > this.end*this.size;
     }
 }
 // 같은 DTO 지만  method 사용으로 구분할 수 있음
