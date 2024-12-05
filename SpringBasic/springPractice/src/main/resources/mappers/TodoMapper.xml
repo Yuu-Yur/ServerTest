@@ -27,5 +27,12 @@
     <delete id="delete">
         delete from tbl_todo where tno = #{tno}
     </delete>
+    
+    <select id="selectPage" resultType="com.busanit501.practice.domain.TodoVO">
+        select * from tbl_todo limit #{skip}, #{size}
+    </select>
 
+    <select id="count" resultType="int">
+        select count(tno) from tbl_todo
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package mapper;
 
+import com.busanit501.practice.controller.dto.PageRequestDTO;
 import com.busanit501.practice.domain.TodoVO;
 import com.busanit501.practice.mapper.TodoMapper;
 import lombok.extern.log4j.Log4j2;
@@ -40,4 +41,18 @@ public class TodoMapperTest {
     public void testDelete() {
         todoMapper.delete(2L);
     }
+
+    @Test
+    public void testPage() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(2)
+                .size(15)
+                .build();
+        List<TodoVO> todoVOList = todoMapper.selectPage(pageRequestDTO);
+        log.info(todoVOList);
+        int total = todoMapper.count(pageRequestDTO);
+        log.info(total);
+    }
+
+
 }
