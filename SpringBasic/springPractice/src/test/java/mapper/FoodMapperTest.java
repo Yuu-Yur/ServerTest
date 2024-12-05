@@ -52,7 +52,7 @@ public class FoodMapperTest {
     @Test
     public void testLoadPage() {
         PageDTO pageDTO = PageDTO.<FoodDTO>request()
-                .page(1)
+                .page(2)
                 .size(2)
                 .pageSize(2)
                 .build();

@@ -13,20 +13,17 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class PageDTO<E> {
-    @Builder.Default
+//    @Builder.Default
     @Min(value = 1)
     private int page = 1; // 현재 페이지
 
-    @Builder.Default
+//    @Builder.Default
     @Min(value = 1)
     @Max(value = 100)
     private int size = 10; // 한 페이지에 보여줄 행의 수
-
-    public int getSkip() {
-        return  (page - 1) * size;
-    }
+    private int skip;
 
 
 
@@ -47,14 +44,15 @@ public class PageDTO<E> {
         this.page = page;
         this.size = size;
         this.pageSize = pageSize;
+        this.skip = (page-1)*size;
     }
 
     @Builder(builderMethodName = "response")
     public PageDTO(List<E> dtoList, int total, PageDTO pageDTO) {
         this.page = pageDTO.getPage();
         this.size = pageDTO.getSize();
-        this.dtoList = dtoList;
         this.pageSize = pageDTO.getPageSize();
+        this.dtoList = dtoList;
         this.last = (int)Math.ceil(total/size);
         this.end = (int)Math.ceil(page/pageSize)*pageSize;
         this.end = end > last ? last : end;

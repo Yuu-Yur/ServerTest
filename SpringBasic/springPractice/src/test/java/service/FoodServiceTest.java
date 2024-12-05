@@ -40,12 +40,13 @@ public class FoodServiceTest {
 
     @Test
     public void pageTest() {
-        PageDTO pageDTO = foodService.getListWithPage(PageDTO.<FoodDTO>request()
-                .page(1)
+        PageDTO<FoodDTO> pDTO = PageDTO.<FoodDTO>request()
+                .page(2)
                 .size(2)
                 .pageSize(2)
-                .build());
-        log.info(pageDTO.getEnd());
-        log.info(pageDTO.isNext());
+                .build();
+        log.info(pDTO);
+        PageDTO<FoodDTO> pageDTO = foodService.getListWithPage(pDTO);
+        log.info(pageDTO);
     }
 }
