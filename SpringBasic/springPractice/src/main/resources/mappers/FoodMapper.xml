@@ -23,6 +23,7 @@
     <select id="selectByFno" resultType="com.busanit501.practice.controller.dto.FoodVO">
         select * from tbl_food where fno = #{fno}
     </select>
+
     <update id="update">
         update tbl_food set title = #{title}, price = #{price}, counter = #{counter} where fno = #{fno}
     </update>

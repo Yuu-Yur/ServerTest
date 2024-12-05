@@ -3,118 +3,123 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <div class="container-fluid">
-  <div class="row">
-    <!--        <h1>Header</h1>-->
-    <!--        네비게이션바 추가 시작-->
     <div class="row">
-      <div class="col">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                    aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
-              </ul>
+        <!--        <h1>Header</h1>-->
+        <!--        네비게이션바 추가 시작-->
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Navbar</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Features</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Pricing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
             </div>
-          </div>
-        </nav>
-
-      </div>
-    </div>
-    <!--        네비게이션바 추가 끝-->
-
-    <!--        class="row content"-->
-    <div class="row content">
-      <!--        col-->
-      <div class="col">
-        <!--        카드 시작 부분-->
-        <div class="card">
-          <div class="card-header">
-            Featured
-          </div>
-          <div class="card-body">
-            <%--                        Todo List 부분 작성--%>
-            <h5 class="card-title">리스트 목록</h5>
-            <table class="table">
-              <thead>
-              <%--                                소제목--%>
-              <tr>
-                <th scope="col">Fno</th>
-                <th scope="col">Title</th>
-                <th scope="col">Price</th>
-                <th scope="col">Counter</th>
-              </tr>
-              </thead>
-              <%--                                본문--%>
-              <tbody>
-
-              <c:forEach var="foodDTO" items="${foodDTOList}">
-                <tr>
-                  <th scope="row"><c:out value="${foodDTO.fno}"/></th>
-                  <td><a href="/food/read?fno=${foodDTO.fno}"><c:out value="${foodDTO.title}"/></a></td>
-                  <td><c:out value="${foodDTO.price}"/></td>
-                  <td><c:out value="${foodDTO.counter}"/></td>
-                </tr>
-              </c:forEach>
-
-              </tbody>
-            </table>
-            <%--                       Todo List 부분 작성--%>
-
-          </div>
         </div>
-        <!--        카드 끝 부분-->
-      </div>
-      <!--        col-->
+        <!--        네비게이션바 추가 끝-->
+
+        <!--        class="row content"-->
+        <div class="row content">
+            <!--        col-->
+            <div class="col">
+                <!--        카드 시작 부분-->
+                <div class="card">
+                    <div class="card-header">
+                        Featured
+                    </div>
+                    <div class="card-body">
+                        <%--                        Todo List 부분 작성--%>
+                        <h5 class="card-title">리스트 목록</h5>
+                            <a href="/food/reg">
+                                <button type="button" class="btn btn-primary">글 쓰기</button>
+                            </a>
+
+                        <table class="table">
+                            <thead>
+                            <%--                                소제목--%>
+                            <tr>
+                                <th scope="col">Fno</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Counter</th>
+                            </tr>
+                            </thead>
+                            <%--                                본문--%>
+                            <tbody>
+
+                            <c:forEach var="foodDTO" items="${foodDTOList}">
+                                <tr>
+                                    <th scope="row"><c:out value="${foodDTO.fno}"/></th>
+                                    <td><a href="/food/read?fno=${foodDTO.fno}"><c:out value="${foodDTO.title}"/></a>
+                                    </td>
+                                    <td><c:out value="${foodDTO.price}"/></td>
+                                    <td><c:out value="${foodDTO.counter}"/></td>
+                                </tr>
+                            </c:forEach>
+
+                            </tbody>
+                        </table>
+                        <%--                       Todo List 부분 작성--%>
+
+                    </div>
+                </div>
+                <!--        카드 끝 부분-->
+            </div>
+            <!--        col-->
+        </div>
+        <!--        class="row content"-->
     </div>
-    <!--        class="row content"-->
-  </div>
-  <%--    <div class="row content">--%>
-  <%--        <h1>Content</h1>--%>
-  <%--    </div>--%>
-  <div class="row footer">
-    <!--        <h1>Footer</h1>-->
-    <div class="row fixed-bottom" style="z-index: -100">
-      <footer class="py-1 my-1">
-        <p class="text-center text-muted">Footer</p>
-      </footer>
+    <%--    <div class="row content">--%>
+    <%--        <h1>Content</h1>--%>
+    <%--    </div>--%>
+    <div class="row footer">
+        <!--        <h1>Footer</h1>-->
+        <div class="row fixed-bottom" style="z-index: -100">
+            <footer class="py-1 my-1">
+                <p class="text-center text-muted">Footer</p>
+            </footer>
+        </div>
     </div>
-  </div>
 </div>
 <%--입력 폼에 관련 유효성 체크, 서버로부터  erros 키로 값을 받아오면, --%>
 <%--자바스크립 콘솔에 임시 출력.--%>
 <script>
-  const serverValidResult = {};
-  // jstl , 반복문으로, 서버로부터 넘어온 여러 에러 종류가 많습니다.
-  //     하나씩 꺼내서, 출력하는 용도.,
-  <c:forEach items="${errors}" var="error">
-  serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
-  </c:forEach>
-  console.log(serverValidResult)
+    const serverValidResult = {};
+    // jstl , 반복문으로, 서버로부터 넘어온 여러 에러 종류가 많습니다.
+    //     하나씩 꺼내서, 출력하는 용도.,
+    <c:forEach items="${errors}" var="error">
+    serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
+    </c:forEach>
+    console.log(serverValidResult)
 </script>
 
 

@@ -23,12 +23,13 @@
 <!--    @Controller annotation 을 이용하기 위해 패키지 등록-->
     <context:component-scan base-package="com.busanit501.practice.controller"/>
 
-<!--    LocaleDateTime String 변환 기능-->
+<!--    formatter 자동 변환 기능-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
 <!--                만든 Formatter class 지정-->
                 <bean class="com.busanit501.practice.controller.formatter.LocalDateFormatter"/>
+                <bean class="com.busanit501.practice.controller.formatter.CheckboxFormatter"/>
             </set>
         </property>
     </bean>
