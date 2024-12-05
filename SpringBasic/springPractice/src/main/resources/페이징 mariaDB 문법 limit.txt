@@ -7,10 +7,25 @@ n = (page - 1)*m
 m = size
 즉 limit (page - 1)*m , m
 하면 page 페이지의 정보를 select 할 수 있음
+total page = 총 행 / m + 1
+m = 10 이라 할때
 
-총 개수 counter
-총 페이지 counter/size + 1
 
+pageSize = 한 페이지에서 보는 페이지의 갯수 8
+start = 현재 페이지에서 볼 수 있는 첫 페이지 번호
+end = 현재 페이지에서 보여야 하는 마지막 페이지 번호
+end = Math.ceil(현재페이지/pageSize) * pageSize
+
+1~8 9~16 17~24
+total = 총 행 개수
+last = 실제 마지막 페이지 번호
+last = Math.ceil(total 행 개수/m 한 페이지에 보일 행 수)
+end > last 일 경우 실제 마지막 페이지 번호 보다 더 많이 보임
+end = end > last ? last : end
+start = end - pageSize +1
+
+start > 1 이면 이전 페이지 true
+total > end * m 이면 다음 페이지 true
 
 select *
 from tbl_todo
