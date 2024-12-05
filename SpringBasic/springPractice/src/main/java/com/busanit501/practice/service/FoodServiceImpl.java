@@ -2,6 +2,7 @@ package com.busanit501.practice.service;
 
 import com.busanit501.practice.controller.dto.FoodDTO;
 import com.busanit501.practice.controller.dto.FoodVO;
+import com.busanit501.practice.controller.dto.PageDTO;
 import com.busanit501.practice.mapper.FoodMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -46,5 +47,19 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public FoodDTO loadDetail(Long fno) {
         return modelMapper.map(foodMapper.selectByFno(fno),FoodDTO.class);
+    }
+
+    @Override
+    public PageDTO getListWithPage(PageDTO pageDTO) {
+        // 왜 여기 굳이 pageDTO 가 parameter ?
+        int total = foodMapper.selectCount(pageDTO);
+        List<FoodDTO> foodDTOList = foodMapper.selectByPage(pageDTO).stream()
+                .map(vo -> modelMapper.map(vo, FoodDTO.class))
+                .collect(Collectors.toList());
+        return PageDTO.<FoodDTO>response()
+                .total(total)
+                .dtoList(foodDTOList)
+                .pageDTO(pageDTO)
+                .build();
     }
 }

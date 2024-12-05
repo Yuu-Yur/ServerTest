@@ -13,7 +13,7 @@
     </insert>
                                     <!--객체 지정 가능-->
     <select id="selectAll" resultType="com.busanit501.practice.controller.dto.FoodVO">
-        select * from tbl_food
+        select * from tbl_food order by fno desc
     </select>
 
     <delete id="delete">
@@ -27,4 +27,12 @@
     <update id="update">
         update tbl_food set title = #{title}, price = #{price}, counter = #{counter} where fno = #{fno}
     </update>
+
+    <select id="selectByPage" resultType="com.busanit501.practice.controller.dto.FoodVO">
+        select * from tbl_food order by fno desc limit #{skip}, #{size}
+    </select>
+
+    <select id="selectCount" resultType="int">
+        select count(fno) from tbl_food
+    </select>
 </mapper>

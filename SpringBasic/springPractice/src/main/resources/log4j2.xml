@@ -42,7 +42,7 @@
         </Logger>
 
         <!--        전체 설정 기본적으로 warn 이하만 로그를 출력하게 설정-->
-        <Root level="warn">
+        <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

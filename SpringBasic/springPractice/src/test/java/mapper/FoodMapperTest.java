@@ -1,6 +1,8 @@
 package mapper;
 
+import com.busanit501.practice.controller.dto.FoodDTO;
 import com.busanit501.practice.controller.dto.FoodVO;
+import com.busanit501.practice.controller.dto.PageDTO;
 import com.busanit501.practice.mapper.FoodMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -45,5 +47,20 @@ public class FoodMapperTest {
                         .counter(3)
                         .build()
         );
+    }
+
+    @Test
+    public void testLoadPage() {
+        PageDTO pageDTO = PageDTO.<FoodDTO>request()
+                .page(1)
+                .size(2)
+                .pageSize(2)
+                .build();
+        log.info(foodMapper.selectByPage(pageDTO));
+    }
+
+    @Test
+    public void testCounter() {
+        log.info(foodMapper.selectCount(PageDTO.<FoodDTO>request().page(2).page(3).build()));
     }
 }
