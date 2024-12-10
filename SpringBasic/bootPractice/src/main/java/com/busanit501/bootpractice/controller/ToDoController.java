@@ -1,6 +1,5 @@
 package com.busanit501.bootpractice.controller;
 
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,7 @@ import java.util.stream.IntStream;
 @Log4j2
 @Controller
 @RequestMapping("/todo")
-public class toDoController {
+public class ToDoController {
     @GetMapping("/list")
     public void list(Model model) {
         List<String> list = IntStream.range(1,6)

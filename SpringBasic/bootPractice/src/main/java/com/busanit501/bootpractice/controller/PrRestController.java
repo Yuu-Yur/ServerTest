@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Log4j2
-public class prRestController {
+public class PrRestController {
 
     @GetMapping("/rest")
     public String hello() {return "yet";}
