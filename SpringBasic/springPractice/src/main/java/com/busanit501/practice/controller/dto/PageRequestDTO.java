@@ -22,6 +22,11 @@ public class PageRequestDTO {
     @Max(value = 100)
     private int size = 10;
 
+    @Builder.Default
+    @Min(value = 5)
+    @Max(value = 15)
+    private int pageSize = 10;
+
     // getter 을 사용하면 필드에 없더라도  
     // xml 에서 EL 표기법으로 skip 을 호출할 수 있음
     public int getSkip() {

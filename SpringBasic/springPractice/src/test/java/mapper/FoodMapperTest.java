@@ -2,7 +2,8 @@ package mapper;
 
 import com.busanit501.practice.controller.dto.FoodDTO;
 import com.busanit501.practice.controller.dto.FoodVO;
-import com.busanit501.practice.controller.dto.PageDTO;
+import com.busanit501.practice.controller.dto.PageResponseDTO;
+import com.busanit501.practice.controller.dto.PageRequestDTO;
 import com.busanit501.practice.mapper.FoodMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -51,14 +52,14 @@ public class FoodMapperTest {
 
     @Test
     public void testLoadPage() {
-        PageDTO pageDTO = PageDTO.<FoodDTO>request()
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(2)
                 .size(2)
                 .pageSize(2)
                 .build();
-        log.info(foodMapper.selectByPage(pageDTO));
-        PageDTO pDTO = PageDTO.<FoodDTO>response()
-                .pageDTO(pageDTO)
+        log.info(foodMapper.selectByPage(pageRequestDTO));
+        PageResponseDTO<FoodDTO> pDTO = PageResponseDTO.<FoodDTO>response()
+                .pageRequestDTO(pageRequestDTO)
                 .total(300)
                 .build();
         log.info(pDTO);
@@ -66,6 +67,6 @@ public class FoodMapperTest {
 
     @Test
     public void testCounter() {
-        log.info(foodMapper.selectCount(PageDTO.<FoodDTO>request().page(2).page(3).build()));
+        log.info(foodMapper.selectCount(PageRequestDTO.builder().page(2).page(3).build()));
     }
 }

@@ -2,7 +2,8 @@ package com.busanit501.practice.service;
 
 import com.busanit501.practice.controller.dto.FoodDTO;
 import com.busanit501.practice.controller.dto.FoodVO;
-import com.busanit501.practice.controller.dto.PageDTO;
+import com.busanit501.practice.controller.dto.PageRequestDTO;
+import com.busanit501.practice.controller.dto.PageResponseDTO;
 import com.busanit501.practice.mapper.FoodMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -50,17 +51,17 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public PageDTO<FoodDTO> getListWithPage(PageDTO<FoodDTO> pageDTO) {
+    public PageResponseDTO<FoodDTO> getListWithPage(PageRequestDTO pageRequestDTO) {
         // 왜 여기 굳이 pageDTO 가 parameter ?
-        int total = foodMapper.selectCount(pageDTO);
-        List<FoodDTO> foodDTOList = foodMapper.selectByPage(pageDTO).stream()
+        int total = foodMapper.selectCount(pageRequestDTO);
+        List<FoodDTO> foodDTOList = foodMapper.selectByPage(pageRequestDTO).stream()
                 .map(vo -> modelMapper.map(vo, FoodDTO.class))
                 .collect(Collectors.toList());
-        log.info(pageDTO);
-        PageDTO<FoodDTO> pDTO = PageDTO.<FoodDTO>response()
+        log.info(foodDTOList);
+        PageResponseDTO<FoodDTO> pDTO = PageResponseDTO.<FoodDTO>response()
+                .pageRequestDTO(pageRequestDTO)
                 .total(total)
                 .dtoList(foodDTOList)
-                .pageDTO(pageDTO)
                 .build();
         log.info(pDTO);
         return pDTO;

@@ -1,7 +1,8 @@
 package service;
 
 import com.busanit501.practice.controller.dto.FoodDTO;
-import com.busanit501.practice.controller.dto.PageDTO;
+import com.busanit501.practice.controller.dto.PageRequestDTO;
+import com.busanit501.practice.controller.dto.PageResponseDTO;
 import com.busanit501.practice.service.FoodService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -40,13 +41,13 @@ public class FoodServiceTest {
 
     @Test
     public void pageTest() {
-        PageDTO<FoodDTO> pDTO = PageDTO.<FoodDTO>request()
+        PageRequestDTO pDTO = PageRequestDTO.builder()
                 .page(2)
                 .size(2)
                 .pageSize(2)
                 .build();
         log.info(pDTO);
-        PageDTO<FoodDTO> pageDTO = foodService.getListWithPage(pDTO);
-        log.info(pageDTO);
+        PageResponseDTO<FoodDTO> pageResponseDTO = foodService.getListWithPage(pDTO);
+        log.info(pageResponseDTO);
     }
 }
