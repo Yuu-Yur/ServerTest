@@ -71,6 +71,12 @@ PageRequest.of(0, 10, 오름,내림)
 
 
 쿼리 메소드 연장, @Query , 조금 더 데이터베이스 언어에 가까운 구문을 사용.
+jpql 사용
+ex)
+    @Query("SELECT u FROM User u WHERE u.email = :email")
+    Optional<User> findUserByEmail(@Param("email") String email);
+
+
 표준 SQL 구문이라서, 오라클, 마리아디비, 관계형 데이터베이스 구문을 이용.
 !
 JPA, ORM 기술을 사용하는 이유 -> 특정 데이터베이스 종속되지 않기 위해서.
@@ -87,8 +93,46 @@ JPA, ORM 기술을 사용하는 이유 -> 특정 데이터베이스 종속되지
 @Query -> 문자열이라서, 변경이 안됨.
 select * from board b where b.name = #{id}
 
-QueryDSL -> 동적으로 개발이 가능하고, -> 자바 빌더 패턴 형식으로 작성하니,
+QueryDSL
+-> 동적으로 개발이 가능하고,
+-> 자바 빌더 패턴 형식으로 작성하니,
 -> 컴파일러의 문법 검사 기능의 도움을 받을수 있음.
+
+작동 방식
+기존 Domain 과 비슷한 QDomain 자동 생성기
+비슷하지만 사용할 수 있는 여러 기능을 추가함
+
+예시)
+설치 후, 간단한 메서드 작성시 보여주기.
+public Page<Board> search(Pageable pageable) {
+    // Querydsl 이용하는 기본 문법
+    QBoard board = QBoard.board;
+    // select from board 하는 것과 비슷한 기능.
+    // query -> sql 관련 문장을, 자바 문법으로 표현하고 있다.
+    JPQLQuery<Board> query = from(board);
+
+    //BooleanBuilder를 이용한 조건절 추가 해보기.
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
+    booleanBuilder.or(board.title.contains("1"));
+    booleanBuilder.or(board.content.contains("1"));
+
+    // where 조건절  where title like
+//    query.where(board.title.contains("1"));
+    // BooleanBuilder를 적용하기.
+    query.where(booleanBuilder);
+    // bno > 0 보다 큰 조건 넣을 경우
+    query.where(board.bno.gt(0L));
+
+
+    // 페이징 처리 적용하기.
+    this.getQuerydsl().applyPagination(pageable, query);
+
+    // 해당 조건에 맞는 데이터 가져오기
+    List<Board> list = query.fetch();
+    // 해당 조건에 맞는 데이터 갯수
+    long count = query.fetchCount();
+    return null;
+예시)
 
 
 
@@ -96,9 +140,14 @@ Querydsl 이용해보기.
 도구를 설치.
 build.gradle 찾고 설치, 버전 의 변경이 발생해서, 5버전을 기준으로 할 예정.
 
-// https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
-implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.0.0'
-
+querydsl 설치
+순서1 Querydsl 버전을 변수로 만들어서 5.0.0버전
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+순서2 jpa, apt dependencies
  implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
 
 
@@ -107,7 +156,7 @@ implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.0.0'
              "jakarta.annotation:jakarta.annotation-api",
              "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
 
-    // 프로젝트 빌드 폴더에 소스 파일등을 자동으로 변경하는 코드.
+ 순서3 프로젝트 빌드 폴더에 소스 파일을 자동 추가
     sourceSets {
         main {
             java {

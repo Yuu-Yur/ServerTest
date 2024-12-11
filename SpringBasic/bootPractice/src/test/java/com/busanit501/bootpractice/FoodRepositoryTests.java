@@ -23,7 +23,7 @@ public class FoodRepositoryTests {
 
     @Test
     public void insertFood() {
-        IntStream.range(0, 50).forEach(i -> {
+        IntStream.range(0, 500).forEach(i -> {
             FoodBoard board = FoodBoard.builder().name("음식 이름" + i).shop("식당 이름" + i).price(i).build();
             FoodBoard result = foodRepository.save(board);
         });

@@ -85,4 +85,33 @@ public class BoardRepositoryTests {
         log.info(result.getNumber() + " : gN 페이징 된 번호");
         log.info(result.getSize() + " : gS 크기");
     }
+
+    @Test
+    public void testQuery(){
+        Pageable pageable = PageRequest.of(1, 10, Sort.by("bno").descending());
+        Page<Board> result = boardRepository.findByKeyword("샘",pageable);
+        log.info("페이징 결과물 : " + result.getContent().get(0));
+    }
+
+    @Test
+    public void testQuerydsl(){
+        Pageable pageable = PageRequest.of(1, 10, Sort.by("bno").descending());
+        boardRepository.search(pageable);
+    }
+
+    @Test
+    public void testQuerydsl2(){
+        String keword = "3";
+        String[] types = {"t", "a", "c"};
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+        Page<Board> result = boardRepository.searchAll(types,keword,pageable);
+        log.info(" gTE 전체 갯수 : " + result.getTotalElements());
+        log.info(" gTP 전체 페이지 수 : " + result.getTotalPages());
+        log.info(" gC 페이징 된 내용 : " + result.getContent());
+        log.info(" gN 페이징 된 번호 : " + result.getNumber());
+        log.info(" gS 크기 : " + result.getSize());
+        log.info(" hN 다음? : " + result.hasNext());
+        log.info(" hP 이전? : " + result.hasPrevious());
+
+    }
 }

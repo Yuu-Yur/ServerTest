@@ -1,0 +1,40 @@
+Controller 는 그대로
+
+Service
+
+View 는 html 을 사용하고 thymeleaf 를 사용해 layout 가능 , html 내에서 간단한 java 문법 사용 가능
+layout:fragment
+th:text 출력
+th:each 반복문
+th:if
+삼항연산자 사용 가능
+태그 안에서 사용하거나 태그 밖에서 [[ ]] 안에 el 표기법으로 사용
+위치도 a 링크도 th 를 사용해서 지정 가능
+html 태그에 th: , layout: 설정 필요 base 외에 상속되는 html 파일엔 추가로 base 위치 지정 필요
+
+DTO
+
+DAO myBatis Mapper 이용해서 구현하는 방식에서 repository 로 변경
+    1. Query method 를 사용한 기본적인 crud 사용 가능 JpaRepository<> 상속
+    이것을 implement 하여 사용 하는 것이 쿼리 스트링
+    sql 이 내장되어 있는 method name 사용
+    2. @Query 사용
+    annotation 뒤에 직접 sql 작성
+    3. querydsl 사용 JPQL
+    Querydsl 을 이용하여 QBoard 자동 생성, 더 복잡한 sql 문을 동적으로 작업 가능
+    검색 기능 DAO 구현
+    search 패키지에 BoardSearch , ~Impl 생성
+    Repository 가 BoardSearch 상속
+
+
+VO Entity 클래스를 이용하여 직접 DB 에 간섭 가능 Board 이름은 DB 의 table 이름이 됨
+   Board 의 field 들은 column name 이 됨
+   즉 VO 가 각각의 table 로 취급할 수 있음
+   BaseEntity 를 이용하여 각각의 table 에 공통으로 들어가는 column 을 설정 가능
+   이것을 각각의 table 들이 상속받아 사용 , 이를 위해 BaseEntity 는 abstract class
+   @MappedSuperclass
+   @EntityListeners(AuditingEntityListener.class)
+   라는 annotation 필요
+   마지막으로 실행 class , 처음 시작되는 곳에서
+   @EnableJpaAuditing jpaAuditing 이 가능하게
+   annotation 지정 필요
