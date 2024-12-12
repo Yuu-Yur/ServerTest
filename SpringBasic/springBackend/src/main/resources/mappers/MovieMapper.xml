@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.busanit501.springbackend.mapper.MovieMapper">
+    <select id="selectPageNow" resultType="com.busanit501.springbackend.domain.MovieVO">
+        select * from movie where not redate > now() order by mid desc limit #{skip} , #{size}
+    </select>
+
+    <select id="selectPageFuture" resultType="com.busanit501.springbackend.domain.MovieVO">
+        select * from movie where redate > now() order by mid desc limit #{skip} , #{size}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(mid) from movie
+    </select>
+
+    <select id="selectById" resultType="com.busanit501.springbackend.domain.MovieVO">
+        select * from movie where mid = #{mid}
+    </select>
+
+    <update id="update">
+        update movie set title = #{title} , reservation = #{reservation} , redate = #{redate} where mid = #{mid}
+    </update>
+
+    <delete id="deleteById">
+        delete from movie where mid = #{mid}
+    </delete>
+</mapper>

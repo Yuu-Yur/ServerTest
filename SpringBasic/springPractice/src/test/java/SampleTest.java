@@ -1,6 +1,5 @@
 import com.busanit501.practice.sample.SampleService;
 import lombok.extern.log4j.Log4j2;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

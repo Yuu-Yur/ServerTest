@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+<!--    의존성 : 다른 객체의 필드나 메서드를 호출,사용하는것을 의존하다고 하고 이것이 가능한 것을 의존성을 가진다고 한다-->
+<!--    즉 다른 객체의 필드나 메서드를 호출 할 수 있게 해주는것을 의존성 주입(Dependency Injection)이라고 한다.-->
+<!--    ApplicationContext (서버 프로그램의 servletContext 와 비슷한 구조) 누구나, 공유, 전역-->
+<!--    root-context 에서  SampleService 를 등록해서 어디서든 불러올 수 있음 = 의존성 주입 가능 상태-->
+
+<!--     주입방식-->
+<!--     1) 필드 주입, 2) 생성자 주입 3) 메서드 주입-->
+
+
+
+<!--    <bean class="com.busanit501.practice.sample.SampleDAO"></bean>-->
+<!--    <bean class="com.busanit501.practice.sample.SampleService"></bean>-->
+
+<!--    프로젝트의 전체적인 설정-->
+    <context:component-scan base-package="com.busanit501.springbackend"/>
+
+<!--    hikariConfig 설정, HikariConfig hikariConfig = new HikariConfig(); 이후 설정과 같음-->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/webdb"/>
+        <property name="username" value="webuser"/>
+        <property name="password" value="webuser"/>
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="prepStmtCacheSize">250</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+<!--    hikariConfig 설정-->
+
+<!--    MyBatis 기능 설정-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/> <!-- 위의 히카리 컨픽의 설정을 의존하는 dataSource를 의존함-->
+        <property name="mapperLocations" value="classpath:/mappers/**/*.xml"/> <!-- /** : 하위의 어떠한 경로 , /*.xml 모든 xml 파일 -->
+    </bean>
+
+<!--    mapper 이용하는 방법은 두가지
+    1. method 에서 annotation sql을 등록해서 사용, 시스템에 등록해주어야함
+    2. 파일을 만들고 파일을 등록-->
+    <mybatis:scan base-package="com.busanit501.springbackend.mapper"/>
+<!--    MyBatis 기능 설정-->
+<!--    modelMapper 등록-->
+    <context:component-scan base-package="com.busanit501.springbackend.config"/>
+<!--    service 등록-->
+    <context:component-scan base-package="com.busanit501.springbackend.service"/>
+
+</beans>
