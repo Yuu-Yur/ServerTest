@@ -18,21 +18,21 @@ public class FoodSearchImpl extends QuerydslRepositorySupport implements FoodSea
     }
 
     @Override
-    public Page<FoodBoard> search(String[] types, String keyword, int price, Pageable pageable) {
+    public Page<FoodBoard> search(String[] types, String keyword, Pageable pageable) {
         QFoodBoard foodBoard = QFoodBoard.foodBoard;
         JPQLQuery<FoodBoard> query = from(foodBoard);
         if (types != null && types.length > 0 && keyword != null) {
             BooleanBuilder booleanBuilder = new BooleanBuilder();
             for (String type : types) {
                 switch (type) {
-                    case "name":
+                    case "n":
                         booleanBuilder.or(foodBoard.name.contains(keyword));
                         break;
-                    case "shop":
+                    case "s":
                         booleanBuilder.or(foodBoard.shop.contains(keyword));
                         break;
-                    case "price":
-                        booleanBuilder.or(foodBoard.price.lt(price));
+                    case "p":
+                        booleanBuilder.or(foodBoard.price.lt(Integer.parseInt(keyword)));
                         break;
                 }
             }

@@ -48,9 +48,8 @@ public class FoodServiceImpl implements FoodService {
     public PageResponseDTO<FoodDTO> getPage(PageRequestDTO pageRequestDTO) {
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
-        int price = pageRequestDTO.getPrice();
         Pageable pageable = pageRequestDTO.getPageable();
-        Page<FoodBoard> result = foodRepository.search(types, keyword, price, pageable);
+        Page<FoodBoard> result = foodRepository.search(types, keyword, pageable);
         List<FoodDTO> dtoList = result.getContent()//List FB
                 .stream()// Stream FB  
                 // stream.map  stream 내의 요소들에 특정 함수 적용

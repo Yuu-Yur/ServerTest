@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface FoodSearch {
-    Page<FoodBoard> search(String[] types, String keyword, int price, Pageable pageable);
+    Page<FoodBoard> search(String[] types, String keyword, Pageable pageable);
 }

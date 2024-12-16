@@ -30,14 +30,15 @@ public class PageResponseDTO<E> {
         this.end = (int)Math.ceil((double) page /pageSize)*pageSize;
         this.end = Math.min(end, last);
         this.start = end - pageSize + 1;
-        this.next = last > end; //즉 last 가 end 보다 크면
-        this.prev = start > 1; // start 이전에 최소한 1이라도 있으므로
 
         // 위는 1~pageSize 고정의 경우
         // 현재 페이지를 기준으로 위아래로 3~4개정도를 표시하려면?
         this.end = page + 3;
         this.end = Math.min(end, last);
         this.start = page - 3;
-        this.start = Math.min(start, 1);
+        this.start = Math.max(start, 1);
+
+        this.next = last > end; //즉 last 가 end 보다 크면
+        this.prev = start > 1; // start 이전에 최소한 1이라도 있으므로
     }
 }

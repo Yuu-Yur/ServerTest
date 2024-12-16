@@ -29,6 +29,6 @@ abstract class BaseEntity {
 
     // 마지막으로 변경된 시간 annotation
     @LastModifiedDate
-    @Column(name = "modDate", updatable = false)
+    @Column(name = "modDate", updatable = true)
     private Date modDate;
 }

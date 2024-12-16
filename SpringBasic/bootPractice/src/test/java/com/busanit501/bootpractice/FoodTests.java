@@ -40,7 +40,7 @@ public class FoodTests {
         String keyword = "10";
         int price = 25;
         Pageable pageable = PageRequest.of(0, 10, Sort.by("fno").descending());
-        Page<FoodBoard> result = foodRepository.search(types,keyword,price,pageable);
+        Page<FoodBoard> result = foodRepository.search(types,keyword,pageable);
         log.info(result.getContent());
     }
 }

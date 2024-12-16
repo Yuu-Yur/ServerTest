@@ -6,6 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.net.URLEncoder;
+
 @Data
 @ToString
 @Builder
@@ -18,7 +20,7 @@ public class PageRequestDTO {
     private int size = 10;
     private String type;
     private String keyword;
-    private int price;
+    private String link;
 
     public String[] getTypes() {
         if (type == null || type.isEmpty()) {
@@ -32,5 +34,26 @@ public class PageRequestDTO {
         Pageable pageable = PageRequest.of(this.page - 1, this.size
         , Sort.by(props).descending());
         return pageable;
+    }
+
+    public String getLink(){
+        if (link == null || link.isEmpty()) {
+            StringBuilder builder = new StringBuilder();
+            // 페이징 정보 page , size
+            builder.append("page=").append(this.page).append("&size=").append(this.size);
+            if (type != null && !type.isEmpty()) {
+                // 검색 정보 type
+                builder.append("&type=").append(type);
+            }
+            if (keyword != null && !keyword.isEmpty()) {
+                try {
+                    builder.append("&keyword=").append(URLEncoder.encode(keyword));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            link = builder.toString();
+        }
+        return link;
     }
 }
