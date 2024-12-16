@@ -22,6 +22,7 @@ public class PageResponseDTO<E> {
     private boolean prev; // 이전 페이지 있으면 true
     private boolean next; // 이후 페이지 있으면 true
     private List<E> dtoList; // 현재 페이지에 보여줄 행들
+    private int total;
 
     private TodoMapper todoMapper;
 
@@ -30,10 +31,14 @@ public class PageResponseDTO<E> {
         this.page = pageRequestDTO.getPage();
         this.size = pageRequestDTO.getSize();
         this.pageSize = pageRequestDTO.getPageSize();
+        this.skip = pageRequestDTO.getSkip();
+        this.total = total;
         this.dtoList = dtoList;
-        this.last = (int)Math.ceil(total/this.size);
-        this.end = (int)Math.ceil(this.page/this.pageSize)*this.pageSize;
-        this.end = this.end > this.last ? this.last : this.end;
+        this.last = (int)Math.ceil((double) total /size);
+        this.end = (int)Math.ceil((double) page /pageSize)*this.pageSize;
+        // 결국 end 와 last 중 작은 쪽이 end 가 되는것이므로
+        // Math.min(end,last); 도 됨
+        this.end = end > last ? last : end;
         this.start = this.end-this.pageSize+1;
         this.prev = this.start > 1;
         this.next = total > this.end*this.size;

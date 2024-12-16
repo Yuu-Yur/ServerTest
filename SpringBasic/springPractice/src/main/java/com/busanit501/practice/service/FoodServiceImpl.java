@@ -52,7 +52,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public PageResponseDTO<FoodDTO> getListWithPage(PageRequestDTO pageRequestDTO) {
-        // 왜 여기 굳이 pageDTO 가 parameter ?
+        // responseDTO 에 넣어야 하는 것 3가지 pageRequestDTO , count 총 갯수, 페이징 된 DTO List
         int total = foodMapper.selectCount(pageRequestDTO);
         List<FoodDTO> foodDTOList = foodMapper.selectByPage(pageRequestDTO).stream()
                 .map(vo -> modelMapper.map(vo, FoodDTO.class))

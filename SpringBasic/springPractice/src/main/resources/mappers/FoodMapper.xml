@@ -8,31 +8,31 @@
     <!--연결할 mapper interfaceName 이랑 resources mapper xmlName 맞추기-->
     <!--xml id 와 interface method 이름이 동일한지 확인-->
     <insert id="insert">
-        insert into tbl_food (title, price, counter)
+        insert into food (title, price, counter)
         values (#{title}, #{price}, #{counter})
     </insert>
                                     <!--객체 지정 가능-->
     <select id="selectAll" resultType="com.busanit501.practice.controller.dto.FoodVO">
-        select * from tbl_food order by fno desc
+        select * from food order by fno desc
     </select>
 
     <delete id="delete">
-        delete from tbl_food where fno = #{fno}
+        delete from food where fno = #{fno}
     </delete>
 
     <select id="selectByFno" resultType="com.busanit501.practice.controller.dto.FoodVO">
-        select * from tbl_food where fno = #{fno}
+        select * from food where fno = #{fno}
     </select>
 
     <update id="update">
-        update tbl_food set title = #{title}, price = #{price}, counter = #{counter} where fno = #{fno}
+        update food set title = #{title}, price = #{price}, counter = #{counter} where fno = #{fno}
     </update>
 
     <select id="selectByPage" resultType="com.busanit501.practice.controller.dto.FoodVO">
-        select * from tbl_food order by fno desc limit #{skip}, #{size}
+        select * from food order by fno desc limit #{skip}, #{size}
     </select>
 
     <select id="selectCount" resultType="int">
-        select count(fno) from tbl_food
+        select count(fno) from food
     </select>
 </mapper>

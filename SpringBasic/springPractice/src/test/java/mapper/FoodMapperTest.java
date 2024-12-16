@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Log4j2
 @ExtendWith(SpringExtension.class) //JUnit5 테스트 설정
@@ -51,18 +52,27 @@ public class FoodMapperTest {
     }
 
     @Test
+    public void testAddFood() {
+        IntStream.range(1,100).forEach(i -> {
+            foodMapper.insert(
+                    FoodVO.builder()
+                            .title("샘플" + i)
+                            .price(i)
+                            .build()
+            );
+        });
+    }
+
+    @Test
     public void testLoadPage() {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(2)
-                .size(2)
-                .pageSize(2)
+                .size(10)
+                .pageSize(10)
                 .build();
+        log.info(pageRequestDTO.getSkip());
         log.info(foodMapper.selectByPage(pageRequestDTO));
-        PageResponseDTO<FoodDTO> pDTO = PageResponseDTO.<FoodDTO>response()
-                .pageRequestDTO(pageRequestDTO)
-                .total(300)
-                .build();
-        log.info(pDTO);
+
     }
 
     @Test

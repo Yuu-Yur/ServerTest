@@ -42,9 +42,9 @@ public class FoodServiceTest {
     @Test
     public void pageTest() {
         PageRequestDTO pDTO = PageRequestDTO.builder()
-                .page(2)
-                .size(2)
-                .pageSize(2)
+                .page(19)
+                .size(5)
+                .pageSize(10)
                 .build();
         log.info(pDTO);
         PageResponseDTO<FoodDTO> pageResponseDTO = foodService.getListWithPage(pDTO);
