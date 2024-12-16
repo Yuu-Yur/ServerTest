@@ -32,7 +32,7 @@ public class FoodSearchImpl extends QuerydslRepositorySupport implements FoodSea
                         booleanBuilder.or(foodBoard.shop.contains(keyword));
                         break;
                     case "price":
-                        booleanBuilder.or(foodBoard.price.gt(price));
+                        booleanBuilder.or(foodBoard.price.lt(price));
                         break;
                 }
             }
