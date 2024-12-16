@@ -4,27 +4,54 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.busanit501.springbackend.mapper.MovieMapper">
-    <select id="selectPageNow" resultType="com.busanit501.springbackend.domain.MovieVO">
-        select * from movie where not redate > now() order by mid desc limit #{skip} , #{size}
-    </select>
-
-    <select id="selectPageFuture" resultType="com.busanit501.springbackend.domain.MovieVO">
-        select * from movie where redate > now() order by mid desc limit #{skip} , #{size}
+    <select id="selectPage" resultType="com.busanit501.springbackend.domain.MovieVO">
+        select * from movie <include refid="search"/> order by mid desc limit #{skip} , #{size}
     </select>
 
     <select id="count" resultType="int">
-        select count(mid) from movie
+        select count(mid) from movie <include refid="search"/>
     </select>
 
     <select id="selectById" resultType="com.busanit501.springbackend.domain.MovieVO">
         select * from movie where mid = #{mid}
     </select>
 
+    <insert id="insert">
+        insert into movie (title , reservation , releasedate) values (#{title} , #{reservation}, #{releaseDate})
+    </insert>
+
     <update id="update">
-        update movie set title = #{title} , reservation = #{reservation} , redate = #{redate} where mid = #{mid}
+        update movie set title = #{title} , reservation = #{reservation} , releasedate = #{releaseDate} where mid = #{mid}
     </update>
 
     <delete id="deleteById">
         delete from movie where mid = #{mid}
     </delete>
+
+    <sql id="search">
+        <where>
+            <if test="types != null and types.length >0">
+                <foreach item="type" collection="types"
+                         open="(" close=")" separator="OR">
+                    <if test="type == 't'.toString()">
+                        title like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+
+            <trim prefix="and">
+            <if test="released">
+                not
+            </if>
+            releasedate &gt; now()
+            </trim>
+
+            <if test="from != null and to != null">
+                <trim prefix="and">
+                    releasedate between #{from} and #{to}
+                </trim>
+            </if>
+
+        </where>
+    </sql>
 </mapper>

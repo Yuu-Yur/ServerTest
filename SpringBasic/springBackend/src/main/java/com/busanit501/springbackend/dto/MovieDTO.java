@@ -13,5 +13,5 @@ public class MovieDTO {
     private Long mid;
     private String title;
     private int reservation;
-    private LocalDate redate;
+    private LocalDate releaseDate;
 }

@@ -31,6 +31,7 @@ public class PageResponseDTO<E> {
         this.end = (int)Math.ceil((double) page /pageSize)*pageSize;
         this.end = Math.min(end, last);
         this.start = end-pageSize+1;
+        this.start = Math.max(start, 1);
         this.prev = start > 1;
         this.next = total > end*size;
     }

@@ -13,5 +13,5 @@ public class MovieVO {
     private Long mid;
     private String title;
     private int reservation;
-    private LocalDate redate;
+    private LocalDate releaseDate;
 }

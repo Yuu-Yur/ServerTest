@@ -28,7 +28,7 @@
         <property name="formatters">
             <set>
 <!--                만든 Formatter class 지정-->
-<!--                <bean class="com.busanit501.practice.controller.formatter.LocalDateFormatter"/>-->
+                <bean class="com.busanit501.springbackend.formatter.LocalDateFormatter"/>
 <!--                <bean class="com.busanit501.practice.controller.formatter.CheckboxFormatter"/>-->
             </set>
         </property>

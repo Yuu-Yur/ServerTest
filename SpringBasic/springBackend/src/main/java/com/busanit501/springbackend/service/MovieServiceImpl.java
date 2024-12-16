@@ -21,30 +21,15 @@ public class MovieServiceImpl implements MovieService{
     private final ModelMapper modelMapper;
 
     @Override
-    public PageResponseDTO<MovieDTO> getListNowPast(PageRequestDTO pageRequestDTO) {
-        log.info("pageRequestDTO: " + pageRequestDTO);
+    public PageResponseDTO<MovieDTO> getList(PageRequestDTO pageRequestDTO) {
         int total = movieMapper.count(pageRequestDTO);
-        log.info("total : " + total);
-        List<MovieDTO> dtoList = movieMapper.selectPageNow(pageRequestDTO).stream().map(vo -> modelMapper.map(vo,MovieDTO.class)).collect(Collectors.toList());
-        log.info("dtoList : " + dtoList);
+        List<MovieDTO> dtoList = movieMapper.selectPage(pageRequestDTO).stream().map(vo -> modelMapper.map(vo,MovieDTO.class)).collect(Collectors.toList());
         PageResponseDTO<MovieDTO> result = PageResponseDTO.<MovieDTO>response()
                 .dtoList(dtoList)
                 .total(total)
                 .pageRequestDTO(pageRequestDTO)
                 .build();
-        log.info("result : " + result);
          return result;
-    }
-
-    @Override
-    public PageResponseDTO<MovieDTO> getListFuture(PageRequestDTO pageRequestDTO) {
-        List<MovieDTO> dtoList = movieMapper.selectPageFuture(pageRequestDTO).stream().map(vo -> modelMapper.map(vo,MovieDTO.class)).collect(Collectors.toList());
-        int total = movieMapper.count(pageRequestDTO);
-        return PageResponseDTO.<MovieDTO>response()
-                .dtoList(dtoList)
-                .total(total)
-                .pageRequestDTO(pageRequestDTO)
-                .build();
     }
 
     @Override

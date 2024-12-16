@@ -5,9 +5,7 @@ import com.busanit501.springbackend.dto.PageRequestDTO;
 import com.busanit501.springbackend.dto.PageResponseDTO;
 
 public interface MovieService {
-    PageResponseDTO<MovieDTO> getListNowPast(PageRequestDTO requestDTO);
-
-    PageResponseDTO<MovieDTO> getListFuture(PageRequestDTO requestDTO);
+    PageResponseDTO<MovieDTO> getList(PageRequestDTO requestDTO);
 
     MovieDTO getOne(Long mid);
 

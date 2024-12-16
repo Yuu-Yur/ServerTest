@@ -19,7 +19,16 @@ public class MovieServiceTest {
 
     @Test
     public void testNow() {
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).build();
-        PageResponseDTO<MovieDTO> result = movieService.getListNowPast(pageRequestDTO);
+        PageRequestDTO pageRequestDTO = PageRequestDTO
+                .builder()
+                .page(1)
+                .size(8)
+                .pageSize(5)
+                .released(false)
+                .types(new String[]{"t"})
+                .keyword("50")
+                .build();
+        PageResponseDTO<MovieDTO> result = movieService.getList(pageRequestDTO);
+        log.info(result);
     }
 }

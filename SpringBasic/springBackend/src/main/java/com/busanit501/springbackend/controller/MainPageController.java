@@ -24,23 +24,19 @@ public class MainPageController {
     private final MovieService movieService;
 
     @GetMapping("/main")
-    public String mainPage(@Valid PageRequestDTO pageRequestDTO,
+    public String main(@Valid PageRequestDTO pageRequestDTO,
                      BindingResult bindingResult,
                      RedirectAttributes redirectAttributes,
                      Model model) {
-        log.info(pageRequestDTO);
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/movie/mainPage";
+            return "redirect:/movie/main";
         }
-        log.info(pageRequestDTO);
-        PageResponseDTO<MovieDTO> pageResponseDTOFuture = movieService.getListFuture(pageRequestDTO);
-        PageResponseDTO<MovieDTO> pageResponseDTONow = movieService.getListNowPast(pageRequestDTO);
-        model.addAttribute("pageResponseDTOF", pageResponseDTOFuture);
-        model.addAttribute("pageResponseDTON", pageResponseDTONow);
+        PageResponseDTO<MovieDTO> pageResponseDTO = movieService.getList(pageRequestDTO);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("pageSize", pageRequestDTO.getPageSize());
-        return "/movie/mainPage";
+        return "/movie/main";
     }
 
     @RequestMapping("/read")
@@ -48,23 +44,16 @@ public class MainPageController {
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes,
                        Model model) {
-        log.info("TodoController read :");
         if (bindingResult.hasErrors()) {
-            log.info("has errors : 유효성 에러가 발생함.");
-            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             redirectAttributes.addAttribute("mid", mid);
             return "redirect:/movie/read";
         }
         MovieDTO movieDTO = movieService.getOne(mid);
-        log.info("TodoController read 데이터 유무 확인 :" + movieDTO);
-        log.info("TodoController read 데이터 유무 확인 pageRequestDTO :" + pageRequestDTO);
-        //데이터 탑재. 서버 -> 웹
         model.addAttribute("movieDTO", movieDTO);
         redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
         return "/movie/read";
-
     }
 
     @GetMapping("/update")
