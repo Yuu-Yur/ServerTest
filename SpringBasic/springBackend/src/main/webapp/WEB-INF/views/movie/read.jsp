@@ -12,23 +12,13 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <!--        class="row content"-->
         <div class="row content">
-            <!--        col-->
             <div class="col">
-                <!--        카드 시작 부분-->
                 <div class="card">
                     <div class="card-header">
-                        Featured
+                        영화 상세페이지
                     </div>
                     <div class="card-body">
-                        <%--                        Todo 입력 폼 여기에 작성--%>
-<%--                        <form action="/todo/register" method="post">--%>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Mid</span>
-                                <input type="text" name="mid" class="form-control" readonly
-                                       value=<c:out value="${movieDTO.mid}"></c:out> >
-                            </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Title</span>
                                 <input type="text" name="title" class="form-control" readonly
@@ -52,20 +42,12 @@
                                     <button type="button" class="btn btn-secondary">목록가기</button>
                                 </div>
                             </div>
-<%--                        </form>--%>
-                        <%--                        Todo 입력 폼 여기에 작성--%>
-
                     </div>
                 </div>
-                <!--        카드 끝 부분-->
             </div>
-            <!--        col-->
         </div>
-        <!--        class="row content"-->
     </div>
-<%--    <div class="row content">--%>
-<%--        <h1>Content</h1>--%>
-<%--    </div>--%>
+
     <div class="row footer">
         <!--        <h1>Footer</h1>-->
         <div class="row fixed-bottom" style="z-index: -100">
@@ -75,27 +57,19 @@
         </div>
     </div>
 </div>
-<%--입력 폼에 관련 유효성 체크, 서버로부터  erros 키로 값을 받아오면, --%>
-<%--자바스크립 콘솔에 임시 출력.--%>
 <script>
     const serverValidResult = {    };
-    // jstl , 반복문으로, 서버로부터 넘어온 여러 에러 종류가 많습니다.
-    //     하나씩 꺼내서, 출력하는 용도.,
     <c:forEach items="${errors}" var="error">
     serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
     </c:forEach>
     console.log(serverValidResult)
 </script>
 
-<%--목록가기 및 수정폼 가기 이벤트 리스너--%>
 <script>
-    // 수정폼
     document.querySelector(".btn-primary").addEventListener("click",
     function (e){
-        // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
         self.location = `/movie/update?mid=${movieDTO.mid}&${pageRequestDTO.link}`
     ,false})
-    // 목록
     document.querySelector(".btn-secondary").addEventListener("click",
         function (e){
             self.location = "/movie/main?${pageRequestDTO.link}"

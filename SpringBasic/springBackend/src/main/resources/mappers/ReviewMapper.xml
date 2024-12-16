@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.busanit501.springbackend.mapper.ReviewMapper">
+    <insert id="insert">
+        insert into review (username,content,title)
+        values (#{userName},#{content},#{title})
+    </insert>
+
+    <update id="update">
+        update review
+        set username = #{userName} , title = #{title} , content = #{content}
+        where rid = #{rid}
+    </update>
+
+    <delete id="delete">
+        delete
+        from review
+        where rid = #{rid}
+    </delete>
+
+    <select id="select" resultType="com.busanit501.springbackend.domain.ReviewVO">
+        select *
+        from review
+        <include refid="search"/>
+        order by rid desc
+        limit #{skip}, #{size}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(rid)
+        from review
+        where <include refid="search"/>
+    </select>
+
+    <sql id="search">
+        <where>
+            <if test="types != null and types.length >0">
+                <foreach item="type" collection="types"
+                         open="(" close=")" separator="OR">
+                    <if test="type == 'u'.toString()">
+                        title like concat('%',#{keyword},'%')
+                    </if>
+                    <if test="type == 'c'.toString()">
+                        title like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+        </where>
+    </sql>
+</mapper>

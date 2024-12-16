@@ -76,13 +76,4 @@ public class PageRequestDTO {
         }
         return builder.toString();
     }
-
-    public boolean checkType(String type) {
-        // types 가 없지 않고
-        if (types == null || types.length == 0) {
-            return false;
-        }
-        // 들어온 type 이 types 안에 있는것과 같다면 (있다면) true
-        return Arrays.stream(types).anyMatch(type::equals);
-    }
 }
