@@ -9,5 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PrRestController {
 
     @GetMapping("/rest")
-    public String hello() {return "yet";}
+    public String[] hello() {
+        return new String[]{"aaa","bbb","ccc"};
+    }
 }

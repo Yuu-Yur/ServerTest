@@ -41,3 +41,7 @@ VO Entity 클래스를 이용하여 직접 DB 에 간섭 가능 Board 이름은 
 
 작업하는 공간 templates 에서 css 를 참조할 때 th : href ${} 로 지정하면 static 을 참조할 수 있음
 레이아웃을 저장해 두는 static 에서 css 를 참조할 때 href : 로 직접 지정 단순 확인용으로 잘 사용하지 않음
+
+get 으로 보내면 그냥 querystring 으로 pageRequestDTO 으로 자동 수집, 내보내기 , 이 안에서 keyword 에 대해 encoding 있음
+post 일 시 따로 PostMapping 에서 받아야 함 pageRequestDTO 를 거치지 않으므로 따로 encoding 필요
+그런데 그냥 form 에서 변수 통일시켜서 보내면 pageRequestDTO 에 있는 필드들은 자동으로 수집이 안되나?

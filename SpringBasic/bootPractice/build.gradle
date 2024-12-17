@@ -63,6 +63,12 @@ dependencies {
     //5 validation
     // 서버단에서 들어오는 데이터 유효성 검증 도구
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.4.0'
+
+    //6 swagger UI
+    // Restful 할때 화면을 그려주는 라이브러리
+    // Spring boot 에 특화됨,spring 의 annotation 을 탐지
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
+
 }
 
 tasks.named('test') {
