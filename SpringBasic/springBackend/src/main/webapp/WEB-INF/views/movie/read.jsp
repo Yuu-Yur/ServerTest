@@ -19,29 +19,33 @@
                         영화 상세페이지
                     </div>
                     <div class="card-body">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Title</span>
-                                <input type="text" name="title" class="form-control" readonly
-                                       value='<c:out value="${movieDTO.title}"></c:out>'>
-                            </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Title</span>
+                            <input type="text" name="title" class="form-control" readonly
+                                   value='<c:out value="${movieDTO.title}"></c:out>'>
+                        </div>
 
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Reservation</span>
-                                <input type="text" name="reservation" class="form-control" readonly
-                                       value=<c:out value="${movieDTO.reservation}%"></c:out>>
-                            </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Reservation</span>
+                            <input type="text" name="reservation" class="form-control" readonly
+                                   value=<c:out value="${movieDTO.reservation}%"></c:out>>
+                        </div>
 
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">ReleaseDate</span>
-                                <input type="date" name="releaseDate" class="form-control" readonly
-                                       value=<c:out value="${movieDTO.releaseDate}"></c:out>>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">ReleaseDate</span>
+                            <input type="date" name="releaseDate" class="form-control" readonly
+                                   value=<c:out value="${movieDTO.releaseDate}"></c:out>>
+                        </div>
+                        <ul class="list-group">
+                            <c:forEach var="dto" items="${pageResponseDTO.dtoList}">
+                            <li class="list-group-item">${dto.userName}  ${dto.content}</li>
+                            </c:forEach>
+                        </ul>
+                        <div class="my-4">
+                            <div class="float-end">
+                                <button type="button" class="btn btn-secondary">목록가기</button>
                             </div>
-                            <div class="my-4">
-                                <div class="float-end">
-                                    <button type="button" class="btn btn-primary">수정하기</button>
-                                    <button type="button" class="btn btn-secondary">목록가기</button>
-                                </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,7 +62,7 @@
     </div>
 </div>
 <script>
-    const serverValidResult = {    };
+    const serverValidResult = {};
     <c:forEach items="${errors}" var="error">
     serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
     </c:forEach>
@@ -67,13 +71,15 @@
 
 <script>
     document.querySelector(".btn-primary").addEventListener("click",
-    function (e){
-        self.location = `/movie/update?mid=${movieDTO.mid}&${pageRequestDTO.link}`
-    ,false})
+        function (e) {
+            self.location = `/movie/update?mid=${movieDTO.mid}&${pageRequestDTO.link}`
+                , false
+        })
     document.querySelector(".btn-secondary").addEventListener("click",
-        function (e){
+        function (e) {
             self.location = "/movie/main?${pageRequestDTO.link}"
-                ,false})
+                , false
+        })
 </script>
 
 

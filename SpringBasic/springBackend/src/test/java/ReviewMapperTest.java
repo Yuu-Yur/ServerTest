@@ -1,3 +1,4 @@
+import com.busanit501.springbackend.domain.MovieVO;
 import com.busanit501.springbackend.domain.ReviewVO;
 import com.busanit501.springbackend.dto.PageRequestDTO;
 import com.busanit501.springbackend.mapper.ReviewMapper;
@@ -51,7 +52,9 @@ public class ReviewMapperTest {
                 .size(10)
                 .types(new String[]{"c"})
                 .keyword("5")
-                .build());
+                .build()
+                , MovieVO.builder().title("The Future Begins").build()
+        );
         log.info(result);
     }
 
@@ -64,7 +67,7 @@ public class ReviewMapperTest {
                 .keyword("5")
                 .build();
         log.info(prdto);
-        List<ReviewVO> result = reviewMapper.select(prdto);
+        List<ReviewVO> result = reviewMapper.select(prdto, MovieVO.builder().title("The Future Begins").build());
         if (result.size() == 0) {log.info("List 없음 , mapper 문제");}
         log.info(result);
     }

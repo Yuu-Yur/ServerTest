@@ -48,6 +48,9 @@
                     </if>
                 </foreach>
             </if>
+            <trim prefix="and">
+                title = #{title}
+            </trim>
         </where>
     </sql>
 </mapper>

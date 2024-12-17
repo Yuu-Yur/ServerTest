@@ -1,3 +1,4 @@
+import com.busanit501.springbackend.dto.MovieDTO;
 import com.busanit501.springbackend.dto.PageRequestDTO;
 import com.busanit501.springbackend.dto.PageResponseDTO;
 import com.busanit501.springbackend.dto.ReviewDTO;
@@ -51,6 +52,7 @@ public class ReviewServiceTest {
                 .types(new String[]{"u"})
                 .keyword("vic")
                 .build()
+                , MovieDTO.builder().title("Frostbite").build()
         );
         log.info(result);
     }

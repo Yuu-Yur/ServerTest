@@ -3,7 +3,9 @@ package com.busanit501.springbackend.controller;
 import com.busanit501.springbackend.dto.MovieDTO;
 import com.busanit501.springbackend.dto.PageRequestDTO;
 import com.busanit501.springbackend.dto.PageResponseDTO;
+import com.busanit501.springbackend.dto.ReviewDTO;
 import com.busanit501.springbackend.service.MovieService;
+import com.busanit501.springbackend.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import javax.validation.Valid;
 @RequestMapping("/movie")
 public class MainPageController {
     private final MovieService movieService;
+    private final ReviewService reviewService;
 
     @GetMapping("/main")
     public String main(@Valid PageRequestDTO pageRequestDTO,
@@ -39,7 +42,7 @@ public class MainPageController {
         return "/movie/main";
     }
 
-    @RequestMapping("/read")
+    @GetMapping("/read")
     public String read(Long mid, @Valid PageRequestDTO pageRequestDTO,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes,
@@ -50,7 +53,9 @@ public class MainPageController {
             return "redirect:/movie/read";
         }
         MovieDTO movieDTO = movieService.getOne(mid);
+        PageResponseDTO<ReviewDTO> pageResponseDTO = reviewService.getPage(pageRequestDTO, movieDTO);
         model.addAttribute("movieDTO", movieDTO);
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
         redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
         return "/movie/read";
