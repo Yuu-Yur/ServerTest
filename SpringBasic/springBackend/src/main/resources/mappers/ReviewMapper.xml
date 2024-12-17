@@ -24,33 +24,7 @@
     <select id="select" resultType="com.busanit501.springbackend.domain.ReviewVO">
         select *
         from review
-        <include refid="search"/>
+        where title = #{title}
         order by rid desc
-        limit #{page.skip}, #{page.size}
     </select>
-
-    <select id="count" resultType="int">
-        select count(rid)
-        from review
-        <include refid="search"/>
-    </select>
-
-    <sql id="search">
-        <where>
-            <if test="page.types != null and page.types.length >0">
-                <foreach item="type" collection="page.types"
-                         open="(" close=")" separator="OR">
-                    <if test="type == 'u'.toString()">
-                        username like concat('%',#{page.keyword},'%')
-                    </if>
-                    <if test="type == 'c'.toString()">
-                        content like concat('%',#{page.keyword},'%')
-                    </if>
-                </foreach>
-            </if>
-            <trim prefix="and">
-                title = #{title}
-            </trim>
-        </where>
-    </sql>
 </mapper>

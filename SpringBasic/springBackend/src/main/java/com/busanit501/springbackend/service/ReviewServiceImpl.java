@@ -1,8 +1,6 @@
 package com.busanit501.springbackend.service;
 
 import com.busanit501.springbackend.domain.ReviewVO;
-import com.busanit501.springbackend.dto.PageRequestDTO;
-import com.busanit501.springbackend.dto.PageResponseDTO;
 import com.busanit501.springbackend.dto.ReviewDTO;
 import com.busanit501.springbackend.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
@@ -36,16 +34,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public PageResponseDTO<ReviewDTO> getPage(PageRequestDTO pageRequestDTO , String title) {
-        int total = reviewMapper.count(pageRequestDTO, title);
-        List<ReviewDTO> dtoList = reviewMapper.select(pageRequestDTO, title)
+    public List<ReviewDTO> getReview(String title) {
+        List<ReviewDTO> dtoList = reviewMapper.select(title)
                 .stream()
                 .map(reviewVO -> modelMapper.map(reviewVO,ReviewDTO.class))
                 .collect(Collectors.toList());
-        return PageResponseDTO.<ReviewDTO>response()
-                .total(total)
-                .pageRequestDTO(pageRequestDTO)
-                .dtoList(dtoList)
-                .build();
+        return dtoList;
     }
 }

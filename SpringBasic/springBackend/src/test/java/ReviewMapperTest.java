@@ -1,5 +1,4 @@
 import com.busanit501.springbackend.domain.ReviewVO;
-import com.busanit501.springbackend.dto.PageRequestDTO;
 import com.busanit501.springbackend.mapper.ReviewMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -45,28 +44,8 @@ public class ReviewMapperTest {
     }
 
     @Test
-    public void test4() {
-        int result = reviewMapper.count(PageRequestDTO.builder()
-                .page(5)
-                .size(10)
-                .types(new String[]{"c"})
-                .keyword("5")
-                .build()
-                , "The Future Begins"
-        );
-        log.info(result);
-    }
-
-    @Test
     public void test5() {
-        PageRequestDTO prdto = PageRequestDTO.builder()
-                .page(1)
-                .size(10)
-                .types(new String[]{"u"})
-                .keyword("2")
-                .build();
-        log.info(prdto);
-        List<ReviewVO> result = reviewMapper.select(prdto, "영화 1");
+        List<ReviewVO> result = reviewMapper.select("영화 1");
         if (result.size() == 0) {log.info("List 없음");}
         log.info(result);
     }
