@@ -21,7 +21,7 @@ public class MovieServiceImpl implements MovieService{
     private final ModelMapper modelMapper;
 
     @Override
-    public PageResponseDTO<MovieDTO> getList(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<MovieDTO> getPage(PageRequestDTO pageRequestDTO) {
         int total = movieMapper.count(pageRequestDTO);
         List<MovieDTO> dtoList = movieMapper.selectPage(pageRequestDTO).stream().map(vo -> modelMapper.map(vo,MovieDTO.class)).collect(Collectors.toList());
         PageResponseDTO<MovieDTO> result = PageResponseDTO.<MovieDTO>response()
@@ -43,7 +43,8 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public void delete(Long mid) {
-        movieMapper.deleteById(mid);
-    }
+    public void delete(Long mid) { movieMapper.deleteById(mid); }
+
+    @Override
+    public void register(MovieDTO movieDTO) { movieMapper.insert(modelMapper.map(movieDTO, MovieVO.class)); }
 }
