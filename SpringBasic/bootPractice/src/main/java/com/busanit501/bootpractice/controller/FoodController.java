@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
 @Controller
@@ -20,10 +20,13 @@ public class FoodController {
     private final FoodService foodService;
 
     @GetMapping("/list")
-    public void list(Model model, PageRequestDTO pageRequestDTO) {
+    public String list(Model model, PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes) {
         // 일단 페이지로 가게해두고 /food/list
         // html 작업 후 돌아오기
         PageResponseDTO<FoodDTO> responseDTO = foodService.getPage(pageRequestDTO);
         model.addAttribute("responseDTO" , responseDTO);
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+        return "/food/list";
     }
 }

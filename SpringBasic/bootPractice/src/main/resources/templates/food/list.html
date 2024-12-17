@@ -5,21 +5,21 @@
       layout:decorate="~{layout/base.html}">
 <body>
 <div layout:fragment="content">
-    <form action="/food/list">
+    <form action="/food/list" method="get">
         <div class="input-group">
             <div class="input-group-prepend">
                 <div class="mb-3">
                     <select class="form-select" aria-label="Default select example" name="type">
-                        <option selected>음식 이름</option>
-                        <option value="n">음식</option>
-                        <option value="s">가게</option>
-                        <option value="ns">음식+가게</option>
-                        <option value="p">가격</option>
+                        <option value="n" th:selected="${pageRequestDTO.type == 'n'}">음식</option>
+                        <option value="s" th:selected="${pageRequestDTO.type == 's'}">가게</option>
+                        <option value="ns" th:selected="${pageRequestDTO.type == 'ns'}">음식+가게</option>
+                        <option value="p" th:selected="${pageRequestDTO.type == 'p'}">가격</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">keyword</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="keyword">
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="keyword"
+                    th:value="${pageRequestDTO.keyword}">
                 </div>
             </div>
         </div>
