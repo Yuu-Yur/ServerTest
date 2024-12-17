@@ -1,4 +1,3 @@
-import com.busanit501.springbackend.domain.MovieVO;
 import com.busanit501.springbackend.domain.ReviewVO;
 import com.busanit501.springbackend.dto.PageRequestDTO;
 import com.busanit501.springbackend.mapper.ReviewMapper;
@@ -33,16 +32,16 @@ public class ReviewMapperTest {
     @Test
     public void test2() {
         reviewMapper.update(ReviewVO.builder()
-                .rid(2L)
+                .rid(1L)
                 .userName("테스트2")
-                .title("Echoes of Time")
+                .title("영화 1")
                 .content("리뷰매퍼 수정 테스트중")
                 .build());
     }
 
     @Test
     public void test3() {
-        reviewMapper.delete(2L);
+        reviewMapper.delete(30L);
     }
 
     @Test
@@ -53,7 +52,7 @@ public class ReviewMapperTest {
                 .types(new String[]{"c"})
                 .keyword("5")
                 .build()
-                , MovieVO.builder().title("The Future Begins").build()
+                , "The Future Begins"
         );
         log.info(result);
     }
@@ -63,12 +62,12 @@ public class ReviewMapperTest {
         PageRequestDTO prdto = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
-                .types(new String[]{"c"})
-                .keyword("5")
+                .types(new String[]{"u"})
+                .keyword("2")
                 .build();
         log.info(prdto);
-        List<ReviewVO> result = reviewMapper.select(prdto, MovieVO.builder().title("The Future Begins").build());
-        if (result.size() == 0) {log.info("List 없음 , mapper 문제");}
+        List<ReviewVO> result = reviewMapper.select(prdto, "영화 1");
+        if (result.size() == 0) {log.info("List 없음");}
         log.info(result);
     }
 }

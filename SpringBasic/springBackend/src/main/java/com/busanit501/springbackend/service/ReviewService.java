@@ -12,5 +12,5 @@ public interface ReviewService {
     void register(ReviewDTO reviewDTO);
     void update(ReviewDTO reviewDTO);
     void delete(Long rid);
-    PageResponseDTO<ReviewDTO> getPage(PageRequestDTO pageRequestDTO, MovieDTO movieDTO);
+    PageResponseDTO<ReviewDTO> getPage(PageRequestDTO pageRequestDTO, String title);
 }

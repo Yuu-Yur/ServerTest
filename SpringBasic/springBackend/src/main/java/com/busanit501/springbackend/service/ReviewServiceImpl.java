@@ -1,8 +1,6 @@
 package com.busanit501.springbackend.service;
 
-import com.busanit501.springbackend.domain.MovieVO;
 import com.busanit501.springbackend.domain.ReviewVO;
-import com.busanit501.springbackend.dto.MovieDTO;
 import com.busanit501.springbackend.dto.PageRequestDTO;
 import com.busanit501.springbackend.dto.PageResponseDTO;
 import com.busanit501.springbackend.dto.ReviewDTO;
@@ -38,9 +36,9 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public PageResponseDTO<ReviewDTO> getPage(PageRequestDTO pageRequestDTO , MovieDTO movieDTO) {
-        int total = reviewMapper.count(pageRequestDTO, modelMapper.map(movieDTO, MovieVO.class));
-        List<ReviewDTO> dtoList = reviewMapper.select(pageRequestDTO, modelMapper.map(movieDTO, MovieVO.class))
+    public PageResponseDTO<ReviewDTO> getPage(PageRequestDTO pageRequestDTO , String title) {
+        int total = reviewMapper.count(pageRequestDTO, title);
+        List<ReviewDTO> dtoList = reviewMapper.select(pageRequestDTO, title)
                 .stream()
                 .map(reviewVO -> modelMapper.map(reviewVO,ReviewDTO.class))
                 .collect(Collectors.toList());

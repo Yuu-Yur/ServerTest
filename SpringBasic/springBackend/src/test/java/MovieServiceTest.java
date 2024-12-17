@@ -28,7 +28,7 @@ public class MovieServiceTest {
                 .pageSize(5)
                 .released(false)
                 .types(new String[]{"t"})
-                .keyword("50")
+                .keyword("ow")
                 .build();
         PageResponseDTO<MovieDTO> result = movieService.getPage(pageRequestDTO);
         log.info(result);
@@ -43,7 +43,7 @@ public class MovieServiceTest {
     @Test
     public void testUpdate() {
         movieService.update(MovieDTO.builder()
-                .mid(50L)
+                .mid(59L)
                 .title("service update test")
                 .reservation(80)
                 .releaseDate(LocalDate.now())
@@ -52,7 +52,7 @@ public class MovieServiceTest {
 
     @Test
     public void testDelete() {
-        movieService.delete(50L);
+        movieService.delete(59L);
     }
 
     @Test

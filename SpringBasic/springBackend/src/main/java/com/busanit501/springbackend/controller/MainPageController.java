@@ -53,7 +53,7 @@ public class MainPageController {
             return "redirect:/movie/read";
         }
         MovieDTO movieDTO = movieService.getOne(mid);
-        PageResponseDTO<ReviewDTO> pageResponseDTO = reviewService.getPage(pageRequestDTO, movieDTO);
+        PageResponseDTO<ReviewDTO> pageResponseDTO = reviewService.getPage(pageRequestDTO, movieDTO.getTitle());
         model.addAttribute("movieDTO", movieDTO);
         model.addAttribute("pageResponseDTO", pageResponseDTO);
         redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
