@@ -6,6 +6,9 @@
 <body>
 <div layout:fragment="content">
     <form action="/food/list" method="get">
+<!--        (검색 form 에 pRDTO 에서 link 에 들어가는 필드들 넣기
+            왜냐하면 페이지 이동할 때 form 에 hidden으로 page 넣어서 form submit으로 이동하기 때문에
+            form 에 있는 정보가 초기화 되면 안됨)-->
         <div class="input-group">
             <div class="input-group-prepend">
                 <div class="mb-3">
