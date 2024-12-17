@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-body">  <!--컨텐츠-->
                         <div>
-                            <a href="/movie/main?released=true">
+                            <a href="/movie/main?released=true"> <!--검색,필터 940402 하청빈-->
                                 <button type="button" class="btn ${pageRequestDTO.released ? "btn-primary" : "btn-secondary" } ">상영중인 영화</button>
                             </a>
                             <a href="/movie/main?released=false">
@@ -93,7 +93,7 @@
                                     <a class="page-link" data-num="${pageResponseDTO.end + 1}" size="${pageResponseDTO.size}">Next</a>
                                 </li>
                             </ul>
-                        </div> <!--페이지네이션-->
+                        </div> <!--페이지네이션 940402 하청빈-->
 
                     </div>
                 </div>

@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <!--수정 모달-->
+    <!--수정 모달 940402 하청빈-->
 </c:forEach>
 <div class="container-fluid">
     <div class="row">
@@ -45,7 +45,7 @@
                     <div class="card-header">
                         영화 상세페이지
                     </div>
-                    <div class="card-body">
+                    <div class="card-body"> <!--영화 상세 정보 940402 하청빈-->
                         <div class="input-group mb-3">
                             <span class="input-group-text">Title</span>
                             <input type="text" name="title" class="form-control" readonly
@@ -63,7 +63,7 @@
                             <input type="date" name="releaseDate" class="form-control" readonly
                                    value=<c:out value="${movieDTO.releaseDate}"></c:out>>
                         </div>
-                        <form action="/movie/reg" method="post"> <!--댓글 작성 폼-->
+                        <form action="/movie/reg" method="post"> <!--댓글 작성 폼 940402 하청빈-->
                             <input type="hidden" name="mid" value="${movieDTO.mid}">
                             <input type="hidden" name="page" value="${pageRequestDTO.page}">
                             <input type="hidden" name="size" value="${pageRequestDTO.size}">
@@ -76,9 +76,9 @@
                                 <label for="content" class="form-label">리뷰</label>
                                 <textarea type="text" class="form-control" id="content" name="content"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">작성</button>
                         </form>
-                        <c:forEach var="dto" items="${reviewDTOList}">
+                        <c:forEach var="dto" items="${reviewDTOList}"> <!--리뷰 정보 940402 하청빈-->
                             <div class="card" style="width: 100%">
                                 <div class="card-body">
                                     <h5 class="card-title"><c:out value="${dto.userName}"/></h5>
@@ -94,7 +94,7 @@
                                             data-bs-target="#modal${dto.rid}">
                                         수정
                                     </button> <!--수정 모달-->
-                                    <input type="submit" class="btn btn-danger" value="삭제">
+                                    <input type="submit" class="btn btn-danger" value="삭제"> <!--940402 하청빈-->
                                 </form>
                             </div>
                         </c:forEach>

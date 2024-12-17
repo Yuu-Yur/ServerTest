@@ -41,9 +41,9 @@ public class MainPageController {
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("pageSize", pageRequestDTO.getPageSize());
         return "/movie/main";
-    }
+    } // 940402하청빈
 
-    @GetMapping("/read")
+    @GetMapping("/read") //940402 하청빈
     public String read(Long mid, @Valid PageRequestDTO pageRequestDTO,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes,
@@ -91,7 +91,7 @@ public class MainPageController {
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "redirect:/movie/read";
-    }
+    } // 940402하청빈
 
     @PostMapping("/update")
     public String updateLogic(Long mid,
@@ -125,7 +125,7 @@ public class MainPageController {
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "redirect:/movie/read";
-    }
+    } // 940402 하청빈
 
     @PostMapping("/delete")
     public String delete(Long mid,
@@ -150,5 +150,5 @@ public class MainPageController {
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "redirect:/movie/read";
-    }
+    } // 940402 하청빈
 }
