@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 @ToString
 @Builder
-public class FoodBoard extends FoodBaseEntity{
+public class FoodBoard extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fno;

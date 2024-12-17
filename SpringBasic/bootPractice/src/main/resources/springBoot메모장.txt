@@ -1,6 +1,6 @@
 Controller 는 그대로
 
-Service
+Service 도 그대로
 
 View 는 html 을 사용하고 thymeleaf 를 사용해 layout 가능 , html 내에서 간단한 java 문법 사용 가능
 layout:fragment
@@ -44,4 +44,18 @@ VO Entity 클래스를 이용하여 직접 DB 에 간섭 가능 Board 이름은 
 
 get 으로 보내면 그냥 querystring 으로 pageRequestDTO 으로 자동 수집, 내보내기 , 이 안에서 keyword 에 대해 encoding 있음
 post 일 시 따로 PostMapping 에서 받아야 함 pageRequestDTO 를 거치지 않으므로 따로 encoding 필요
-그런데 그냥 form 에서 변수 통일시켜서 보내면 pageRequestDTO 에 있는 필드들은 자동으로 수집이 안되나?
+그런데 그냥 form 에서 변수 통일시켜서 보내면 pageRequestDTO 에 있는 필드들은 자동으로 수집이 안되나? 됨
+
+
+RestController 쓸 때 화면 확인
+    swagger UI
+    spring boot특화
+    spring 실행중
+    http://localhost:8080/swagger-ui/index.html
+    에서 확인 가능
+
+    postman
+    범용성 높음
+    github이랑 비슷함 RestController 때 사용
+    지금은 localhost에서 사용하기 때문에 web 버전의 postman 은 에러 발생
+    desktop 버전을 다운받아 사용
