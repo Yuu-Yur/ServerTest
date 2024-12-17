@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -19,11 +20,13 @@ public class ReviewMapperTest {
 
     @Test
     public void test1() {
-        reviewMapper.insert(ReviewVO.builder()
-                .userName("테스트")
-                .title("The Future Begins")
-                .content("리뷰매퍼 삽입 테스트중")
-                .build());
+        IntStream.range(1, 31).forEach(i -> {
+            reviewMapper.insert(ReviewVO.builder()
+                    .userName("테스트")
+                    .title("The Future Begins")
+                    .content("리뷰매퍼 삽입 테스트중" + i)
+                    .build());
+        });
     }
 
     @Test
@@ -43,13 +46,26 @@ public class ReviewMapperTest {
 
     @Test
     public void test4() {
-        int result = reviewMapper.count(PageRequestDTO.builder().page(5).pageSize(10).build());
+        int result = reviewMapper.count(PageRequestDTO.builder()
+                .page(5)
+                .size(10)
+                .types(new String[]{"c"})
+                .keyword("5")
+                .build());
         log.info(result);
     }
 
     @Test
     public void test5() {
-        List<ReviewVO> result = reviewMapper.select(PageRequestDTO.builder().page(5).pageSize(10).build());
+        PageRequestDTO prdto = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .types(new String[]{"c"})
+                .keyword("5")
+                .build();
+        log.info(prdto);
+        List<ReviewVO> result = reviewMapper.select(prdto);
+        if (result.size() == 0) {log.info("List 없음 , mapper 문제");}
         log.info(result);
     }
 }

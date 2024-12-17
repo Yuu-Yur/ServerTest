@@ -32,7 +32,7 @@
     <select id="count" resultType="int">
         select count(rid)
         from review
-        where <include refid="search"/>
+        <include refid="search"/>
     </select>
 
     <sql id="search">
@@ -41,10 +41,10 @@
                 <foreach item="type" collection="types"
                          open="(" close=")" separator="OR">
                     <if test="type == 'u'.toString()">
-                        title like concat('%',#{keyword},'%')
+                        username like concat('%',#{keyword},'%')
                     </if>
                     <if test="type == 'c'.toString()">
-                        title like concat('%',#{keyword},'%')
+                        content like concat('%',#{keyword},'%')
                     </if>
                 </foreach>
             </if>
