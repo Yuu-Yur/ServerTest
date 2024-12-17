@@ -32,7 +32,7 @@ public class MainPageController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/movie/main";
         }
-        PageResponseDTO<MovieDTO> pageResponseDTO = movieService.getList(pageRequestDTO);
+        PageResponseDTO<MovieDTO> pageResponseDTO = movieService.getPage(pageRequestDTO);
         model.addAttribute("pageResponseDTO", pageResponseDTO);
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("pageSize", pageRequestDTO.getPageSize());

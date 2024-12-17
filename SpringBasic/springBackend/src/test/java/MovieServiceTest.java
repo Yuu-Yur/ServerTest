@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -28,7 +30,37 @@ public class MovieServiceTest {
                 .types(new String[]{"t"})
                 .keyword("50")
                 .build();
-        PageResponseDTO<MovieDTO> result = movieService.getList(pageRequestDTO);
+        PageResponseDTO<MovieDTO> result = movieService.getPage(pageRequestDTO);
         log.info(result);
+    }
+
+    @Test
+    public void testGetOneMovie() {
+        MovieDTO result = movieService.getOne(1L);
+        log.info(result);
+    }
+
+    @Test
+    public void testUpdate() {
+        movieService.update(MovieDTO.builder()
+                .mid(50L)
+                .title("service update test")
+                .reservation(80)
+                .releaseDate(LocalDate.now())
+                .build());
+    }
+
+    @Test
+    public void testDelete() {
+        movieService.delete(50L);
+    }
+
+    @Test
+    public void testRegister() {
+        movieService.register(MovieDTO.builder()
+                .title("service reg test")
+                .reservation(99)
+                .releaseDate(LocalDate.now())
+                .build());
     }
 }
