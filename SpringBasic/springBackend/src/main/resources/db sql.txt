@@ -1,0 +1,70 @@
+create table movie
+(
+    mid         int primary key auto_increment,
+    title       varchar(20) unique,
+    reservation int,
+    releasedate date
+);
+
+create table review
+(
+    rid      int primary key auto_increment,
+    username varchar(50),
+    title    varchar(20) references movie (title),
+    content  varchar(2000)
+);
+
+
+INSERT INTO movie (title, reservation, releasedate)
+VALUES ('The Future Begins', 85, '2024-03-15'),
+       ('Echoes of Time', 45, '2024-06-20'),
+       ('Cosmic Voyage', 92, '2024-09-05'),
+       ('The Last Horizon', 74, '2025-01-10'),
+       ('Shadows and Light', 58, '2025-04-25'),
+       ('Infinite Dreams', 99, '2025-08-12'),
+       ('Whispers of the Past', 33, '2024-12-18'),
+       ('A New Dawn', 70, '2025-05-30'),
+       ('Journey Beyond', 50, '2024-11-11'),
+       ('Parallel Worlds', 88, '2025-07-04'),
+       ('Time Embrace', 60, '2024-01-20'),
+       ('Mystic Rivers', 79, '2024-02-15'),
+       ('Moonlit Night', 28, '2024-04-05'),
+       ('Fading Stars', 91, '2025-03-22'),
+       ('Voices of the Sea', 67, '2024-07-10'),
+       ('Whirlwind', 53, '2025-02-14'),
+       ('Lost Souls', 83, '2024-05-27'),
+       ('Wings of Hope', 49, '2024-08-30'),
+       ('Glimmer of Light', 97, '2025-01-25'),
+       ('Nightfall', 61, '2025-06-18'),
+       ('Unseen Forces', 76, '2024-09-25'),
+       ('The Silent Watcher', 43, '2024-10-10'),
+       ('Beyond the Edge', 56, '2025-02-01'),
+       ('Eternal Flame', 94, '2025-03-13'),
+       ('The Last Dreamer', 69, '2024-11-15'),
+       ('Reflections', 36, '2025-05-07'),
+       ('Cursed Love', 48, '2024-12-02'),
+       ('Waking Shadows', 62, '2025-06-05'),
+       ('The Awakening', 91, '2025-04-11'),
+       ('The Darkest Hour', 38, '2024-08-22'),
+       ('Endless Horizon', 52, '2024-10-30'),
+       ('In the Shadows', 84, '2024-01-05'),
+       ('Into the Abyss', 70, '2024-05-17'),
+       ('Frostbite', 29, '2025-06-30'),
+       ('Silver Lining', 80, '2024-07-20'),
+       ('Dance of the Spirits', 53, '2025-01-15'),
+       ('Golden Memories', 66, '2024-03-25'),
+       ('A Forgotten Song', 93, '2024-06-02'),
+       ('Through the Storm', 55, '2025-03-30'),
+       ('Under the Stars', 77, '2024-12-10'),
+       ('Fury Unleashed', 90, '2025-07-17'),
+       ('The Red Moon', 64, '2025-05-25'),
+       ('The Road Ahead', 37, '2024-02-20'),
+       ('Chasing Dreams', 95, '2025-04-07'),
+       ('Into the Wild', 81, '2025-05-18'),
+       ('The Painted Sky', 82, '2024-08-10'),
+       ('The Long Journey', 68, '2024-09-12'),
+       ('Sands of Time', 75, '2025-01-22'),
+       ('The Edge of Tomorrow', 50, '2024-11-01'),
+       ('The Hidden Path', 30, '2025-02-28');
+
+

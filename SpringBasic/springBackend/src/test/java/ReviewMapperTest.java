@@ -21,7 +21,7 @@ public class ReviewMapperTest {
     public void test1() {
         reviewMapper.insert(ReviewVO.builder()
                 .userName("테스트")
-                .title("영화 1")
+                .title("The Future Begins")
                 .content("리뷰매퍼 삽입 테스트중")
                 .build());
     }
@@ -31,7 +31,7 @@ public class ReviewMapperTest {
         reviewMapper.update(ReviewVO.builder()
                 .rid(2L)
                 .userName("테스트2")
-                .title("영화 2")
+                .title("Echoes of Time")
                 .content("리뷰매퍼 수정 테스트중")
                 .build());
     }
