@@ -1,15 +1,13 @@
-import com.busanit501.springbackend.dto.MovieDTO;
-import com.busanit501.springbackend.dto.PageRequestDTO;
-import com.busanit501.springbackend.dto.PageResponseDTO;
 import com.busanit501.springbackend.dto.ReviewDTO;
 import com.busanit501.springbackend.service.ReviewService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
 
 @Log4j2
 @ExtendWith(SpringExtension.class)
@@ -46,14 +44,7 @@ public class ReviewServiceTest {
 
     @Test
     public void test4() {
-        PageResponseDTO<ReviewDTO> result = reviewService.getPage(PageRequestDTO.builder()
-                .page(1)
-                .size(5)
-                .types(new String[]{"u"})
-                .keyword("vic")
-                .build()
-                , MovieDTO.builder().title("Frostbite").build()
-        );
+        List<ReviewDTO> result = reviewService.getReview("영화 1");
         log.info(result);
     }
 }

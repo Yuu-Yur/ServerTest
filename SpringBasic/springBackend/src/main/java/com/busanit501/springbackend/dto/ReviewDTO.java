@@ -2,7 +2,7 @@ package com.busanit501.springbackend.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @ToString
@@ -11,7 +11,10 @@ import java.time.LocalDateTime;
 @Builder
 public class ReviewDTO {
     private Long rid;
+    @NotEmpty
     private String userName;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private String content;
 }

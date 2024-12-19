@@ -31,7 +31,7 @@ public class MovieMapperTest {
                 .pageSize(5)
                 .released(false)
                 .types(new String[]{"t"})
-                .keyword("10")
+                .keyword("ow")
                 .build();
         List<MovieVO> result = movieMapper.selectPage(pageRequestDTO);
         log.info(result);
@@ -48,7 +48,7 @@ public class MovieMapperTest {
     @Test
     public void insert() {
         Random random = new Random();
-        IntStream.range(1, 501).forEach(i -> {
+        IntStream.range(1, 11).forEach(i -> {
             movieMapper.insert(MovieVO.builder()
                     .title("영화 " + i)
                     .reservation(random.nextInt(100) + 1)
@@ -59,15 +59,15 @@ public class MovieMapperTest {
     @Test
     public void update() {
         MovieVO mvo = MovieVO.builder()
-                .mid(1004L)
+                .mid(60L)
                 .title("수정 확인")
-                .reservation(400)
+                .reservation(99)
                 .releaseDate(LocalDate.now().minusYears(2))
                 .build();
         movieMapper.update(mvo);
     }
     @Test
     public void delete() {
-        movieMapper.deleteById(1004L);
+        movieMapper.deleteById(60L);
     }
 }

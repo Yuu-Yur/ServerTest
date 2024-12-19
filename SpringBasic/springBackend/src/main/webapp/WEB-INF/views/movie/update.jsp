@@ -10,109 +10,20 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <!--        <h1>Header</h1>-->
-        <!--        네비게이션바 추가 시작-->
-        <div class="row">
-            <div class="col">
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Navbar</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Features</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Pricing</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-        <!--        네비게이션바 추가 끝-->
-
-        <!--        class="row content"-->
-        <div class="row content">
-            <!--        col-->
-            <div class="col">
-                <!--        카드 시작 부분-->
-                <div class="card">
-                    <div class="card-header">
-                        Featured
-                    </div>
-                    <div class="card-body">
-                        <%--                        Todo 입력 폼 여기에 작성--%>
-                        <form action="/movie/update" method="post">
-                            <input type="hidden" name="page" value="${pageRequestDTO.page}">
-                            <input type="hidden" name="size" value="${pageRequestDTO.size}">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Mid</span>
-                                <input type="text" name="mid" class="form-control" readonly
-                                       value=
-                                <c:out value="${movieDTO.mid}"></c:out>>
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Title</span>
-                                <input type="text" name="title" class="form-control" placeholder="제목을 입력해주세요"
-                                       value='<c:out value="${movieDTO.title}"></c:out>'>
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">ReservationRate</span>
-                                <input type="text" name="reservation" class="form-control"
-                                       value=<c:out value="${movieDTO.reservation}"></c:out>>
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">ReleaseDate</span>
-                                <input type="date" name="redate" class="form-control" readonly
-                                       value=<c:out value="${movieDTO.redate}"></c:out>>
-                            </div>
-                            <div class="my-4">
-                                <div class="float-end">
-                                    <%--  방법1--%>
-                                    <%--<button type="submit" class="btn btn-primary">적용하기</button>--%>
-                                    <button type="button" class="btn btn-primary">적용하기</button>
-                                    <button type="button" class="btn btn-danger">삭제하기</button>
-                                    <button type="button" class="btn btn-secondary">목록가기</button>
-                                </div>
-                            </div>
-                        </form>
-                        <%--                        Todo 입력 폼 여기에 작성--%>
-
-                    </div>
-                </div>
-                <!--        카드 끝 부분-->
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
             </div>
-            <!--        col-->
-        </div>
-        <!--        class="row content"-->
-    </div>
-    <%--    <div class="row content">--%>
-    <%--        <h1>Content</h1>--%>
-    <%--    </div>--%>
-    <div class="row footer">
-        <!--        <h1>Footer</h1>-->
-        <div class="row fixed-bottom" style="z-index: -100">
-            <footer class="py-1 my-1">
-                <p class="text-center text-muted">Footer</p>
-            </footer>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
         </div>
     </div>
 </div>

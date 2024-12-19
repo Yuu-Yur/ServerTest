@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,9 +29,9 @@ public class MainPageController {
 
     @GetMapping("/main")
     public String main(@Valid PageRequestDTO pageRequestDTO,
-                     BindingResult bindingResult,
-                     RedirectAttributes redirectAttributes,
-                     Model model) {
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes,
+                       Model model) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/movie/main";
@@ -40,9 +41,9 @@ public class MainPageController {
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("pageSize", pageRequestDTO.getPageSize());
         return "/movie/main";
-    }
+    } // 940402하청빈
 
-    @GetMapping("/read")
+    @GetMapping("/read") //940402 하청빈
     public String read(Long mid, @Valid PageRequestDTO pageRequestDTO,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes,
@@ -53,81 +54,101 @@ public class MainPageController {
             return "redirect:/movie/read";
         }
         MovieDTO movieDTO = movieService.getOne(mid);
-        PageResponseDTO<ReviewDTO> pageResponseDTO = reviewService.getPage(pageRequestDTO, movieDTO);
+        List<ReviewDTO> dtoList = reviewService.getReview(movieDTO.getTitle());
         model.addAttribute("movieDTO", movieDTO);
-        model.addAttribute("pageResponseDTO", pageResponseDTO);
-        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
-        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        model.addAttribute("reviewDTOList", dtoList);
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "/movie/read";
     }
 
-    @GetMapping("/update")
-    public String update(Long mid, @Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult,
-                         RedirectAttributes redirectAttributes, Model model) {
-        log.info("TodoController update :");
+    @PostMapping("/reg")
+    public String reg(Long mid,
+                      @Valid ReviewDTO reviewDTO, BindingResult bindingResult,
+                      @Valid PageRequestDTO pageRequestDTO, BindingResult pageBindingResult,
+                      RedirectAttributes redirectAttributes,
+                      Model model) {
         if (bindingResult.hasErrors()) {
-            log.info("has errors : 유효성 에러가 발생함.");
-            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             redirectAttributes.addAttribute("mid", mid);
-            return "redirect:/movie/update";
+            redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+            redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+            return "redirect:/movie/read";
         }
+        if (pageBindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", pageBindingResult.getAllErrors());
+            redirectAttributes.addAttribute("mid", mid);
+            redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+            redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+            return "redirect:/movie/read";
+        }
+        reviewService.register(reviewDTO);
         MovieDTO movieDTO = movieService.getOne(mid);
-        log.info("TodoController update 데이터 유무 확인 :" + movieDTO);
-        //데이터 탑재. 서버 -> 웹
+        List<ReviewDTO> dtoList = reviewService.getReview(movieDTO.getTitle());
         model.addAttribute("movieDTO", movieDTO);
+        model.addAttribute("reviewDTOList", dtoList);
+        redirectAttributes.addAttribute("mid", mid);
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
-        return "/movie/update";
-
-    }
+        return "redirect:/movie/read";
+    } // 940402하청빈
 
     @PostMapping("/update")
-    public String updateLogic(@Valid MovieDTO movieDTO, BindingResult bindingResult,
-                              @Valid PageRequestDTO pageRequestDTO,
-                              BindingResult pageBindingResult,
-                              RedirectAttributes redirectAttributes) {
-
-        // 유효성 체크 -> 유효성 검증시, 통과 안된 원인이 있다면,
+    public String updateLogic(Long mid,
+                              @Valid ReviewDTO reviewDTO, BindingResult bindingResult,
+                              @Valid PageRequestDTO pageRequestDTO, BindingResult pageBindingResult,
+                              RedirectAttributes redirectAttributes,
+                              Model model) {
         if (bindingResult.hasErrors()) {
-            log.info("has errors : 유효성 에러가 발생함. 검사 대상 :TodoDTO ");
-            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            //redirectAttributes 이용해서, 쿼리 스트링으로 전달.
-            redirectAttributes.addAttribute("mid", movieDTO.getMid());
+            redirectAttributes.addAttribute("mid", mid);
             redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
             redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
-            return "redirect:/movie/update"+pageRequestDTO.getLink();
+            log.info("업데이트 reviewDTO 유효성 오류");
+            return "redirect:/movie/read";
         }
-
         if (pageBindingResult.hasErrors()) {
-            log.info("has errors : 유효성 에러가 발생함. 검사 대상 :PageRequestDTO ");
-            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
-            redirectAttributes.addFlashAttribute("errors2", pageBindingResult.getAllErrors());
-            //redirectAttributes 이용해서, 쿼리 스트링으로 전달.
-            redirectAttributes.addAttribute("mid", movieDTO.getMid());
+            redirectAttributes.addFlashAttribute("errors", pageBindingResult.getAllErrors());
+            redirectAttributes.addAttribute("mid", mid);
             redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
             redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
-            return "redirect:/movie/update"+pageRequestDTO.getLink();
+            log.info("업데이트 pageRequestDTO 유효성 오류");
+            return "redirect:/movie/read";
         }
-
-        // 수정하는 로직 필요함.
-        // 주의사항, 체크박스의 값의 문자열 on 전달 받습니다.
-        log.info("todoDTO확인 finished의 변환 여부 확인2. : " + movieDTO);
-        log.info("TodoController update pageRequestDTO : "+ pageRequestDTO);
-
-        movieService.update(movieDTO);
-        // 쿼리 스트링으로 , 목록에 전달함.
+        log.info(reviewDTO);
+        reviewService.update(reviewDTO);
+        MovieDTO movieDTO = movieService.getOne(mid);
+        List<ReviewDTO> dtoList = reviewService.getReview(movieDTO.getTitle());
+        model.addAttribute("movieDTO", movieDTO);
+        model.addAttribute("reviewDTOList", dtoList);
+        redirectAttributes.addAttribute("mid", mid);
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
-        return "redirect:/movie/main?"+pageRequestDTO.getLink();
-    }
+        return "redirect:/movie/read";
+    } // 940402 하청빈
+
     @PostMapping("/delete")
-    public String delete(Long mid, PageRequestDTO pageRequestDTO,
-                         RedirectAttributes redirectAttributes
+    public String delete(Long mid,
+                         Long rid,
+                         @Valid PageRequestDTO pageRequestDTO, BindingResult pageBindingResult,
+                         RedirectAttributes redirectAttributes,
+                         Model model
     ) {
-        movieService.delete(mid);
-        log.info("TodoController delete : pageRequestDTO " + pageRequestDTO);
-        return "redirect:/movie/main?"+pageRequestDTO.getLink();
-    }
+        if (pageBindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", pageBindingResult.getAllErrors());
+            redirectAttributes.addAttribute("mid", mid);
+            redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+            redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+            return "redirect:/movie/read";
+        }
+        reviewService.delete(rid);
+        MovieDTO movieDTO = movieService.getOne(mid);
+        List<ReviewDTO> dtoList = reviewService.getReview(movieDTO.getTitle());
+        model.addAttribute("movieDTO", movieDTO);
+        model.addAttribute("reviewDTOList", dtoList);
+        redirectAttributes.addAttribute("mid", mid);
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+        return "redirect:/movie/read";
+    } // 940402 하청빈
 }
