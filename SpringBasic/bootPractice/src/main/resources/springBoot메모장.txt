@@ -59,3 +59,44 @@ RestController 쓸 때 화면 확인
     github이랑 비슷함 RestController 때 사용
     지금은 localhost에서 사용하기 때문에 web 버전의 postman 은 에러 발생
     desktop 버전을 다운받아 사용
+
+axios 비동기 처리문법을 동기화코드처럼 이용 가능한 문법
+        async(비동기 함수 선언), await(함수진행중 값을 받아올 때 까지 시간이 걸리는데
+        이때 계속 기다리는 것이 아니라 값을 받아 올 때 까지 다른것(함수)를 할 수 있게 해줌
+        , 간단하게 받아올때까지 기다린다 이때 기다림을 깨울 통보가 필요
+        이 통보를 해 줄 것이라는 promise 타입을 반환 약간 thread 의 wait notify 와 비슷한관계?)
+         키워드를 이용해서, 비동기 처리를 동기화코드처럼 이용 가능
+        cdn 으로 axios 가져와야함 그리고 js 이용 ==> static/js 에 만들고 참조
+
+view 에서 비동기 함수를 호출하게 되면,
+        '데이터 호출(getList)의 성공 여부'에 따라서,
+        성공시, then  절 처리,
+        실패시, catch 절 처리.
+
+RESTful 방식 작업
+        데이터 관련 Entity, Repository, Service, Controller 작성
+        Entity <= baseEntity , ManyToOne
+        Repository <= extends JpaRepository<> , 검색필터계열 repository
+        Service <= dto <=> entity mapping 해서 repository 호출 , mapping 과정에서 관계를 가진 필드들의 mapping 신경쓸 것
+        Controller <= RestController 작성, RequestBody 로 Json 형식을 받아 일반 클래스로 역직렬화 필요
+
+        js 에서 호출 관련 함수 작성
+        데이터를 받아오는 함수, async, axios, await 사용, http 요청을 보내려면 `` 사용
+        이때 const result = await axios.get(`/replies/list/${bno}`, {params: {page,size}})
+        형식으로 result 라는 변수에 반환을 담는데, 이 반환은 Json 형식으로 직렬화 된 것이다.
+        주로 필요한 데이터는 JSON 안의 data 에 있으므로 return result.data
+        이때 JSON 으로 직렬화 할 데이터의 DTO(Controller 에서 반환하므로) 에서
+        @JsonIgnore ,@JsonFormat(pattern = "") annotation 으로 직렬화 할 때 무시할 필드, 직렬화 패턴을 정해줄 수 있다.
+        js 를 빼놓으려면 static/js
+
+        데이터는 호출 받았으니 이걸 출력하는 함수
+        동적 변수를 html 코드에 써야 하니 js 에서 html 코드를 만들어서
+        querySelector 로 지정한 곳에 innerHTML 로 추가하는 함수
+        비동기 방식일 때 register 하면 내가 본 가장 마지막이 아닐 수 있음
+        따라서 가장 마지막에 register 한다는 goLast 라는 parameter 써야함
+
+        crud 해보기
+        위와 같은 방법으로 RestController 에 받을 mapping 과 tag 를 annotation 으로 선언
+        받을 때 주소를 {} 로 받아 @PathVariable("") 로 parameter 로 사용 가능
+        반환하여 modal 이나 alert 로 화면에서 출력 가능
+        js 에서 자주 쓰는 화면의 요소나 서버에서 받은 데이터엔 상수 선언

@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardDTO {
+public class BoardListReplyCountDTO {
     private Long bno;
     private String title;
     private String content;
     private String author;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
+    private Long replyCount;
 }

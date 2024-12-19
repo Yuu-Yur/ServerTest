@@ -8,7 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 // 모든 테이블의 공통 요소 라는 annotation
 @MappedSuperclass
@@ -25,10 +25,10 @@ abstract class BaseEntity {
     @CreatedDate
     // 컬럼 annotation 변경불가
     @Column(name = "regDate", updatable = false)
-    private Date regDate;
+    private LocalDateTime regDate;
 
     // 마지막으로 변경된 시간 annotation
     @LastModifiedDate
     @Column(name = "modDate", updatable = true)
-    private Date modDate;
+    private LocalDateTime modDate;
 }

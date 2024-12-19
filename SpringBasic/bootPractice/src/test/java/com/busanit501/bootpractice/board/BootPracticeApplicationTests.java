@@ -1,4 +1,4 @@
-package com.busanit501.bootpractice;
+package com.busanit501.bootpractice.board;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

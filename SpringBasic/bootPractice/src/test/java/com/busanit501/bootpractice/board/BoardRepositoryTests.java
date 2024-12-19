@@ -1,4 +1,4 @@
-package com.busanit501.bootpractice;
+package com.busanit501.bootpractice.board;
 
 import com.busanit501.bootpractice.domain.Board;
 import com.busanit501.bootpractice.repository.BoardRepository;
