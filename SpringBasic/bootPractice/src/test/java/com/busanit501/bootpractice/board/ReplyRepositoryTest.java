@@ -1,7 +1,9 @@
-package com.busanit501.bootpractice;
+package com.busanit501.bootpractice.board;
 
 import com.busanit501.bootpractice.domain.Board;
 import com.busanit501.bootpractice.domain.Reply;
+import com.busanit501.bootpractice.dto.BoardListReplyCountDTO;
+import com.busanit501.bootpractice.repository.BoardRepository;
 import com.busanit501.bootpractice.repository.ReplyRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,8 @@ import org.springframework.data.domain.Sort;
 public class ReplyRepositoryTest {
     @Autowired
     private ReplyRepository replyRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Test
     public void testInsert() {
@@ -35,5 +39,13 @@ public class ReplyRepositoryTest {
         Page<Reply> result = replyRepository.listOfBoard(2L,pageable);
 //        PageResponseDTO<Reply>
         log.info(result.getContent());
+    }
+
+    @Test
+    public void testSelectWithReplyCount() {
+        Pageable pageable= PageRequest.of(0,10, Sort.by("rno").descending());
+        String keyword = "오늘";
+        String[] types = {"t","w","c"};
+        Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(types, keyword, pageable);
     }
 }

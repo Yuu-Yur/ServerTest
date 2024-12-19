@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class ReplyDTO {
-    @NotNull
     private Long rno;
 
+    @NotNull
     private Long bno;
 
     @NotEmpty

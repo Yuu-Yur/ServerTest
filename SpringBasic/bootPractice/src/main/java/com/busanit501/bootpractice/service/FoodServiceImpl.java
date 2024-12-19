@@ -11,10 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class FoodServiceImpl implements FoodService {
@@ -49,14 +45,15 @@ public class FoodServiceImpl implements FoodService {
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable();
-        Page<FoodBoard> result = foodRepository.search(types, keyword, pageable);
-        List<FoodDTO> dtoList = result.getContent()//List FB
-                .stream()// Stream FB  
-                // stream.map  stream 내의 요소들에 특정 함수 적용
-                .map(foodBoard -> modelMapper.map(foodBoard, FoodDTO.class)) // Stream FDTO
-                .collect(Collectors.toList()); // List<FoodDTO>
+        Page<FoodDTO> result = foodRepository.search(types, keyword, pageable);
+//        repository 단에서 형변환 했기 때문에 여기서 또 할 필요 없음
+//        List<FoodDTO> dtoList = result.getContent()//List FB
+//                .stream()// Stream FB
+//                // stream.map  stream 내의 요소들에 특정 함수 적용
+//                .map(foodBoard -> modelMapper.map(foodBoard, FoodDTO.class)) // Stream FDTO
+//                .collect(Collectors.toList()); // List<FoodDTO>
         return PageResponseDTO.<FoodDTO>builder()
-                .dtoList(dtoList)
+                .dtoList(result.getContent())
                 .pageRequestDTO(pageRequestDTO)
                 .total((int)result.getTotalElements())
                 .build();

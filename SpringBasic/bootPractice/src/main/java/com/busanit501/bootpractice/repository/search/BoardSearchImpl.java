@@ -2,7 +2,10 @@ package com.busanit501.bootpractice.repository.search;
 
 import com.busanit501.bootpractice.domain.Board;
 import com.busanit501.bootpractice.domain.QBoard;
+import com.busanit501.bootpractice.domain.QReply;
+import com.busanit501.bootpractice.dto.BoardListReplyCountDTO;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -69,5 +72,56 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         Long count = query.fetchCount();
         Page<Board> result = new PageImpl<Board>(list, pageable, count);
         return result;
+    }
+
+    @Override
+    public Page<BoardListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable) {
+        QBoard board = QBoard.board;
+        QReply reply = QReply.reply;
+
+        JPQLQuery<Board> query = from(board); // board 테이블 select all
+        // board 테이블에 leftJoin 외부 조인 reply , reply 안의 board.bno 와 board 테이블의 bno
+        query.leftJoin(reply).on(reply.board.bno.eq(board.bno));
+        query.groupBy(board);
+
+        // 검색 조건은 기존 search 조건 재사용
+        if (types != null && types.length > 0 && keyword != null) {
+            BooleanBuilder booleanBuilder = new BooleanBuilder();
+            for (String type : types) {
+                switch (type) {
+                    case "t":
+                        booleanBuilder.or(board.title.contains(keyword));
+                        break;
+                    case "c" :
+                        booleanBuilder.or(board.content.contains(keyword));
+                        break;
+                    case "a" :
+                        booleanBuilder.or(board.author.contains(keyword));
+                }
+            }
+            query.where(booleanBuilder);
+        }
+        query.where(board.bno.gt(0L));
+
+        // Board 형태인 query 를 DTO 형태로 형변환
+        // 다른 무언가를 쓰는것은 아니고 Board 형태의 query 를 위에서 외부 조인 한 것에서
+        // DTO 형태의 query 랑 똑같이 만드는 것
+        JPQLQuery<BoardListReplyCountDTO> dtoQuery =
+                query.select(Projections.bean(BoardListReplyCountDTO.class, board.bno,
+                                                                            board.title,
+                                                                            board.content,
+                                                                            board.author,
+                                                                            board.regDate,
+                                                                            reply.count().as("replyCount")
+                ));
+        // 이렇게 형변환 한 query 에 pagination 적용
+        this.getQuerydsl().applyPagination(pageable, dtoQuery);
+
+        // pagination 적용 된 query 실행해서 데이터를 list 로 받기
+        List<BoardListReplyCountDTO> dtoList = dtoQuery.fetch();
+        // count 로 총 갯수 받기
+        long total = dtoQuery.fetchCount();
+        // Page 타입(데이터 , 페이지형식, 총 갯수)에 담아서 return
+        return new PageImpl<BoardListReplyCountDTO>(dtoList, pageable, total);
     }
 }
