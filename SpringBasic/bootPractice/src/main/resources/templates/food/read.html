@@ -112,8 +112,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary regRep">수정</button>
-                    <button type="button" class="btn btn-danger">삭제</button>
+                    <button type="button" class="btn btn-primary updRep">수정</button>
+                    <button type="button" class="btn btn-danger delRep">삭제</button>
                 </div>
             </div>
         </div>
@@ -243,9 +243,48 @@
 
 
     // 4. 모달 2 의 댓글 수정 제출 버튼 eventListener put 요청하고 값 받는 함수(reply.js 에)를 호출 하고 데이터 받아서 보여주는 함수
+    document.querySelector(".updRep").addEventListener("click" , e => {
+        const replyObj = {
+            replyId: replyNum.innerHTML,
+            fno: fno,
+            replyText: replyTextUpd.value,
+            replyAuthor: replyAuthorUpd.value
+        }
+        update(replyObj)
+            .then(result => {
+                alert(result.replyId + "번째 댓글이 수정되었습니다.")
+                updModal.hide()
+                replyTextUpd.value = ""
+                replyAuthorUpd.value = ""
+                printReplyPage(page, size, true)
+            })
+            .catch(e => {
+                alert(e)
+            })
+    })
     // 5. 모달 2 에 댓글 삭제 버튼 추가하고 눌렀을 때 eventListener delete 요청하고 데이터 받는 함수(reply.js 에)를 호출하고 데이터 받아서 보여주는 함수
+    document.querySelector(".delRep").addEventListener("click", e => {
+        delRep(replyNum.innerHTML)
+            .then(result => {
+                alert(result.replyId + "번째 댓글이 삭제되었습니다.")
+                updModal.hide()
+                replyTextUpd.value = ""
+                replyAuthorUpd.value = ""
+                printReplyPage(page, size, true)
+            })
+            .catch(e => {
+                alert(e)
+            })
+    })
     // 6. 댓글 페이지네이션에 eventListener 다른 댓글페이지 불러오기
-
+    document.querySelector(".replyPagination").addEventListener("click", e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const target = e.target
+        if (!target || target.tagName != 'A') return
+        page = target.getAttribute("data-page")
+        printReplyPage(page,size)
+    },false)
 </script>
 </body>
 </html>
