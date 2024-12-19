@@ -1,5 +1,6 @@
-package com.busanit501.bootpractice.food;
+package com.busanit501.bootpractice;
 
+import com.busanit501.bootpractice.domain.Board;
 import com.busanit501.bootpractice.domain.FoodBoard;
 import com.busanit501.bootpractice.repository.FoodRepository;
 import lombok.extern.log4j.Log4j2;

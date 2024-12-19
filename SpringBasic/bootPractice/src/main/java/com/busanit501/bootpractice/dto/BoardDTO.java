@@ -2,8 +2,6 @@ package com.busanit501.bootpractice.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Data
 @ToString
 @Builder
@@ -14,6 +12,4 @@ public class BoardDTO {
     private String title;
     private String content;
     private String author;
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
 }

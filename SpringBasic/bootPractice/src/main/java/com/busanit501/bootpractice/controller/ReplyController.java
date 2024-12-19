@@ -1,10 +1,6 @@
 package com.busanit501.bootpractice.controller;
 
-import com.busanit501.bootpractice.dto.FoodReplyDTO;
-import com.busanit501.bootpractice.dto.PageRequestDTO;
-import com.busanit501.bootpractice.dto.PageResponseDTO;
 import com.busanit501.bootpractice.dto.ReplyDTO;
-import com.busanit501.bootpractice.service.FoodReplyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -22,7 +21,7 @@ import java.util.Map;
 @Log4j2
 @RequiredArgsConstructor
 public class ReplyController {
-        private final FoodReplyService foodReplyService;
+    //    private final ReplyService replyService;
     // swagger ui 에서 표시될 태그
     @Tag(name = "post 로 댓글 등록", description = "post 형식으로 댓글 등록 진행")
     // /replies/ 로 json 받는 post    
@@ -40,15 +39,4 @@ public class ReplyController {
         log.info("ReplyContoller 에서 받은 JSON -> ReplyDTO = " + replyDTO);
         return ResponseEntity.ok(Map.of("rno", 100L));
     } // 즉 JSON 을 ReplyDTO 로 컨버팅 (RequestBOdy) 해서 받고 안에서 처리를 한 후 ResponseEntity 형태로 반환해줌
-
-    @Tag(name = "댓글 목록 조회", description = "댓글 목록 조회 RESTful get 방식")
-    @GetMapping("/list/{fno}")
-    public PageResponseDTO<FoodReplyDTO> getList(
-            // 위의 fno 즉 /list/n 에서 n 으로 들어오는 fno 를 parameter 로써 받을 수 있음
-            // 쿼리스트링 자동 수입과 비슷하게 쓰기 위한 annotation @pathVariable
-            @PathVariable("fno") Long fno, PageRequestDTO pageRequestDTO
-    ) {
-        PageResponseDTO<FoodReplyDTO> result = foodReplyService.getFoodReplyPage(fno, pageRequestDTO);
-        return result;
-    }
 }

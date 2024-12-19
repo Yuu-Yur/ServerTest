@@ -43,10 +43,10 @@
             <th scope="col">Revisit</th>
         </tr>
         </thead>
-        <tbody th:with="link = ${pageRequestDTO.link}">
+        <tbody>
         <tr th:each="dto : ${responseDTO.dtoList}">
             <th scope="row">[[${dto.fno}]]</th>
-            <td><a th:href="|@{/food/read(fno=${dto.fno})}&${link}|">[[${dto.name}]]</a> <span class="badge text-bg-dark">[[${dto.replyCount}]]</span></td>
+            <td>[[${dto.name}]]</td>
             <td>[[${dto.shop}]]</td>
             <td>[[${dto.price}]]</td>
             <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"

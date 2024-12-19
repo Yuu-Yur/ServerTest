@@ -7,7 +7,6 @@ import lombok.*;
 @Entity
 // Table 설정, name 은 Reply 기존(entity class name)과 같음
 // indexs 안에 @index 생성 순서 중요함. 먼저 쓴 순서대로 n차 정렬
-// 복합키
 @Table(name = "Reply", indexes = {
         @Index(name = "idx_reply_board_bno", columnList = "board_bno")
 })
@@ -32,8 +31,4 @@ public class Reply extends BaseEntity {
     private String replyText;
     @NotEmpty
     private String replyer;
-
-    public void bnoToBoard(Board board) {
-        this.board = board;
-    }
 }

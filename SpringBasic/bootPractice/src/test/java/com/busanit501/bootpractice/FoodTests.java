@@ -1,7 +1,6 @@
-package com.busanit501.bootpractice.food;
+package com.busanit501.bootpractice;
 
 import com.busanit501.bootpractice.domain.FoodBoard;
-import com.busanit501.bootpractice.dto.FoodDTO;
 import com.busanit501.bootpractice.repository.FoodRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -35,10 +34,11 @@ public class FoodTests {
     @Test
     // 3. Querydsl
     public void QTest() {
-        String[] types = {"n","p","s"};
+        String[] types = {"name","price","shop"};
         String keyword = "10";
+        int price = 25;
         Pageable pageable = PageRequest.of(0, 10, Sort.by("fno").descending());
-        Page<FoodDTO> result = foodRepository.search(types,keyword,pageable);
+        Page<FoodBoard> result = foodRepository.search(types,keyword,pageable);
         log.info(result.getContent());
     }
 }

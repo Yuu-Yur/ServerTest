@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Log4j2
 @Data
@@ -20,7 +20,6 @@ public class FoodDTO {
     private String shop;
     private int price;
     private boolean revisit = false;
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
-    private Long replyCount;
+    private Date regDate;
+    private Date modDate;
 }

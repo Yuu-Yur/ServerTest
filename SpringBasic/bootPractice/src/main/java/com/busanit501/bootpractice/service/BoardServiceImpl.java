@@ -2,16 +2,19 @@ package com.busanit501.bootpractice.service;
 
 import com.busanit501.bootpractice.domain.Board;
 import com.busanit501.bootpractice.dto.BoardDTO;
-import com.busanit501.bootpractice.dto.BoardListReplyCountDTO;
 import com.busanit501.bootpractice.dto.PageRequestDTO;
 import com.busanit501.bootpractice.dto.PageResponseDTO;
 import com.busanit501.bootpractice.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,15 +49,5 @@ public class BoardServiceImpl implements BoardService {
         return boardRepository
                 .searchAll(pageRequestDTO.getTypes(), pageRequestDTO.getKeyword(), pageRequestDTO.getPageable())
                 .map(board -> modelMapper.map(board, BoardDTO.class));
-    }
-
-    @Override
-    public PageResponseDTO<BoardListReplyCountDTO> getPageWithReplyCount(PageRequestDTO pageRequestDTO) {
-        Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(pageRequestDTO.getTypes(), pageRequestDTO.getKeyword(), pageRequestDTO.getPageable());
-        return PageResponseDTO.<BoardListReplyCountDTO>builder()
-                .total((int)result.getTotalElements())
-                .pageRequestDTO(pageRequestDTO)
-                .dtoList(result.getContent())
-                .build();
     }
 }
