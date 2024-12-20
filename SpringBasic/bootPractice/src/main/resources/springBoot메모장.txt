@@ -100,3 +100,48 @@ RESTful 방식 작업
         받을 때 주소를 {} 로 받아 @PathVariable("") 로 parameter 로 사용 가능
         반환하여 modal 이나 alert 로 화면에서 출력 가능
         js 에서 자주 쓰는 화면의 요소나 서버에서 받은 데이터엔 상수 선언
+
+파일 업로드
+        1. boot 설정에서 파일 업로드 가능 설정, 업로드 받은 파일 저장할 경로 설정, 저장할 경로의 폴더 생성
+        2. front 에서 받아올 uploadFileDTO 작업 MultipartFile 의 List 를 files
+        3. 파일을 받을 수 있게 restController 작업
+        3-1. 실제 파일명 조회 uploadFileDTO 에서 getter 호출 유효성 체크 ,
+             foreach 로 multipartFile 변수(uploadFileDTO 의 MultipartFile List 에서 꺼낸 multipartFile), 람다식 .getOriginalFileName
+        3-2. uuid 생성 UUID.randomUUID.toString
+        3-3. restController 에서 받은 파일 저장할 경로 @Value("경로저장한 변수(1.에서 설정)")
+        3-4. Paths.get 으로 3-3에 만든 패스 , uuid + originName 으로 정의하고 Path 에 할당 (여기에 저장할 건데 파일명중복안되게)
+        3-5. 예외처리 tryCatch 하고 multipartFile(3-1 의 변수).transferTO(3-4의 Path) 사진 저장
+        4. 보내는 요청 body 는 file(s) : 파일 (확인할 때 파일이 안올라가면 postMan desktop), 3에서 지정한 위치에 저장되는지 확인
+        5. 사진을 그대로 웹상에서 사용하면 코스트 소모가 심하기에 thumbnail 사용 따라서 사진을 thumbnail 로 변환시켜주는 thumbnailator 라이브러리 이용
+        6. 컨텐츠 타입(MIME) 확인해서 이미지라면 thumbnailator 이용해서 thumbnail 변환 저장 thumbnail 이라는 표시로 이름 앞에 s_
+        6-1 MIME 는 타입/확장자 ex) image/jpeg , image/png , text/plain 등
+        7. if Files.probeContentType(3-3의 Path).startWith("image(이게 컨텐츠 타입)") 해서
+        7-1. 3-4에 앞에 "s_" 붙여서 File 타입에 할당하고
+        7-2. thumbnailator.createThumbnail(3-4의 Path.toFile (이미 저장되어있는 파일을(3-5) 다시 파일로), 7-1.의 경로, 200,200 크기지정) thumbnail 저장
+        8. front 로 보낼 uploadResultDTO 작업 지금 저장된 파일은 이미지면 s_uuid_fileName 의 형태
+        8-1. 따라서 field 로 uuid, fileName 특정 타입이라는 것을 알릴 boolean 들이 필요
+        8-2. getLink() mtehod 만들고 특정타입 if 면 특정 타입이라 추가된 (예를 들어)"s_"+ 를 붙인 uuid+"_"+fileName 반환
+        8-3. 아니라면 그냥 uuid+"_"+fileName 반환
+        9. restController 에서 8의 uploadResultDTO 의 List (여러 파일일 수 있으므로) 반환
+        9-1. 반환할 List 만들어야함 특정 타입의 boolean 만들고 7.에서 저장할 때 true
+        9-2. list.add 에 만들어둔 uploadResultDTO 를 builder 로 만들어서 추가 9-1 의 boolean 도 넣어주고
+
+
+파일 조회
+        1.RestController 작업 fileName 을 parameter 로 받는 매핑메서드
+        1-1. Resource 이용 resource = FileSystemResource(지정한 Path + File.separator + fileName) 요청 받은 fileName 을 내가 사용하는 Path 아래에서 찾아서 resource 에 할당
+        1-2. resource.getFilename 으로 name 할당해서 제대로 불러왔는지 콘솔한번 찍어보기
+        2. http 헤더 작업 HttpHeaders = new HttpHeaders() 새 헤더 하나만들어서 < http 통신일 때 전달하는 데이터의 종류를 알려줘야함
+        2-1. headers 에 add() 로 키 "Content-Type",값 Files.probeContentType(resource.getFile().toPath()) 를 넣음
+        3. return 으로 ResponseEntity .ok 로 200 보내고 .headers(headers(2에서 만듬, 파일 타입)) 로 헤더 지정 .body(resource(1에서 만듬, 파일)) 로 내용 보냄 tryCatch 로 예외대응
+파일 다운로드
+        1. tryCatch normalize() 불필요 한 요소를 제거 ex) 상대경로
+        1-1. Path filePath = Paths.get(boot 지정경로).resolve(fileName).normalize() 지정 경로 하위에서 fileName 을 찾고 불필요한 요소 제거
+        1-2. resource = new UrlResource(filePath.toUri()) 로 resource 할당
+        2. httpHeaders 에 할당하는 것이 다름 조회에선 contentType 을 할당했다면 다운로드 할 땐 (\" 이스케이프 로 " + resource.getFilename() + "을 감쌈)
+           키 HttpHeaders.CONTENT_DISPOSITION, 값 " attachment; filename= \" " + resource.getFilename() + " \" "
+           CONTENT_DISPOSITION 은 미리 지정되어있는 키 "content-disposition"
+fileSystemResource vs UrlResource
+fileSystemResource 는 내부에서 처리할 때 , UrlResource 는 외부에서 접근할 필요가 있을 때
+지금 restController 에서 처리하므로 서버를 기준으로 조회는 파일의 정보를 클라이언트로 주는 것으로 fileSystem 으로 불러와 그 정보만 클라이언트에 보냄
+다운로드는 클라이언트가 가져갈 필요가 있으므로 서버가 파일에 접근할 수 있는 Url 을 만들어 클라이언트에 줌

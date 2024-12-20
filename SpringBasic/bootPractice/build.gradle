@@ -69,6 +69,10 @@ dependencies {
     // Spring boot 에 특화됨,spring 의 annotation 을 탐지
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.7.0'
 
+    //7 thumbnailator
+    // thumbnail 변환 도구
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.20'
+
 }
 
 tasks.named('test') {

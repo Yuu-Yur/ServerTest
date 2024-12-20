@@ -143,6 +143,7 @@
     //         )
     // }
 
+    // 변수 선언
     const fno = [[${dto.fno}]]
     let page = 1
     let size = 10
@@ -157,9 +158,11 @@
     const replyAuthorUpd = document.querySelector("#replyAuthorUpd")
     const replyNum = document.querySelector(".replyNum")
 
+    // 댓글 목록, 페이지네이션 출력 함수
     function printReplyPage(page, size, goLast) {
         getReplyPage({fno, page, size, goLast}).then(
             data => {
+                console.log(data)
                 // 이 data 는 PageResponseDTO 임 여기서 페이지네이션과 페이지 목록을 출력할 것
                 let html = ""
                 const dtoList = data.dtoList
@@ -175,7 +178,7 @@
                 replyList.innerHTML = html
 
                 let pageStr = ''
-                if (dtoList.prev) {
+                if (data.prev) {
                     pageStr += `<li class="page-item"><a class="page-link"
             data-page="${data.start - 1}">이전</a></li>
              `

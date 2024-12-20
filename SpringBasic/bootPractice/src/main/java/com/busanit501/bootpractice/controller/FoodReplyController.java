@@ -21,6 +21,8 @@ import java.util.Map;
 public class FoodReplyController {
     private final FoodReplyService foodReplyService;
 
+    // front(js) -> restController 로 역직렬화 할땐 기본자료형은 바로 보내고 클래스는 Json 형태로 바꿔 보냈지만
+    // restController -> front(js) 로 직렬화 할땐 기본 자료형은 Map<String, 보내려는 자료형>, 클래스는 바로 보낼 수 있다.
     @Tag(name = "목록 로드", description = "fno 와 pageRequestDTO(실제론 page 와 size) 와 get 요청을 받아 페이징 된 FoodReplyDTO 반환")
     @GetMapping("/{fno}")
     public PageResponseDTO<FoodReplyDTO> loadReplyPage(@PathVariable Long fno, PageRequestDTO pageRequestDTO){
