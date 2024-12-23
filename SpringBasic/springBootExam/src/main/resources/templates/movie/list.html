@@ -38,13 +38,13 @@
                     <input class="form-control form-control-sm me-2" type="search" name="keyword"
                            th:value="${pageRequestDTO.keyword}">
                     <button class="btn btn-outline-success btn-sm" type="submit">search</button>
-                </form>
+                </form> <!--검색, 필터-->
             </div>
         </div>
     </nav> <!--네비게이션 바-->
 </div>
 <div layout:fragment="content">
-    <div class="modal fade" tabindex="-1" id="regModal"><!--모달-->
+    <div class="modal fade" tabindex="-1" id="regModal"><!--모달 0402하청빈-->
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="/movie/reg" method="post">

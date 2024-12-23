@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
-import java.util.stream.IntStream;
 
 @SpringBootTest
 @Log4j2
@@ -20,15 +19,13 @@ public class MovieServiceTest {
 
     @Test
     public void regTest() {
-        IntStream.range(0, 10).forEach(i -> {
             Long result = movieService.register(MovieWithReviewCountDTO.builder()
-                    .title("movieServiceTest" + i)
+                    .title("movieServiceTest")
                     .author("테스터")
-                    .reservation(10 * i)
+                    .reservation(80)
                     .releaseDate(LocalDate.now())
                     .build());
             log.info(result);
-        });
     }
 
     @Test

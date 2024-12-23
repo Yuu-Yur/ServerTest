@@ -66,6 +66,14 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public ReviewDTO getReviewDetail(Long rno) {
+        Review result = reviewRepository.findById(rno).orElseThrow();
+        ReviewDTO reviewDTO = modelMapper.map(result, ReviewDTO.class);
+        reviewDTO.setMno(result.getMovie().getMno());
+        return reviewDTO;
+    }
+
+    @Override
     public List<Long> rnoListFromMno(Long mno) {
         List<Long> result = reviewRepository.rnoFromMno(mno);
         return result;

@@ -6,7 +6,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "Review", indexes = {
-        @Index(name = "idx_review_movie_mNo", columnList = "movie_mNo")
+        @Index(name = "idx_review_movie_mno", columnList = "movie_mno")
 })
 @Getter
 @Builder

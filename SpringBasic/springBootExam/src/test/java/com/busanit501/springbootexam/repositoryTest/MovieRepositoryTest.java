@@ -22,7 +22,7 @@ public class MovieRepositoryTest {
 
     @Test
     public void testInsert() {
-        IntStream.range(1, 6).forEach(i -> {
+        IntStream.range(1, 501).forEach(i -> {
         Movie movie = Movie.builder()
                 .title("단위테스트" + i)
                 .author("단위테스터")

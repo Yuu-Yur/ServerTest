@@ -3,6 +3,7 @@ package com.busanit501.springbootexam.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @ToString
 public class ReviewDTO {
     private Long rno;
-    @NotEmpty
+    @NotNull
     private Long mno;
     @NotEmpty
     private String reviewText;

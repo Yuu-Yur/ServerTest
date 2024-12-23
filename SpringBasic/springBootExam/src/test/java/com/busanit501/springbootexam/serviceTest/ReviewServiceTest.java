@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.stream.LongStream;
-
 @SpringBootTest
 @Log4j2
 public class ReviewServiceTest {
@@ -19,13 +17,11 @@ public class ReviewServiceTest {
 
     @Test
     public void insertReview() {
-        LongStream.range(1, 150).forEach(i -> {
             reviewService.register(ReviewDTO.builder()
                     .mno(1L)
-                    .reviewer("ReviewServiceTest" + i)
-                    .reviewText("리뷰서비스단위테스트" + i)
+                    .reviewer("ReviewServiceTest")
+                    .reviewText("리뷰서비스단위테스트")
                     .build());
-        });
     }
 
     @Test

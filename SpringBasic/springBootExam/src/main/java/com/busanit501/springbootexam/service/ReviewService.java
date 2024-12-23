@@ -11,5 +11,6 @@ public interface ReviewService {
     public Long edit(ReviewDTO reviewDTO);
     public Long delete(Long rno);
     public PageResponseDTO<ReviewDTO> getReviewList(Long mno, PageRequestDTO pageRequestDTO);
+    public ReviewDTO getReviewDetail(Long rno);
     public List<Long> rnoListFromMno(Long mno);
 }

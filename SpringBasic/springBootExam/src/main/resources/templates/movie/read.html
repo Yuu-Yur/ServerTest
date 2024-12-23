@@ -26,7 +26,250 @@
             </div>
         </div>
     </nav> <!--네비게이션 바-->
-    <h1>[[${dto.title}]]</h1>
 </div>
+<div layout:fragment="content">
+    <form action="/movie/update" method="post"><!--영화 세부정보-->
+        <div class="mb-3">
+            <input type="hidden" name="keyword" th:value="${pageRequestDTO.keyword}">
+            <input type="hidden" name="page" th:value="${pageRequestDTO.page}">
+            <input type="hidden" name="type" th:value="${pageRequestDTO.type}">
+            <input type="hidden" name="mno" th:value="${dto.mno}">
+            <label for="title" class="form-label">영화 제목</label>
+            <input type="text" class="form-control" id="title" name="title" th:value="${dto.title}" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">감독</label>
+            <input type="text" class="form-control" id="author" name="author" th:value="${dto.author}" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="reservation" class="form-label">예매율</label>
+            <input type="number" class="form-control" id="reservation" name="reservation" th:value="${dto.reservation}" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="releaseDate" class="form-label">개봉일</label>
+            <input type="date" class="form-control" id="releaseDate" name="releaseDate" th:value="${dto.releaseDate}" disabled>
+        </div>
+        <a th:href="|@{/movie/list}?${pageRequestDTO.link}|">
+            <button type="button" class="btn btn-secondary">돌아가기</button>
+        </a>
+    </form><!--영화 세부정보-->
+    <div class="row mt-3"><!--리뷰 관련-->
+        <div class="col-md-12">
+            <div class="my-4">
+                <button class="btn btn-info addReplyBtn">리뷰 등록</button>
+            </div>
+            <!--리뷰 목록은 여기-->
+            <ul class="list-group replyList">
+
+            </ul>
+            <!--리뷰 페이지네이션은 여기-->
+            <div class="row mt-3">
+                <div class="col">
+                    <ul class="pagination replyPagination">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!--리뷰 관련-->
+
+    <div class="modal fade modal1" tabindex="-1"> <!--모달 1-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">리뷰 등록</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="작성자" id="reviewer">
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="reviewText" class="form-control" rows="5" placeholder="내용"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary regRep">등록</button>
+                </div>
+            </div>
+        </div>
+    </div> <!--모달 1-->
+    <div class="modal fade modal2" tabindex="-1"> <!--모달 2-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> <span class="replyNum"></span> 번째 리뷰 수정</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="작성자" id="reviewerUpd">
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="reviewTextUpd" class="form-control" rows="5" placeholder="내용"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary updRep">수정</button>
+                    <button type="button" class="btn btn-danger delRep">삭제</button>
+                </div>
+            </div>
+        </div>
+    </div> <!--모달 2-->
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/reply.js"></script>
+</div>
+<script layout:fragment="javascript" th:inline="javascript">
+    // 변수 선언
+    const mno = [[${dto.mno}]]
+    let page = 1
+    let size = 10
+    const replyList = document.querySelector(".replyList")
+    const replyPagination = document.querySelector(".replyPagination")
+    const addReplyBtn = document.querySelector(".addReplyBtn")
+    const regModal = new bootstrap.Modal(document.querySelector(".modal1"))
+    const updModal = new bootstrap.Modal(document.querySelector(".modal2"))
+    const reviewText = document.querySelector("#reviewText")
+    const reviewer = document.querySelector("#reviewer")
+    const reviewTextUpd = document.querySelector("#reviewTextUpd")
+    const reviewerUpd = document.querySelector("#reviewerUpd")
+    const replyNum = document.querySelector(".replyNum")
+
+    //리뷰 출력
+    function printReplyPage(page, size, goLast) {
+        getReplyPage({mno, page, size, goLast}).then(
+            data => {
+                console.log(data)
+                // 이 data 는 PageResponseDTO 임 여기서 페이지네이션과 페이지 목록을 출력할 것
+                let html = ""
+                const dtoList = data.dtoList
+                if (dtoList && dtoList.length > 0) {
+                    for (const dto of dtoList)
+                        html += `<li class="list-group-item d-flex replyItem">
+                                <span class="col-2">${dto.rno}</span>
+                                <span class="col-6" data-rId="${dto.rno}">${dto.reviewText}</span>
+                                <span class="col-2">${dto.reviewer}</span>
+                                <span class="col-2">${dto.regDate}</span>
+                            </li>`
+                }
+                replyList.innerHTML = html
+
+                let pageStr = ''
+                if (data.prev) {
+                    pageStr += `<li class="page-item"><a class="page-link"
+            data-page="${data.start - 1}">이전</a></li>
+             `
+                }
+                for (let i = data.start; i <= data.end; i++) {
+                    pageStr += `
+            <li class="${data.page == i?'page-item active':'page-item'}">
+                                    <a class="page-link"
+                                       data-page="${i}">${i}</a>
+                                </li>
+            `
+                }
+
+                if (data.next) {
+                    pageStr += `<li class="page-item"><a class="page-link"
+            data-page="${data.end + 1}">다음</a></li>
+             `
+                }
+                replyPagination.innerHTML = pageStr
+            }
+        )
+            .catch(e => {
+                console.error(e)
+            })
+    }
+    printReplyPage(page, size, false)
+    // 리뷰 출력
+    // 리뷰 페이지네이션
+    document.querySelector(".replyPagination").addEventListener("click", e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const target = e.target
+        if (!target || target.tagName != 'A') return
+        page = target.getAttribute("data-page")
+        printReplyPage(page,size)
+    },false)
+
+    // 등록을 누르면 등록 모달 열림
+    addReplyBtn.addEventListener("click", e=> {
+        regModal.show()
+    })
+    // 등록 모달의 등록 버튼 누르면 값을 obj 에 담아서 보냄
+    document.querySelector(".regRep").addEventListener("click", e => {
+        const reviewObj = {
+            mno: mno,
+            reviewText: reviewText.value,
+            reviewer: reviewer.value
+        }
+        console.log(reviewObj)
+        register(reviewObj).then(data => {
+            alert(data.rno + "번째 리뷰이 등록되었습니다")
+            regModal.hide()
+            reviewText.value = ""
+            reviewer.value = ""
+            printReplyPage(page, size, true)
+        })
+            .catch(e => {
+                alert(e)
+            })
+    }, false)
+    // 리뷰 누르면 수정 모달 열림
+    replyList.addEventListener("click", e => {
+        const target = e.target
+        if (!target || target.tagName !== 'SPAN' || target.className !== 'col-6') return
+        const rno = target.getAttribute("data-rId")
+        repDetail(rno).then(result => {
+            replyNum.innerHTML=rno
+            reviewTextUpd.value=result.reviewText
+            reviewerUpd.value=result.reviewer
+            updModal.show()
+        })
+            .catch(e => {
+                alert(e)
+            })
+    }, false)
+    // 수정 버튼 누르면 obj 에 담아서 보냄
+    document.querySelector(".updRep").addEventListener("click" , e => {
+        const reviewObj = {
+            rno: replyNum.innerHTML,
+            mno: mno,
+            reviewText: reviewTextUpd.value,
+            reviewer: reviewerUpd.value
+        }
+        update(reviewObj)
+            .then(result => {
+                alert(result.rno + "번째 리뷰이 수정되었습니다.")
+                updModal.hide()
+                reviewTextUpd.value = ""
+                reviewerUpd.value = ""
+                printReplyPage(page, size, true)
+            })
+            .catch(e => {
+                alert(e)
+            })
+    })
+    // 삭제 버튼 누르면 rno 보냄
+    document.querySelector(".delRep").addEventListener("click", e => {
+        delRep(replyNum.innerHTML)
+            .then(result => {
+                alert(result.rno + "번째 리뷰이 삭제되었습니다.")
+                updModal.hide()
+                reviewTextUpd.value = ""
+                reviewerUpd.value = ""
+                printReplyPage(page, size, true)
+            })
+            .catch(e => {
+                alert(e)
+            })
+    })
+
+
+</script>
 </body>
 </html>

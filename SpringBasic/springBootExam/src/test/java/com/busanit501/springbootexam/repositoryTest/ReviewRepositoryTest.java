@@ -22,10 +22,10 @@ public class ReviewRepositoryTest {
 
     @Test
     public void testInsert() {
-        LongStream.range(0, 10).forEach(i -> {
+        LongStream.range(1, 501).forEach(i -> {
         Review review = Review.builder()
                 .movie(Movie.builder()
-                        .mno(1L).build())
+                        .mno(i%100+1).build())
                 .reviewer("단위테스트 리뷰어")
                 .reviewText("단위테스트 리뷰" + i)
                 .build();
