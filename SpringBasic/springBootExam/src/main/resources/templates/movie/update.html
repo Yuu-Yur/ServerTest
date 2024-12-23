@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base.html}">
+<body>
+<div layout:fragment="header">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/movie/list}">영화</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/movie/list(released=${true})}">상영중인
+                            영화</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/movie/list(released=${false})}">상영 예정 영화</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> <!--네비게이션 바-->
+</div>
+<div layout:fragment="content">
+    <form action="/movie/update" method="post">
+        <div class="mb-3">
+            <input type="hidden" name="keyword" th:value="${pageRequestDTO.keyword}">
+            <input type="hidden" name="page" th:value="${pageRequestDTO.page}">
+            <input type="hidden" name="type" th:value="${pageRequestDTO.type}">
+            <input type="hidden" name="mno" th:value="${dto.mno}">
+            <label for="title" class="form-label">영화 제목</label>
+            <input type="text" class="form-control" id="title" name="title" th:value="${dto.title}">
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">감독</label>
+            <input type="text" class="form-control" id="author" name="author" th:value="${dto.author}">
+        </div>
+        <div class="mb-3">
+            <label for="reservation" class="form-label">예매율</label>
+            <input type="number" class="form-control" id="reservation" name="reservation" th:value="${dto.reservation}">
+        </div>
+        <div class="mb-3">
+            <label for="releaseDate" class="form-label">개봉일</label>
+            <input type="date" class="form-control" id="releaseDate" name="releaseDate" th:value="${dto.releaseDate}">
+        </div>
+        <button type="submit" class="btn btn-primary">수정</button>
+        <button type="button" class="btn btn-danger">삭제</button>
+        <a th:href="|@{/movie/list}?${pageRequestDTO.link}|">
+            <button type="button" class="btn btn-secondary">돌아가기</button>
+        </a>
+    </form>
+</div>
+<script layout:fragment="javascript" th:inline="javascript">
+    document.querySelector(".btn-danger").addEventListener("click",
+        function (e) {
+            const formObj = document.querySelector("form")
+
+            e.preventDefault()
+            e.stopPropagation() // 상위 태그로 전파 방지
+
+
+            formObj.action = "/movie/delete"
+            formObj.method = "post"
+
+            formObj.submit()
+        }, false)
+
+</script>
+</body>
+</html>

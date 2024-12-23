@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base.html}">
+<body>
+<div layout:fragment="header">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/movie/list}">영화</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/movie/list(released=${true})}">상영중인
+                            영화</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/movie/list(released=${false})}">상영 예정 영화</a>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regModal">
+                            영화 등록
+                        </button>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <select class="form-select me-2 form-select-sm" name="type">
+                        <option value="" selected>검색 방법</option>
+                        <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+                        <option value="a" th:selected="${pageRequestDTO.type == 'a'}">감독</option>
+                        <option value="ta" th:selected="${pageRequestDTO.type == 'ta'}">제목+감독</option>
+                    </select>
+                    <input class="form-control form-control-sm me-2" type="search" name="keyword"
+                           th:value="${pageRequestDTO.keyword}">
+                    <button class="btn btn-outline-success btn-sm" type="submit">search</button>
+                </form>
+            </div>
+        </div>
+    </nav> <!--네비게이션 바-->
+</div>
+<div layout:fragment="content">
+    <div class="modal fade" tabindex="-1" id="regModal"><!--모달-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/movie/reg" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">영화 등록</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">영화 제목</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="author" class="form-label">감독</label>
+                            <input type="text" class="form-control" id="author" name="author">
+                        </div>
+                        <div class="mb-3">
+                            <label for="reservation" class="form-label">예매율</label>
+                            <input type="number" class="form-control" id="reservation" name="reservation">
+                        </div>
+                        <div class="mb-3">
+                            <label for="releaseDate" class="form-label">개봉일</label>
+                            <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="submit" class="btn btn-primary">영화 등록</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!--모달-->
+    <div class="row row-cols-1 row-cols-md-4 g-4"><!--카드 그룹-->
+        <th:block th:each="dto:${pageResponseDTO.dtoList}">
+            <div class="col">
+                <div class="card"><!--카드-->
+                    <div class="card-body" th:with="link = ${pageRequestDTO.link}">
+                        <h5 class="card-title">[[${dto.title}]]</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">[[${dto.author}]]</h6>
+                        <p class="card-text">예매율 : [[${dto.reservation}]]</p>
+                        <p class="card-text">개봉일 : [[${dto.releaseDate}]]</p>
+                        <button type="button" class="btn btn-primary position-relative">
+                            <a th:href="|@{/movie/read(mno=${dto.mno})}&${link}|"
+                               class="link-light link-underline link-underline-opacity-0">자세히 보기</a>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                [[${dto.reviewCount}]]
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <a th:href="|@{/movie/update(mno=${dto.mno})}&${link}|"
+                               class="link-light link-underline link-underline-opacity-0">수정</a>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div><!--카드 그룹-->
+    <nav aria-label="Page navigation example"><!--페이지네이션-->
+        <ul class="pagination">
+            <li class="page-item" th:if="${pageResponseDTO.prev}">
+                <a class="page-link" href="#" aria-label="Previous" th:data-num="${pageResponseDTO.start - 1}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <th:blcok th:each="i:${#numbers.sequence(pageResponseDTO.start,pageResponseDTO.end)}">
+                <li th:class="${pageResponseDTO.page == i}?'page-item active':'page-item'">
+                    <a class="page-link"
+                       th:data-num="${i}">[[${i}]]</a>
+                </li>
+            </th:blcok>
+            <li class="page-item" th:if="${pageResponseDTO.next}">
+                <a class="page-link" href="#" aria-label="Next" th:data-num="${pageResponseDTO.end + 1}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav><!--페이지네이션-->
+</div>
+<script layout:fragment="javascript" th:inline="javascript">
+    document.querySelector(".pagination").addEventListener("click", e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const target = e.target
+        if (target.tagName !== 'A') return
+        const num = target.getAttribute("data-num")
+        const formObj = document.querySelector("form")
+        formObj.innerHTML += `<input type="hidden" name="page" value="${num}">`
+        formObj.submit()
+    }, false) // 페이지네이션
+</script>
+</body>
+</html>

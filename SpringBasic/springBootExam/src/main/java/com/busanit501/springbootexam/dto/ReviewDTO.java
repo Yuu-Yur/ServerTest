@@ -1,26 +1,25 @@
-package com.busanit501.bootpractice.dto;
+package com.busanit501.springbootexam.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Data
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FoodReplyDTO {
-    private Long replyId;
-    @NotNull
-    private Long fno;
+@ToString
+public class ReviewDTO {
+    private Long rno;
     @NotEmpty
-    private String replyAuthor;
-    @NotNull
-    private String replyText;
+    private Long mno;
+    @NotEmpty
+    private String reviewText;
+    @NotEmpty
+    private String reviewer;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDate;
     @JsonIgnore
