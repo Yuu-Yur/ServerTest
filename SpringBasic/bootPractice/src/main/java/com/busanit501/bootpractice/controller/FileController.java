@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -103,7 +105,8 @@ public class FileController {
             if (!resource.exists()){
                 return ResponseEntity.notFound().build();
             }
-            return ResponseEntity.ok().header("content-disposition"," attachment; filename= \" " + resource.getFilename() + " \" ").body(resource);
+            String encodedFileName = URLEncoder.encode(resource.getFilename(), StandardCharsets.UTF_8.toString());
+            return ResponseEntity.ok().header("content-disposition"," attachment; filename= \" " + encodedFileName + " \" ").body(resource);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
