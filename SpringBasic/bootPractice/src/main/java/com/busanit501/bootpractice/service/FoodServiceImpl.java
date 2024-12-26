@@ -2,6 +2,7 @@ package com.busanit501.bootpractice.service;
 
 import com.busanit501.bootpractice.domain.FoodBoard;
 import com.busanit501.bootpractice.dto.FoodDTO;
+import com.busanit501.bootpractice.dto.FoodWithReplyImageDTO;
 import com.busanit501.bootpractice.dto.PageRequestDTO;
 import com.busanit501.bootpractice.dto.PageResponseDTO;
 import com.busanit501.bootpractice.repository.FoodRepository;
@@ -41,18 +42,18 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public PageResponseDTO<FoodDTO> getPage(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<FoodWithReplyImageDTO> getPage(PageRequestDTO pageRequestDTO) {
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable();
-        Page<FoodDTO> result = foodRepository.search(types, keyword, pageable);
+        Page<FoodWithReplyImageDTO> result = foodRepository.search(types, keyword, pageable);
 //        repository 단에서 형변환 했기 때문에 여기서 또 할 필요 없음
 //        List<FoodDTO> dtoList = result.getContent()//List FB
 //                .stream()// Stream FB
 //                // stream.map  stream 내의 요소들에 특정 함수 적용
 //                .map(foodBoard -> modelMapper.map(foodBoard, FoodDTO.class)) // Stream FDTO
 //                .collect(Collectors.toList()); // List<FoodDTO>
-        return PageResponseDTO.<FoodDTO>builder()
+        return PageResponseDTO.<FoodWithReplyImageDTO>builder()
                 .dtoList(result.getContent())
                 .pageRequestDTO(pageRequestDTO)
                 .total((int)result.getTotalElements())

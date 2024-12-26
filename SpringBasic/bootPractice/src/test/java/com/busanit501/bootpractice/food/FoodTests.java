@@ -1,7 +1,7 @@
 package com.busanit501.bootpractice.food;
 
 import com.busanit501.bootpractice.domain.FoodBoard;
-import com.busanit501.bootpractice.dto.FoodDTO;
+import com.busanit501.bootpractice.dto.FoodWithReplyImageDTO;
 import com.busanit501.bootpractice.repository.FoodRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ public class FoodTests {
         String[] types = {"n","p","s"};
         String keyword = "10";
         Pageable pageable = PageRequest.of(0, 10, Sort.by("fno").descending());
-        Page<FoodDTO> result = foodRepository.search(types,keyword,pageable);
+        Page<FoodWithReplyImageDTO> result = foodRepository.search(types,keyword,pageable);
         log.info(result.getContent());
     }
 }
