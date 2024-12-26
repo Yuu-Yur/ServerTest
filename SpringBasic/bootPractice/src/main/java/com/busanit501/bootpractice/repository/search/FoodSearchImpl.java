@@ -3,7 +3,7 @@ package com.busanit501.bootpractice.repository.search;
 import com.busanit501.bootpractice.domain.FoodBoard;
 import com.busanit501.bootpractice.domain.QFoodBoard;
 import com.busanit501.bootpractice.domain.QFoodReply;
-import com.busanit501.bootpractice.dto.FoodDTO;
+import com.busanit501.bootpractice.dto.FoodImageDTO;
 import com.busanit501.bootpractice.dto.FoodWithReplyImageDTO;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
@@ -86,7 +86,18 @@ public class FoodSearchImpl extends QuerydslRepositorySupport implements FoodSea
                     .replyCount(count)
                     //regD, modD 생략
                     .build();
-            return dto;
+
+        // tuple 안의 foodBoard 안의 ImageSet                    FoodImage 에서 CompareTo 설정한 기준에 따라
+        List<FoodImageDTO> imageDTOList = food.getImageSet().stream().sorted().map(foodImage ->
+                FoodImageDTO.builder()
+                        .uuid(foodImage.getUuid())
+                        .fileName(foodImage.getFileName())
+                        .ord(foodImage.getOrd())
+                        .build()
+        ).collect(Collectors.toList());
+        // dto 에 imageDTOList 추가 후 반환
+        dto.setFoodImages(imageDTOList);
+        return dto;
         }).collect(Collectors.toList());
 //        List<FoodDTO> list = dtoQuery.fetch(); 리스트 만듬
 //        long total = dtoQuery.fetchCount(); dtoQuery 가 아니라 tupleJPQLQuery 사용

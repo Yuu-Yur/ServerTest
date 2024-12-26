@@ -1,6 +1,7 @@
 package com.busanit501.bootpractice.controller;
 
 import com.busanit501.bootpractice.dto.FoodDTO;
+import com.busanit501.bootpractice.dto.FoodWithReplyImageDTO;
 import com.busanit501.bootpractice.dto.PageRequestDTO;
 import com.busanit501.bootpractice.dto.PageResponseDTO;
 import com.busanit501.bootpractice.service.FoodService;
@@ -25,7 +26,7 @@ public class FoodController {
     public String list(Model model, PageRequestDTO pageRequestDTO, RedirectAttributes redirectAttributes) {
         // 일단 페이지로 가게해두고 /food/list
         // html 작업 후 돌아오기
-        PageResponseDTO<FoodDTO> responseDTO = foodService.getPage(pageRequestDTO);
+        PageResponseDTO<FoodWithReplyImageDTO> responseDTO = foodService.getPage(pageRequestDTO);
         model.addAttribute("responseDTO" , responseDTO);
         redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
         redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
