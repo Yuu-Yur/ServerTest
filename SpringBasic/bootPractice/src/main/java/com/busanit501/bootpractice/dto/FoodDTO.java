@@ -18,7 +18,7 @@ public class FoodDTO { // 하나 조회 시 사용 할 DTO
     private String name;
     private String shop;
     private int price;
-    private boolean revisit = false;
+    private boolean revisit;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     private Long replyCount;

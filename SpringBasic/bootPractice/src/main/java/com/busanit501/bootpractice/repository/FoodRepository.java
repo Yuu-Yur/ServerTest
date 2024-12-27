@@ -1,6 +1,5 @@
 package com.busanit501.bootpractice.repository;
 
-import com.busanit501.bootpractice.domain.Board;
 import com.busanit501.bootpractice.domain.FoodBoard;
 import com.busanit501.bootpractice.repository.search.FoodSearch;
 import org.springframework.data.domain.Page;
@@ -17,4 +16,7 @@ public interface FoodRepository extends JpaRepository<FoodBoard,Long>, FoodSearc
     @Query(" select b from FoodBoard b where b.name like concat('%',:keyword) ")
     Page<FoodBoard> findByKeyword(String keyword, Pageable pageable);
     // 3. querydsl -> FoodSearch 확인
+
+    @Query("select r.replyId from FoodReply r where r.foodBoard.fno = :fno")
+    List<Long> findRepliesIDByFno(long fno);
 }

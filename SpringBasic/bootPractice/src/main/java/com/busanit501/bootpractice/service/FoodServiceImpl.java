@@ -11,9 +11,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FoodServiceImpl implements FoodService {
     private final FoodRepository foodRepository;
     private final ModelMapper modelMapper;
@@ -58,5 +62,11 @@ public class FoodServiceImpl implements FoodService {
                 .pageRequestDTO(pageRequestDTO)
                 .total((int)result.getTotalElements())
                 .build();
+    }
+
+    @Override
+    public List<Long> rnoByFno(Long fno) {
+        List<Long> result = foodRepository.findRepliesIDByFno(fno);
+        return result;
     }
 }

@@ -15,6 +15,7 @@ public interface FoodService {
     public void register(FoodDTO foodDTO);
     public FoodDTO getBoardById(Long fno);
     public PageResponseDTO<FoodWithReplyImageDTO> getPage(PageRequestDTO pageRequestDTO);
+    public List<Long> rnoByFno(Long fno);
     default FoodBoard dtoToEntity(FoodDTO foodDTO) {
         FoodBoard foodBoard = FoodBoard.builder()
                 .fno(foodDTO.getFno())

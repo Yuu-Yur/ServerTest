@@ -13,13 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FoodWithReplyImageDTO { // 전체 조회 시 사용할 DTO
+public class FoodWithReplyImageDTO { // 전체 조회 시 사용할 DTO 전체 조회에서 보여주고 싶은 내용
     private Long fno;
     private String name;
     private String shop;
     private int price;
-    @Builder.Default
-    private boolean revisit = false;
+    private boolean revisit;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     private Long replyCount;

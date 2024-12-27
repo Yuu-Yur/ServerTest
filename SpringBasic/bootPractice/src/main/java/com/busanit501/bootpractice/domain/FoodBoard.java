@@ -2,6 +2,7 @@ package com.busanit501.bootpractice.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class FoodBoard extends BaseEntity{
     // cascade 영속성 설정, 하위테이블이 상위테이블의 변화에 의존함 어떻게? 를 설정
     // 이렇게 영속성을 설정하면 부모 테이블 수정 삭제 시 하위 테이블에도 영향이 그대로 감
     // orphanRemoval 옵션으로 부모테이블 참조가 없어진 자식테이블을 바로 삭제할 수 있음
+    @BatchSize(size = 20)
     @Builder.Default
     private Set<FoodImage> imageSet = new HashSet<>(); // Set 은 중복이 안되는 리스트
     // 이걸로 FoodBoard 에서 FoodImage 조회가능

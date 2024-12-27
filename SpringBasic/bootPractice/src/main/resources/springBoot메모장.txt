@@ -101,7 +101,7 @@ RESTful 방식 작업
         반환하여 modal 이나 alert 로 화면에서 출력 가능
         js 에서 자주 쓰는 화면의 요소나 서버에서 받은 데이터엔 상수 선언
 
-파일 업로드
+파일 업로드 (컨트롤러 작업, 파일 자체 저장)
         1. boot 설정에서 파일 업로드 가능 설정, 업로드 받은 파일 저장할 경로 설정, 저장할 경로의 폴더 생성
         2. front 에서 받아올 uploadFileDTO 작업 MultipartFile 의 List 를 files
         3. 파일을 받을 수 있게 restController 작업
@@ -145,3 +145,27 @@ fileSystemResource vs UrlResource
 fileSystemResource 는 내부에서 처리할 때 , UrlResource 는 외부에서 접근할 필요가 있을 때
 지금 restController 에서 처리하므로 서버를 기준으로 조회는 파일의 정보를 클라이언트로 주는 것으로 fileSystem 으로 불러와 그 정보만 클라이언트에 보냄
 다운로드는 클라이언트가 가져갈 필요가 있으므로 서버가 파일에 접근할 수 있는 Url 을 만들어 클라이언트에 줌
+
+파일 관련 서비스 작업
+        이렇게 서버에 넘어온 파일은 미디어 db 에 저장되고 일반 db 엔 파일 이름을 저장한다. (FoodImage 의 필드가 uuid, name, ord, entity)
+        이때 받는 DTO 와 Entity 의 바인딩이 필요함 이것을 서비스에 default 로 작성
+        이 DTO 에 대해 crud 작업은 크게 다른건 없고 전체 조회 시 썸네일 출력하는것, 하나 조회 시 원본 출력,
+        수정 시 기존 첨부 이미지 전체 삭제 후 다시 업로드 하는 것이 낫다.
+        삭제 시 파일은 OneToMany 로 cascading 되어 삭제되지만 댓글은 관계가 안맺어져 직접 확인하고 삭제하는 과정이 필요하다.
+
+파일 관련 화면 작업
+        컨트롤러는 이미 만들었으므로 컨트롤러에 요청을 보내면 되는데 메서드를 부르는 방식 말고도 post 를 보내는 것 처럼
+        await axios({
+                method : 'post',
+                url : '/upload',
+                data : formObj,
+                headers : {
+                    'Content-Type' : 'multipart/form-data'
+                }
+            });
+        이런 방식을 쓸 수도 있다.
+        화면에서 서버로 첨부 파일(이미지) formObj 보낼 때 Content-Type 은 multipart/form-data 로 지정해야 한다.
+        삭제 는 만들었던 controller 의 method 를 호출하여 요청을 보내면 된다.
+        등록 화면에서 파일 첨부 버튼 만들고 모달을 불러와서 위의 업로드 js 에 부합하는 form 을 작업하면된다.
+        querySelector 에서 class 나 id 뿐 아니라 name 의존 tag 도 찍을 수 있다. "tag 명[name='지정한 name']"
+        비 구조화 문법 할당 parameter 을 클래스에 자동 수집하는 것의 정확히 반대, 클래스의 필드 를 parameter 에 자동 할당
