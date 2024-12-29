@@ -42,6 +42,12 @@
                         <input type="text" class="form-control" id="modDate" name="modDate"
                                th:value="${#temporals.format(dto.modDate,'yyyy-MM-dd HH:mm:ss')}" readonly>
                     </div>
+                    <div class="mb-3">
+                        <label for="images" class="form-control">첨부 이미지</label>
+                        <div th:if="${dto.fileNames != null && !dto.fileNames.isEmpty()}" id="images">
+                            <img th:each="fileName : ${dto.fileNames}" th:src="|/files/view/${fileName}|">
+                        </div>
+                    </div>
                     <div class="mb-3" th:with="link = ${pageRequestDTO.link}">
                         <button type="button" class="btn btn-primary submitBtn">수정하기</button>
                         <a th:href="|@{/food/list}?${link}|">
@@ -99,7 +105,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> <span class="replyNum"></span> 번째 댓글 수정</h5>
+                    <h5 class="modal-title"><span class="replyNum"></span> 번째 댓글 수정</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -118,7 +124,6 @@
             </div>
         </div>
     </div> <!--모달 2-->
-
 
 
 </div>
@@ -233,9 +238,9 @@
         if (!target || target.tagName != 'SPAN' || target.className != 'col-6') return
         const replyId = target.getAttribute("data-rId")
         repDetail(replyId).then(result => {
-            replyNum.innerHTML=replyId
-            replyTextUpd.value=result.replyText
-            replyAuthorUpd.value=result.replyAuthor
+            replyNum.innerHTML = replyId
+            replyTextUpd.value = result.replyText
+            replyAuthorUpd.value = result.replyAuthor
             updModal.show()
         })
             .catch(e => {
@@ -245,7 +250,7 @@
 
 
     // 4. 모달 2 의 댓글 수정 제출 버튼 eventListener put 요청하고 값 받는 함수(reply.js 에)를 호출 하고 데이터 받아서 보여주는 함수
-    document.querySelector(".updRep").addEventListener("click" , e => {
+    document.querySelector(".updRep").addEventListener("click", e => {
         const replyObj = {
             replyId: replyNum.innerHTML,
             fno: fno,
@@ -285,8 +290,8 @@
         const target = e.target
         if (!target || target.tagName != 'A') return
         page = target.getAttribute("data-page")
-        printReplyPage(page,size)
-    },false)
+        printReplyPage(page, size)
+    }, false)
 </script>
 </body>
 </html>

@@ -36,13 +36,16 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public void register(FoodDTO foodDTO) {
-        foodRepository.save(modelMapper.map(foodDTO, FoodBoard.class));
+        FoodBoard foodBoard = dtoToEntity(foodDTO);
+        foodRepository.save(foodBoard);
     }
 
     @Override
     public FoodDTO getBoardById(Long fno) {
         FoodBoard result = foodRepository.findById(fno).orElseThrow();
-        return modelMapper.map(result, FoodDTO.class);
+        FoodDTO foodDTO = entityToDto(result);
+        foodDTO.setModDate(result.getModDate());
+        return foodDTO;
     }
 
     @Override
