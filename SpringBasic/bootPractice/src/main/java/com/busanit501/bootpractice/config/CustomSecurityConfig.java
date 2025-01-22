@@ -11,11 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class CustomSecurityConfig {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        log.info("===========config=================");
-
+        log.info("=======securityConfig=======");
         return http.build();
     }
 }

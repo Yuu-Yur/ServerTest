@@ -184,4 +184,12 @@ update strategy 에 관해
         db에선 현재 올라와 있는 첨부 파일 명을 update 로 보내서 수정
 
 spring web security
+        기본적으로 security 를 gradle 에 넣으면 일단 전부 막히고 login 으로 리다이렉트
+        기본 로그인 user , password(로그)
+        application.properties 에서
+        spring.devtools.restart.enabled=false
+
+        전부 다 막고싶은게 아니라면 설정이 필요
+        config 에 CustomSecurityConfig, 설정이므로 Configuration, RAC annotation 필요
+        아무것도 안쓰고 http.build(); 를 return 하면 전부 열린 상태가 된다.
         로그인, 로그아웃 url 을 지정해주면 알아서 로그인, 로그아웃 처리
