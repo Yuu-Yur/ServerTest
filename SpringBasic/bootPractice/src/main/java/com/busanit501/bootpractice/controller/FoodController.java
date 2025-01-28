@@ -9,6 +9,7 @@ import com.busanit501.bootpractice.service.FoodService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +38,8 @@ public class FoodController {
         redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "/food/list";
     }
+
+    @PreAuthorize("hasRole('ADMIN')") // 미리 권한 지정 PreAuthorize admin 만
     @GetMapping("/read")
     public String read(Long fno,
                      @Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult,
@@ -78,6 +81,7 @@ public class FoodController {
         redirectAttributes.addFlashAttribute("result", fno);
         return "redirect:/food/list";
     }
+
     @PostMapping("/reg")
     public String reg(@Valid FoodDTO foodDTO,
                       BindingResult bindingResult,
